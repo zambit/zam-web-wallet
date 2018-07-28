@@ -1,0 +1,35 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$green: #28a744;
+$red: #dc3545;
+$cornflower: #5d76f3;
+$turquoise-blue: #01a7d6;
+$lightish-green: #80eb74;
+$sky-blue: #56c0fd;
+
+$colors: map-merge(
+    (
+      "green": $green,
+      "red": $red,
+      "cornflower": $cornflower,
+      "turquoise-blue": $turquoise-blue,
+      "lightish-green": $lightish-green,
+      "sky-blue": $sky-blue,
+    ),
+    $colors
+);
+
+$theme-colors: map-merge(
+    (
+      "action": $sky-blue,
+    ),
+    $theme-colors
+);
+
+$h1-font-size: 2.125rem;
+$h2-font-size: 1.375rem;
+
+$link-color: $sky-blue;
+
+@import "~bootstrap/scss/mixins";

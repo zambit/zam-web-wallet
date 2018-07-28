@@ -1,0 +1,32 @@
+@import "./settings";
+
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/utilities/text";
+@import "~bootstrap/scss/utilities/visibility";
+@import "~bootstrap/scss/utilities/spacing";
+@import "~bootstrap/scss/utilities/sizing";
+@import "~bootstrap/scss/utilities/flex";
+@import "~bootstrap/scss/utilities/display";
+@import "~bootstrap/scss/utilities/background";
+@import "~bootstrap/scss/utilities/borders";
+
+html, body {
+  background-image: linear-gradient(to bottom, #0a0c41, #1b2554);
+  color: white;
+  font-family: 'Maven Pro', sans-serif;
+  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}

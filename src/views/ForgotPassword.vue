@@ -151,7 +151,7 @@ export default {
           });
           break;
         case 2:
-          result = await this.createAccount({});
+          result = await this.setNewPassword({});
           break;
       }
 
@@ -183,7 +183,7 @@ export default {
 
       return true;
     },
-    async createAccount() {
+    async setNewPassword() {
       const token = Cookies.get('recovery_token');
 
       const response = await api.auth.recoveryFinish({
@@ -198,11 +198,10 @@ export default {
       if (!response.data.result) {
         return false;
       }
-      api.instance.defaults.headers.common.Authorization = `Bearer ${response.data.data.token}`;
-      Cookies.set('jwt', response.data.data.token);
+
       Cookies.remove('recovery_token');
 
-      this.$router.push('/');
+      this.$router.push('/sign-in');
 
       return true;
     },
@@ -211,5 +210,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/styles/_settings.scss";
+@import "@/assets/styles/_settings.scss";
+
+.logo {
+  width: 94px;
+  height: 95px;
+  margin-top: 68px;
+  margin-bottom: 90px;
+}
+
+.btn-reg {
+  display: flex;
+  align-items: center;
+  border-radius: 62px;
+  background-image: linear-gradient(to top, #f4f4f4, #ffffff);
+  box-shadow: 0 4px 30px 0 rgba(0, 170, 219, 0.4);
+  padding: 19px 82px;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+}
 </style>

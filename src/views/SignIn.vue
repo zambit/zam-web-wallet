@@ -76,6 +76,7 @@ export default {
         return false;
       }
 
+      window.localStorage.setItem('visited', '1');
       return this.$router.push('/');
     },
   },

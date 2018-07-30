@@ -201,6 +201,7 @@ export default {
       api.instance.defaults.headers.common.Authorization = `Bearer ${response.data.data.token}`;
       Cookies.set('jwt', response.data.data.token);
       Cookies.remove('signup_token');
+      window.localStorage.setItem('visited', '1');
 
       this.$router.push('/');
 

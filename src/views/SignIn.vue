@@ -10,14 +10,13 @@
           @submit.prevent="submitSignIn"
           class="mt-4"
         >
-          <v-input
-            :value="formData.phone"
-            placeholder="Enter your phone"
-            id="phone"
-            type="text"
-            name="phone"
-            required
-            @input="formData.phone = $event.target.value"
+          <phone-input
+            :country="formData.country"
+            :phone="formData.phone"
+            :error="inputs.phone.error"
+            :errorText="inputs.phone.errorText"
+            @country="formData.country = $event"
+            @phone="formData.phone = $event"
           />
           <v-input
             :value="formData.password"
@@ -42,19 +41,29 @@
 import { mapActions } from 'vuex';
 
 import vInput from '@/components/common/input';
+import phoneInput from '@/components/blocks/phoneInput';
 
 export default {
   name: 'sign-in-page',
   data() {
     return {
       formData: {
-        phone: '',
         password: '',
+        phone: '',
+        code: '',
+      },
+      inputs: {
+        phone: {
+          error: false,
+          errorText: '',
+          helperText: '',
+        },
       },
     };
   },
   components: {
     vInput,
+    phoneInput,
   },
   methods: {
     ...mapActions({
@@ -64,7 +73,7 @@ export default {
       const r = await this.signIn({ phone: this.formData.phone, password: this.formData.password });
 
       if (!r.data.result) {
-        alert('failed to log in'); // eslint-disable-line
+        return false;
       }
 
       return this.$router.push('/');

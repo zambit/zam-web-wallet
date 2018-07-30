@@ -179,12 +179,12 @@ export default {
         return false;
       }
 
-      Cookies.set('token', response.data.data.signup_token);
+      Cookies.set('signup_token', response.data.data.signup_token);
 
       return true;
     },
     async createAccount() {
-      const token = Cookies.get('token');
+      const token = Cookies.get('signup_token');
 
       const response = await api.auth.signUpFinish({
         data: {
@@ -200,6 +200,7 @@ export default {
       }
       api.instance.defaults.headers.common.Authorization = `Bearer ${response.data.data.token}`;
       Cookies.set('jwt', response.data.data.token);
+      Cookies.remove('signup_token');
 
       this.$router.push('/');
 

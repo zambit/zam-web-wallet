@@ -29,7 +29,7 @@ export default {
         return false;
       }
 
-      return this.$router.push('/welcome');
+      return this.$router.push('/sign-in');
     },
   },
   computed: {

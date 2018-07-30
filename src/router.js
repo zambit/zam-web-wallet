@@ -61,14 +61,22 @@ const router = new Router({
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const jwt = Cookies.get('jwt') || null;
+    const userHasVisitedAppBefore = !!(window.localStorage.getItem('visited'));
 
-    if (!jwt) {
-      next({
+    if (!jwt && !userHasVisitedAppBefore) {
+      return next({
+        path: '/welcome',
+      });
+    } else if (!jwt && userHasVisitedAppBefore) {
+      return next({
         path: '/sign-in',
         query: { redirect: to.fullPath },
       });
     }
 
+    /**
+     * Validate jwt
+     */
     const r = await store.dispatch('authCheck');
 
     if (!r.data.result) {
@@ -80,6 +88,7 @@ router.beforeEach(async (to, from, next) => {
 
     return next();
   }
+
   return next();
 });
 

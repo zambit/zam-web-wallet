@@ -1,10 +1,25 @@
-build app:
-  image: node:10
-  stage: build
-  script:
+before_script:
   - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
   - npm whoami
   - npm install --progress=false
+
+stages:
+  - lint
+  - build
+  - test
+  - publish
+  - deploy
+
+image: node:10
+
+lint source:
+  stage: lint
+  script:
+  - npm run lint
+
+build app:
+  stage: build
+  script:
   - npm run build
   artifacts:
     expire_in: 1 week
@@ -12,22 +27,16 @@ build app:
     - dist
 
 unit test:
-  image: node:10
   stage: test
   script:
-  - npm install --progress=false
   - npm run test:unit
 
 publish app:
-  image: node:10
-  stage: deploy
+  stage: publish
   script:
-  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-  - npm whoami
   - npm publish --access private
 
 deploy staging:
-  image: alpine
   stage: deploy
   script:
   - mkdir -p ~/.ssh

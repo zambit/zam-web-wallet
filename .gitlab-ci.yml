@@ -2,7 +2,7 @@ build site:
   image: node:10
   stage: build
   script:
-  - echo -e "$NPM_USER\n$NPM_PASS\n$NPM_EMAIL" | npm login
+  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
   - npm whoami
   - npm install --progress=false
   - npm run build

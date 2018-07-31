@@ -2,6 +2,7 @@ build site:
   image: node:10
   stage: build
   script:
+  - npm whoami
   - npm install --progress=false
   - npm run build
   artifacts:

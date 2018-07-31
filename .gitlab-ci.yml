@@ -1,4 +1,4 @@
-build site:
+build app:
   image: node:10
   stage: build
   script:
@@ -11,14 +11,22 @@ build site:
     paths:
     - dist
 
-#unit test:
-#  image: node:10
-#  stage: test
-#  script:
-#  - npm install --progress=false
-#  - npm run test:unit
+unit test:
+  image: node:10
+  stage: test
+  script:
+  - npm install --progress=false
+  - npm run test:unit
 
-deploy:
+publish app:
+  image: node:10
+  stage: deploy
+  script:
+  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+  - npm whoami
+  - npm publish --access private
+
+deploy staging:
   image: alpine
   stage: deploy
   script:

@@ -1,6 +1,6 @@
 {
   "name": "@zamzamtech/wallet",
-  "version": "0.1.0-1",
+  "version": "0.1.0-2",
   "description": "SPA + PWA of blockchain bank based on Vue.js",
   "license": "UNLICENSED",
   "contributors": [

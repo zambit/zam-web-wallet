@@ -42,4 +42,5 @@ deploy staging:
   - echo "$SSH_PRIVATE_DSA_KEY" > id_dsa
   - chmod 600 id_dsa
   - cat id_dsa
-  - ssh -o StrictHostKeyChecking=no -i id_dsa zam@10.200.1.107 "cd /var/www/zam-wallet && npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm whoami && npm i @zamzamtech/wallet@latest && rm id_dsa"
+  - ssh -o StrictHostKeyChecking=no -i id_dsa zam@10.200.1.107 "cd /var/www/zam-wallet && npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm whoami && npm i @zamzamtech/wallet@latest"
+  - rm id_dsa

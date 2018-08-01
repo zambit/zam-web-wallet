@@ -44,7 +44,7 @@ deploy staging:
   - eval $(ssh-agent -s)
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - ssh-add <(echo "$SSH_PRIVATE_DSA_KEY")
-  - ssh -p22 gitlab-runner@10.200.1.107 "cd /var/www/zam-wallet"
-  - ssh -p22 gitlab-runner@10.200.1.107 "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}"
-  - ssh -p22 gitlab-runner@10.200.1.107 "npm whoami"
-  - ssh -p22 gitlab-runner@10.200.1.107 "npm i @zamzamtech/wallet@latest"
+  - ssh -p22 zam@10.200.1.107 -c "cd /var/www/zam-wallet"
+  - ssh -p22 zam@10.200.1.107 -c "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}"
+  - ssh -p22 zam@10.200.1.107 -c "npm whoami"
+  - ssh -p22 zam@10.200.1.107 -c "npm i @zamzamtech/wallet@latest"

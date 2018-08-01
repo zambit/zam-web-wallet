@@ -1,12 +1,20 @@
 {
   "name": "@zamzamtech/wallet",
   "version": "0.1.0",
+  "description": "SPA + PWA of blockchain bank based on Vue.js",
+  "license": "UNLICENSED",
+  "contributors": [
+    "Nikita Velko <nikich@zam.me> (https://t.me/nikich)"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@zamzamtech/wallet-axios": "^0.1.6",
     "axios": "^0.18.0",

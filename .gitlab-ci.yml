@@ -39,12 +39,12 @@ publish app:
 deploy staging:
   stage: deploy
   script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - mkdir -p ~/.ssh
-  - echo "$SSH_PRIVATE_DSA_KEY" | tr -d '\r' > ~/.ssh/id_dsa
-  - chmod 700 ~/.ssh/id_dsa
-  - eval "$(ssh-agent -s)"
-  - ssh-add ~/.ssh/id_dsa
-  - ssh-keyscan -H 'git.zam.io' >> ~/.ssh/known_hosts
-  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-  - npm whoami
-  - npm install @zamzamtech/wallet@latest
+  - eval $(ssh-agent -s)
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - ssh-add <(echo "$SSH_PRIVATE_DSA_KEY")
+  - ssh -p22 gitlab-runner@znt03 "cd /var/www/zam-wallet"
+  - ssh -p22 gitlab-runner@znt03 "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}"
+  - ssh -p22 gitlab-runner@znt03 "npm whoami"
+  - ssh -p22 gitlab-runner@znt03 "npm i @zamzamtech/wallet@latest"

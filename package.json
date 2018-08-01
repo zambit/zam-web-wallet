@@ -1,7 +1,7 @@
 {
   "name": "@zamzamtech/wallet",
-  "version": "0.1.0-5",
-  "description": "SPA + PWA of blockchain bank based on Vue.js",
+  "version": "0.1.0-6",
+  "description": "Vue.js app",
   "license": "UNLICENSED",
   "contributors": [
     "Nikita Velko <nikich@zam.me> (https://t.me/nikich)"

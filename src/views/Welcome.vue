@@ -6,7 +6,7 @@
           <template v-for="n in 4">
             <div :key="n" class="slider-item w-100 text-center">
               <img
-                src="https://i.pinimg.com/originals/1f/11/0e/1f110ecc792131c621a0f4ee298714c5.jpg"
+                src="https://cdn.pinkvilla.com/files/styles/contentpreview/public/Scarlett%20Johansson_0.jpg"
                 alt=""
                 style="width: 220px; height: 220px;"
                 class="rounded-circle"

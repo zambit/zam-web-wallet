@@ -1,9 +1,9 @@
 stages:
-  - lint
-  - build
-  - test
-  - publish
-  - deploy
+- lint
+- build
+- test
+- publish
+- deploy
 
 image: node:10
 
@@ -15,10 +15,9 @@ lint source:
   - npm install --progress=false
   - npm run lint
   artifacts:
-    expire_in: 1 week
     paths:
     - node_modules/
-
+    expire_in: 1 week
 
 build app:
   stage: build
@@ -36,13 +35,15 @@ unit test:
 
 publish app:
   stage: publish
-  only: master
+  only:
+  - master
   script:
   - npm publish --access private
 
 deploy staging:
   stage: deploy
-  only: master
+  only:
+  - master
   script:
   - echo "$SSH_PRIVATE_DSA_KEY" > id_dsa
   - chmod 600 id_dsa

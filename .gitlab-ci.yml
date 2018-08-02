@@ -1,8 +1,3 @@
-before_script:
-  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-  - npm whoami
-  - npm install --progress=false
-
 stages:
   - lint
   - build
@@ -15,7 +10,14 @@ image: node:10
 lint source:
   stage: lint
   script:
+  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+  - npm whoami
+  - npm install --progress=false
   - npm run lint
+  artifacts:
+    paths:
+    expire_in: 1 week
+    - node_modules/
 
 build app:
   stage: build
@@ -33,11 +35,13 @@ unit test:
 
 publish app:
   stage: publish
+  only: master
   script:
   - npm publish --access private
 
 deploy staging:
   stage: deploy
+  only: master
   script:
   - echo "$SSH_PRIVATE_DSA_KEY" > id_dsa
   - chmod 600 id_dsa

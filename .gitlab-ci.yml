@@ -1,52 +1,52 @@
+before_script:
+  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+  - npm whoami
+  - npm install --progress=false
+
 stages:
-- lint
-- build
-- test
-- publish
-- deploy
+  - lint
+  - build
+  - test
+  - publish
+  - deploy
 
 image: node:10
 
 lint source:
   stage: lint
   script:
-  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-  - npm whoami
-  - npm install --progress=false
-  - npm run lint
-  artifacts:
-    paths:
-    - node_modules/
-    expire_in: 1 week
+    - npm run lint
 
 build app:
   stage: build
+  environment:
+    name: production
   script:
-  - npm run build
+    - VUE_APP_ROOT_API = $VUE_APP_ROOT_API npm run build
   artifacts:
     expire_in: 1 week
     paths:
-    - dist
+      - dist
 
 unit test:
   stage: test
   script:
-  - npm run test:unit
+    - npm run test:unit
 
 publish app:
   stage: publish
-  only:
-  - master
   script:
-  - npm publish --access private
+    - npm publish --access private
+  only:
+    - master
 
 deploy staging:
   stage: deploy
-  only:
-  - master
   script:
-  - echo "$SSH_PRIVATE_DSA_KEY" > id_dsa
-  - chmod 600 id_dsa
-  - cat id_dsa
-  - ssh -o StrictHostKeyChecking=no -i id_dsa zam@10.200.1.107 "cd /var/www/zam-wallet && npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm whoami && npm i @zamzamtech/wallet@latest"
-  - rm id_dsa
+    - echo "$SSH_PRIVATE_DSA_KEY" > id_dsa
+    - chmod 600 id_dsa
+    - cat id_dsa
+    - ssh -o StrictHostKeyChecking=no -i id_dsa zam@10.200.1.107 "cd /var/www/zam-wallet && npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm whoami && npm i @zamzamtech/wallet@latest"
+    - rm id_dsa
+  only:
+    - master

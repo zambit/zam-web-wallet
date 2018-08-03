@@ -22,7 +22,7 @@ build app:
   environment:
     name: production
   script:
-    - VUE_APP_ROOT_API = $VUE_APP_ROOT_API npm run build
+    - NODE_ENV=production VUE_APP_ROOT_API=$VUE_APP_ROOT_API npm run build
   artifacts:
     expire_in: 1 week
     paths:

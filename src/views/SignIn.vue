@@ -1,8 +1,8 @@
 <template>
-  <div class="container py-5">
+  <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
-        <img class="logo" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
+        <img class="logo py-5" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
       </div>
       <div class="col-12 col-lg-5">
         <h1 class="font-weight-bold">Register for sending cryptocurrency</h1>
@@ -29,7 +29,6 @@
           />
           <button type="submit" class="btn btn-reg mt-4 mx-auto">
             Log in
-            <img src="@/assets/images/svg/icon-arrow-right.svg" alt="icon arrow right" class="ml-5">
           </button>
         </form>
       </div>
@@ -87,10 +86,8 @@ export default {
 @import "@/assets/styles/_settings.scss";
 
 .logo {
-  width: 94px;
-  height: 95px;
-  margin-top: 68px;
-  margin-bottom: 90px;
+  width: 46px;
+  height: 46px;
 }
 
 .btn-reg {

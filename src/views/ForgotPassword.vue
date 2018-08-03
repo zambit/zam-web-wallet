@@ -1,8 +1,8 @@
 <template>
-  <div class="container pb-5">
+  <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
-        <img class="logo" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
+        <img class="logo my-5" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
       </div>
       <div class="col-12 col-lg-5">
         <h1 class="font-weight-bold">Restore your password</h1>
@@ -69,7 +69,6 @@
           </div>
           <button type="submit" class="btn btn-reg mt-4 mx-auto">
             {{ submitButtonTexts[step] }}
-            <img src="@/assets/images/svg/icon-arrow-right.svg" alt="icon arrow right" class="ml-5">
           </button>
         </form>
       </div>
@@ -213,10 +212,8 @@ export default {
 @import "@/assets/styles/_settings.scss";
 
 .logo {
-  width: 94px;
-  height: 95px;
-  margin-top: 68px;
-  margin-bottom: 90px;
+  width: 46px;
+  height: 46px;
 }
 
 .btn-reg {

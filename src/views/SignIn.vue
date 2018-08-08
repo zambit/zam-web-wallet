@@ -2,34 +2,55 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
-        <img class="logo py-5" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
+        <img class="logo my-5" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
       </div>
-      <div class="col-12 col-lg-5">
-        <h1 class="font-weight-bold">Register for sending cryptocurrency</h1>
+      <div class="col-12 col-sm-9 col-md-7 col-lg-5 col-xl-5">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="font-weight-bold text-center">Register for sending cryptocurrency</h1>
+          </div>
+        </div>
         <form
           @submit.prevent="submitSignIn"
           class="mt-4"
         >
-          <phone-input
-            :country="formData.country"
-            :phone="formData.phone"
-            :error="inputs.phone.error"
-            :errorText="inputs.phone.errorText"
-            @country="formData.country = $event"
-            @phone="formData.phone = $event"
-          />
-          <v-input
-            :value="formData.password"
-            placeholder="Enter password"
-            id="password"
-            type="password"
-            name="password"
-            required
-            @input="formData.password = $event.target.value"
-          />
-          <button type="submit" class="btn btn-reg mt-4 mx-auto">
-            Log in
-          </button>
+          <div class="row">
+            <div class="col-12">
+              <phone-input
+                :country="formData.country"
+                :phone="formData.phone"
+                :error="inputs.phone.error"
+                :errorText="inputs.phone.errorText"
+                class=""
+                @country="formData.country = $event"
+                @phone="formData.phone = $event"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center">
+              <v-input
+                :v-placeholder="'Password'"
+                :value="formData.password"
+                id="password"
+                type="password"
+                name="password"
+                class="mt-input"
+                required
+                @input="formData.password = $event.target.value"
+              />
+              <button type="submit" class="btn btn-reg mt-input mx-auto">
+                Log in
+              </button>
+              <router-link to="/forgot-password" class="btn-link d-inline-block p-3 my-3">
+                Forgot password?
+              </router-link>
+              <p class="mt-5">
+                Don`t have account yet?
+                <router-link to="/sign-up" class="btn-link"><strong>SIGN UP</strong></router-link>
+              </p>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -49,13 +70,16 @@ export default {
       formData: {
         password: '',
         phone: '',
-        code: '',
+        country: '',
       },
       inputs: {
         phone: {
           error: false,
           errorText: '',
-          helperText: '',
+        },
+        password: {
+          error: false,
+          errorText: '',
         },
       },
     };
@@ -69,9 +93,20 @@ export default {
       signIn: 'signIn',
     }),
     async submitSignIn() {
-      const r = await this.signIn({ phone: this.formData.phone, password: this.formData.password });
+      const response = await this.signIn({
+        phone: this.formData.phone,
+        password: this.formData.password,
+      });
 
-      if (!r.data.result) {
+      if (!response.data.result) {
+        const fields = { phone: 0, password: 0 };
+        const errors = response.data.errors.filter(el => typeof fields[el.name] !== 'undefined');
+
+        errors.forEach((el) => {
+          this.inputs[el.name].error = true;
+          this.inputs[el.name].errorText = el.message;
+        });
+
         return false;
       }
 

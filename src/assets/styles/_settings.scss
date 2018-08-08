@@ -2,20 +2,30 @@
 @import "~bootstrap/scss/variables";
 
 $green: #28a744;
+$weird-green: #4ce479;
+$lightish-green: #80eb74;
 $red: #dc3545;
 $cornflower: #5d76f3;
-$turquoise-blue: #01a7d6;
-$lightish-green: #80eb74;
 $sky-blue: #56c0fd;
+$turquoise-blue: #01a7d6;
+$flat-blue: #346ca4;
+$dusk: #474b73;
+$dark-indigo: #0e1145;
+$silver: #d0d1db;
 
 $colors: map-merge(
     (
-      "green": $green,
-      "red": $red,
-      "cornflower": $cornflower,
-      "turquoise-blue": $turquoise-blue,
-      "lightish-green": $lightish-green,
-      "sky-blue": $sky-blue,
+      'green': $green,
+      'weird-green': $weird-green,
+      'lightish-green': $lightish-green,
+      'red': $red,
+      'cornflower': $cornflower,
+      'sky-blue': $sky-blue,
+      'turquoise-blue': $turquoise-blue,
+      'flat-blue': $flat-blue,
+      'dusk': $dusk,
+      'dark-indigo': $dark-indigo,
+      'silver': $silver,
     ),
     $colors
 );

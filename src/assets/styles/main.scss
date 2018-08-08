@@ -12,9 +12,10 @@
 @import "~bootstrap/scss/utilities/display";
 @import "~bootstrap/scss/utilities/background";
 @import "~bootstrap/scss/utilities/borders";
+@import "~bootstrap/scss/utilities/position";
 
 html, body {
-  background-image: linear-gradient(to bottom, #0a0c41, #1b2554);
+  background-color: $dark-indigo;
   color: white;
   font-family: 'Maven Pro', sans-serif;
   height: 100%;
@@ -29,4 +30,8 @@ html, body {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.mt-input {
+  margin-top: 34px !important;
 }

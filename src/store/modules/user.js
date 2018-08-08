@@ -28,9 +28,7 @@ const actions = {
   async signOut({ commit }) {
     const response = await api.auth.signOut({});
 
-    if (!response.data.result) {
-      alert('failed to sign out'); // eslint-disable-line
-    } else {
+    if (response.data.result) {
       Cookies.remove('jwt');
       commit(CLEAR_USER);
     }
@@ -40,9 +38,7 @@ const actions = {
   async signIn({ commit }, { phone, password }) {
     const response = await api.auth.signIn({ data: { phone, password } });
 
-    if (!response.data.result) {
-      alert('failed to sign in'); // eslint-disable-line
-    } else {
+    if (response.data.result) {
       Cookies.set('jwt', response.data.data.token);
       api.instance.defaults.headers.common.Authorization = `Bearer ${response.data.data.token}`;
       commit(SET_USER_KEY, { key: 'jwt', value: response.data.data.token });

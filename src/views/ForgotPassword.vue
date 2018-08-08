@@ -4,72 +4,93 @@
       <div class="col-12 text-center">
         <img class="logo my-5" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
       </div>
-      <div class="col-12 col-lg-5">
-        <h1 class="font-weight-bold">Restore your password</h1>
-
-        <form class="mt-4" @submit.prevent="handleFormSubmit($event)">
-          <phone-input
-            :country="formData.country"
-            :phone="formData.phone"
-            :error="inputs.phone.error"
-            :errorText="inputs.phone.errorText"
-            @country="formData.country = $event"
-            @phone="formData.phone = $event"
-          />
-
-          <transition appear name="fade">
-            <div v-if="step > 0" class="d-flex justify-content-between">
-              <v-input
-                :value="formData.code"
-                :error="inputs.code.error"
-                :errorText="inputs.code.errorText"
-                placeholder="SMS code"
-                class="mr-4"
-                @input="formData.code = $event.target.value"
-              />
-              <small
-                v-if="false"
-                class="text-action flex-grow-1 mt-2"
-                @click="requestSmsConfirmation({ phone: formData.country + formData.phone})"
-              >
-                Send code again in {{ smsTimer }}
-              </small>
+      <div class="col-12 col-sm-9 col-md-7 col-lg-5 col-xl-5">
+        <form @submit.prevent="handleFormSubmit($event)">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="font-weight-bold text-center">Restore your <br> password</h1>
             </div>
-          </transition>
-
-          <transition appear name="fade">
-            <div v-if="step > 1">
-              <v-input
-                :value="formData.password"
-                :error="inputs.password.error"
-                :errorText="inputs.password.errorText"
-                placeholder="Password"
-                type="password"
-                @input="formData.password = $event.target.value"
-              />
-              <v-input
-                :value="formData.passwordConfirmation"
-                placeholder="Confirm password"
-                type="password"
-                @input="formData.passwordConfirmation = $event.target.value"
+            <div class="col-12 mt-4">
+              <phone-input
+                :country="formData.country"
+                :phone="formData.phone"
+                :error="inputs.phone.error"
+                :errorText="inputs.phone.errorText"
+                @country="formData.country = $event"
+                @phone="formData.phone = $event"
               />
             </div>
-          </transition>
-          <div>
-            <v-checkbox id="agreeWithRulesCheckbox">
-              <slot>
-                <label for="agreeWithRulesCheckbox">
-                  Test for the call to confirm the
-                  <router-link to="/">&nbsp;legal
-                    document
-                  </router-link>
-                </label>
-              </slot>
-            </v-checkbox>
+            <div class="col-4 pr-2">
+              <transition appear name="fade">
+                <v-input
+                  v-show="step > 0"
+                  :vPlaceholder="'sms-code'"
+                  :value="formData.code"
+                  :error="inputs.verification_code.error"
+                  :errorText="inputs.verification_code.errorText"
+                  class="js-sms-input w-100 mr-4 mt-input"
+                  @input="formData.code = $event.target.value"
+                />
+              </transition>
+            </div>
+            <div class="col-8">
+              <transition appear name="fade">
+                <button
+                  v-if="step > 0"
+                  type="button"
+                  class="btn btn-send-code mt-input"
+                  @click="requestSmsConfirmation({ phone: formData.phone })"
+                >
+                  {{ step > 0 && !date ? 'Send code' : `Send code 0:${timer}` }}
+                </button>
+              </transition>
+            </div>
+            <div class="col-12">
+              <transition appear name="fade">
+                <v-input
+                  v-if="step > 1"
+                  :vPlaceholder="'Password'"
+                  :value="formData.password"
+                  :error="inputs.password.error"
+                  :errorText="inputs.password.errorText"
+                  type="password"
+                  class="mt-input"
+                  @input="formData.password = $event.target.value"
+                />
+              </transition>
+            </div>
+            <div class="col-12">
+              <transition appear name="fade">
+                <v-input
+                  v-if="step > 1"
+                  :vPlaceholder="'Confirm password'"
+                  :value="formData.passwordConfirmation"
+                  :error="inputs.password_confirmation.error"
+                  :errorText="inputs.password_confirmation.errorText"
+                  type="password"
+                  class="mt-input"
+                  @input="formData.passwordConfirmation = $event.target.value"
+                />
+              </transition>
+            </div>
+            <div class="col-12 text-center">
+              <div class="d-inline-block mt-input">
+                <v-checkbox id="agreeWithRulesCheckbox">
+                  <slot>
+                    <label for="agreeWithRulesCheckbox">
+                      Test for the call to confirm the
+                      <router-link to="/">&nbsp;legal
+                        document
+                      </router-link>
+                    </label>
+                  </slot>
+                </v-checkbox>
+              </div>
+              <button type="submit" class="btn btn-reg mt-input mx-auto">
+                {{ submitButtonTexts[step] }}
+              </button>
+            </div>
           </div>
-          <button type="submit" class="btn btn-reg mt-4 mx-auto">
-            {{ submitButtonTexts[step] }}
-          </button>
         </form>
       </div>
     </div>
@@ -77,6 +98,7 @@
 </template>
 
 <script>
+import Inputmask from 'inputmask';
 import Cookies from 'js-cookie';
 
 import api from '@/api';
@@ -89,7 +111,9 @@ export default {
   name: 'forgot-password-page',
   data() {
     return {
-      smsTimer: 0,
+      date: null,
+      timer: 59,
+      timerUpdateInterval: 0,
       submitButtonTexts: [
         'Send SMS',
         'Send code',
@@ -114,17 +138,18 @@ export default {
         phone: {
           error: false,
           errorText: '',
-          helpText: 'Write anything you want',
         },
-        code: {
+        verification_code: {
           error: false,
           errorText: '',
-          helpText: 'Write anything you want',
         },
         password: {
           error: false,
           errorText: '',
-          helpText: 'Write anything you want',
+        },
+        password_confirmation: {
+          error: false,
+          errorText: '',
         },
       },
     };
@@ -159,13 +184,33 @@ export default {
       }
     },
     async requestSmsConfirmation({ phone }) {
+      this.date = new Date();
+      this.date.setSeconds(59);
+      this.timer = 59;
+
       const response = await api.auth.recoveryStart({ data: { phone } });
 
       if (!response.data.result) {
-        this.inputs.phone.error = true;
-        this.inputs.phone.errorText = response.data.errors[0].message;
+        const fields = { phone: 0 };
+        const errors = response.data.errors.filter(el => typeof fields[el.name] !== 'undefined');
+
+        errors.forEach((el) => {
+          this.inputs[el.name].error = true;
+          this.inputs[el.name].errorText = el.message;
+        });
+
         return false;
       }
+
+      this.timerUpdateInterval = setInterval(() => {
+        if (this.date.getSeconds() === 0) {
+          clearInterval(this.timerUpdateInterval);
+          this.date = null;
+        } else {
+          this.date.setSeconds(this.date.getSeconds() - 1);
+          this.timer = this.date.getSeconds();
+        }
+      }, 1000);
 
       return true;
     },
@@ -173,8 +218,14 @@ export default {
       const response = await api.auth.recoveryVerify({ data: { phone, verification_code: code } });
 
       if (!response.data.result) {
-        this.inputs.phone.error = true;
-        this.inputs.phone.errorText = response.data.errors[0].message;
+        const fields = { phone: 0, verification_code: 0 };
+        const errors = response.data.errors.filter(el => typeof fields[el.name] !== 'undefined');
+
+        errors.forEach((el) => {
+          this.inputs[el.name].error = true;
+          this.inputs[el.name].errorText = el.message;
+        });
+
         return false;
       }
 
@@ -195,6 +246,14 @@ export default {
       });
 
       if (!response.data.result) {
+        const fields = { phone: 0, password: 0, password_confirmation: 0 };
+        const errors = response.data.errors.filter(el => typeof fields[el.name] !== 'undefined');
+
+        errors.forEach((el) => {
+          this.inputs[el.name].error = true;
+          this.inputs[el.name].errorText = el.message;
+        });
+
         return false;
       }
 
@@ -204,6 +263,13 @@ export default {
 
       return true;
     },
+  },
+  mounted() {
+    const im = new Inputmask('99 99 99', {
+      showMaskOnHover: false,
+    });
+
+    im.mask(document.querySelector('.js-sms-input .input__root'));
   },
 };
 </script>
@@ -226,5 +292,11 @@ export default {
   font-size: 20px;
   font-weight: bold;
   line-height: 1;
+}
+
+.btn-send-code {
+  padding: 25px 32px;
+  background: transparent;
+  color: $flat-blue;
 }
 </style>

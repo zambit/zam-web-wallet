@@ -7,12 +7,12 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 
-import layoutHeader from '@/components/layout/header';
+// import layoutHeader from '@/components/layout/header';
 
 export default {
   name: 'main-page',
   components: {
-    layoutHeader,
+    // layoutHeader,
   },
   methods: {
     ...mapActions({

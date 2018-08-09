@@ -28,8 +28,8 @@
                   v-show="step > 0"
                   :vPlaceholder="'sms-code'"
                   :value="formData.code"
-                  :error="inputs.code.error"
-                  :errorText="inputs.code.errorText"
+                  :error="inputs.verification_code.error"
+                  :errorText="inputs.verification_code.errorText"
                   class="js-sms-input w-100 mr-4 mt-input"
                   @input="formData.code = $event.target.value"
                 />
@@ -38,7 +38,7 @@
             <div class="col-8">
               <transition appear name="fade">
                 <button
-                  v-if="step > 0"
+                  v-if="step === 1"
                   type="button"
                   class="btn btn-send-code mt-input"
                   @click="requestSmsConfirmation({ phone: formData.phone })"
@@ -66,6 +66,8 @@
                 v-if="step > 1"
                 :vPlaceholder="'Confirm password'"
                 :value="formData.passwordConfirmation"
+                :error="inputs.password_confirmation.error"
+                :errorText="inputs.password_confirmation.errorText"
                 type="password"
                 class="mt-input"
                 @input="formData.passwordConfirmation = $event.target.value"
@@ -142,7 +144,7 @@ export default {
           errorText: '',
           helpText: 'Write anything you want',
         },
-        code: {
+        verification_code: {
           error: false,
           errorText: '',
           helpText: 'Write anything you want',
@@ -151,6 +153,10 @@ export default {
           error: false,
           errorText: '',
           helpText: 'Write anything you want',
+        },
+        password_confirmation: {
+          error: false,
+          errorText: '',
         },
       },
     };
@@ -216,8 +222,14 @@ export default {
       const response = await api.auth.signUpVerify({ data: { phone, verification_code: code } });
 
       if (!response.data.result) {
-        this.inputs.phone.error = true;
-        this.inputs.phone.errorText = response.data.errors[0].message;
+        const fields = { verification_code: 0 };
+        const errors = response.data.errors.filter(el => typeof fields[el.name] !== 'undefined');
+
+        errors.forEach((el) => {
+          this.inputs[el.name].error = true;
+          this.inputs[el.name].errorText = el.message;
+        });
+
         return false;
       }
 
@@ -238,6 +250,14 @@ export default {
       });
 
       if (!response.data.result) {
+        const fields = { phone: 0, password: 0, password_confirmation: 0 };
+        const errors = response.data.errors.filter(el => typeof fields[el.name] !== 'undefined');
+
+        errors.forEach((el) => {
+          this.inputs[el.name].error = true;
+          this.inputs[el.name].errorText = el.message;
+        });
+
         return false;
       }
       api.instance.defaults.headers.common.Authorization = `Bearer ${response.data.data.token}`;
@@ -253,6 +273,8 @@ export default {
   mounted() {
     const im = new Inputmask('99 99 99', {
       showMaskOnHover: false,
+      autoUnmask: true,
+      placeholder: ' ',
     });
 
     im.mask(document.querySelector('.js-sms-input .input__root'));

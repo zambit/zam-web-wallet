@@ -1,23 +1,19 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-12 col-lg-6">
-        <div class="d-flex flex-column">
-          <h1>Hello from main page, buddy!</h1>
-          <p>Logged in as {{ phone }}</p>
-          <button type="button" class="btn btn-lg btn-danger" @click="handleSignOut">Say
-            goodbye</button>
-        </div>
-      </div>
-    </div>
+  <div>
+    <layout-header/>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
 
+import layoutHeader from '@/components/layout/header';
+
 export default {
   name: 'main-page',
+  components: {
+    layoutHeader,
+  },
   methods: {
     ...mapActions({
       signOut: 'signOut',

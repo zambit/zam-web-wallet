@@ -267,6 +267,8 @@ export default {
   mounted() {
     const im = new Inputmask('99 99 99', {
       showMaskOnHover: false,
+      autoUnmask: true,
+      placeholder: ' ',
     });
 
     im.mask(document.querySelector('.js-sms-input .input__root'));

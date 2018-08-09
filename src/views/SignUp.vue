@@ -9,7 +9,7 @@
       <div class="row justify-content-center">
         <div class="col-12 col-sm-9 col-md-7 col-lg-5 col-xl-5">
           <div class="row no-gutters">
-            <div class="col-12 col-lg-5 text-center">
+            <div class="col-12 text-center">
               <h1 class="font-weight-bold">Register for sending cryptocurrency</h1>
             </div>
             <div class="col-12 mt-4">

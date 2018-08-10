@@ -51,7 +51,6 @@ export default {
     copyAddressToClipboard() {
       const dummy = document.createElement('input');
       document.body.appendChild(dummy);
-      dummy.hidden = true;
       dummy.setAttribute('value', this.wallet.address);
       dummy.select();
       document.execCommand('copy');

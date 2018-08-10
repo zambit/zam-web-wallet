@@ -6,7 +6,7 @@
     </section>
     <section class="aside__wallets">
       <div class="aside__wallets-menu d-flex justify-content-between flex-shrink-0">
-        <h3>My accounts</h3>
+        <h3 class="aside__title">My accounts</h3>
         <button type="button" class="btn btn-link" hidden>Add new +</button>
       </div>
       <div class="aside__wallets-wrap d-flex flex-column">
@@ -50,6 +50,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/_settings.scss";
+
 .aside {
   display: flex;
   flex-direction: column;
@@ -60,7 +62,7 @@ export default {
 }
 
 .aside__wallets-menu {
-  padding: 10px 24px;
+  padding: 15px 24px;
 }
 
 .aside__wallets-wrap {
@@ -104,5 +106,13 @@ export default {
 .aside__total-balance {
   font-size: .875rem;
   color: #6e6e6e;
+}
+
+.aside__title {
+  font-size: 1.375rem;
+  font-weight: bold;
+  color: $dark-indigo;
+
+  margin-bottom: 0;
 }
 </style>

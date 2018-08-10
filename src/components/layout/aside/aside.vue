@@ -1,8 +1,8 @@
 <template>
   <aside class="aside">
-    <section class="aside__total-balance">
-      <div>$ 212,456.00</div>
-      <div>28.3467 BTC</div>
+    <section class="aside__total-balance-wrap">
+      <div class="aside__total-fiat-balance">$ 212,456</div>
+      <div class="aside__total-balance">28.3467 BTC</div>
     </section>
     <section class="aside__wallets">
       <div class="aside__wallets-menu d-flex justify-content-between flex-shrink-0">
@@ -71,7 +71,7 @@ export default {
   overflow-x: hidden;
 }
 
-.aside__total-balance {
+.aside__total-balance-wrap {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,5 +87,22 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.aside__total-fiat-balance {
+  font-size: 2.25rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  color: #4a4a4a;
+
+  & > small {
+    font-size: 1.125rem;
+  }
+}
+
+.aside__total-balance {
+  font-size: .875rem;
+  color: #6e6e6e;
 }
 </style>

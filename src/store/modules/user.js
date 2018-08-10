@@ -11,7 +11,7 @@ const CLEAR_USER = 'CLEAR_USER';
 const SET_USER_KEY = 'SET_USER_KEY';
 
 const getters = {
-  isUserLoggedIn: state => !!(state.phone && state.token),
+  isUserLoggedIn: state => !!state.phone,
 };
 
 const actions = {
@@ -21,6 +21,8 @@ const actions = {
     if (!response.data.result) {
       Cookies.remove('jwt');
       commit(CLEAR_USER);
+    } else {
+      commit(SET_USER_KEY, { key: 'phone', value: response.data.data.phone });
     }
 
     return response;

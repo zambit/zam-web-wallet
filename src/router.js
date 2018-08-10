@@ -40,19 +40,19 @@ const router = new Router({
       },
     },
     {
-      path: '/',
-      name: 'main',
-      component: Main,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
       path: '/forgot-password',
       name: 'forgot-password',
       component: ForgotPassword,
       meta: {
         requiresAuth: false,
+      },
+    },
+    {
+      path: '/',
+      name: 'main',
+      component: Main,
+      meta: {
+        requiresAuth: true,
       },
     },
   ],

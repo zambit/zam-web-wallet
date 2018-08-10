@@ -1,41 +1,53 @@
 <template>
-  <div>
+  <div id="main">
     <layout-header/>
+    <div class="d-flex h-100">
+      <layout-aside class="h-100"/>
+      <div class="d-flex flex-column w-100">
+        <wallet-panel :wallet="activeWallet"/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
-// import layoutHeader from '@/components/layout/header';
+import layoutHeader from '@/components/layout/header';
+import layoutAside from '@/components/layout/aside';
+import walletPanel from '@/components/blocks/walletPanel';
 
 export default {
   name: 'main-page',
   components: {
-    // layoutHeader,
-  },
-  methods: {
-    ...mapActions({
-      signOut: 'signOut',
-    }),
-    async handleSignOut() {
-      const r = await this.signOut();
-
-      if (!r.data.result) {
-        return false;
-      }
-
-      return this.$router.push('/sign-in');
-    },
+    layoutHeader,
+    layoutAside,
+    walletPanel,
   },
   computed: {
-    ...mapState({
-      phone: state => state.user.phone,
-    }),
+    ...mapGetters([
+      'activeWallet',
+    ]),
   },
 };
 </script>
 
-<style lang="scss">
 
+<style lang="scss">
+@import "@/assets/styles/_settings.scss";
+
+html, body {
+  background-color: white !important;
+}
+</style>
+
+<style lang="scss" scoped>
+#main {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+
+  color: black;
+}
 </style>

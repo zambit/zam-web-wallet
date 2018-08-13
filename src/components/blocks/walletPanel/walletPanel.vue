@@ -2,8 +2,8 @@
   <div class="wallet-panel">
     <div class="row">
       <div class="col-6">
-        <div class="d-flex">
-          <img src="" alt="">
+        <div class="d-flex align-items-center">
+          <img :src="require(`./${coinIconSrc}`)" class="wallet-panel__icon" alt="">
           <div class="d-flex flex-column">
             <h3 class="wallet-panel__name mb-0">{{ wallet.wallet_name }}</h3>
             <span class="wallet-panel__phone">{{ phone }}</span>
@@ -18,7 +18,7 @@
       </div>
       <div class="col-6">
         <div class="d-flex flex-column">
-          <span class="wallet-panel__balance">{{ wallet.balance }}</span>
+          <span class="wallet-panel__balance">{{ balanceRounded }}</span>
           <span class="wallet-panel__fiat-balance" hidden>$ 14,475</span>
           <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
         </div>
@@ -61,6 +61,22 @@ export default {
     ...mapState({
       phone: state => state.user.phone,
     }),
+    balanceRounded() {
+      return Number(this.wallet.balance).toFixed(2);
+    },
+    coinIconSrc() {
+      switch (true) {
+        case (this.wallet.coin === 'bch'):
+          return 'icon__bitcoin-cash.svg';
+        case (this.wallet.coin === 'btc'):
+          return 'icon__bitcoin.svg';
+        case (this.wallet.coin === 'eth'):
+          return 'icon__ethereum.svg';
+        case (this.wallet.coin === 'zam'):
+        default:
+          return 'icon__zam.svg';
+      }
+    },
   },
 };
 </script>
@@ -96,5 +112,14 @@ export default {
   font-size: 1.625rem;
   font-weight: bold;
   color: #ffffff;
+}
+
+.wallet-panel__icon {
+  flex-shrink: 0;
+
+  width: 50px;
+  height: 50px;
+
+  margin-right: 35px;
 }
 </style>

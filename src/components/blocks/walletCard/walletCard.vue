@@ -154,6 +154,9 @@ export default {
 }
 
 .wallet-card__icon {
+  width: 34px;
+  height: 34px;
+
   margin-right: 10px;
 }
 

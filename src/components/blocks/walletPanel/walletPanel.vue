@@ -22,7 +22,7 @@
             {{ Number(wallet.balances[wallet.coin]).toFixed(2) }}
           </span>
           <span class="wallet-panel__fiat-balance">
-            {{ fiats.RUB.sign + Number(wallet.balances.rub).toFixed(2) }}
+            {{ fiats.USD.sign + Number(wallet.balances.usd).toFixed(2) }}
           </span>
           <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
         </div>

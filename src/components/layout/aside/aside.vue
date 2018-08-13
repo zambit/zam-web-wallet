@@ -44,7 +44,7 @@ export default {
     }),
   },
   async created() {
-    return this.$store.dispatch('fetchWallets', { convert: 'rub' });
+    return this.$store.dispatch('fetchWallets', { convert: 'usd' });
   },
 };
 </script>

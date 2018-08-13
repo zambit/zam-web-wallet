@@ -21,7 +21,7 @@
               </div>
               <div class="col-4">
                 <span class="wallet-card__fiat-balance d-block">
-                  {{ fiats.RUB.sign + Number(wallet.balances.rub).toFixed(2) }}
+                  {{ fiats.USD.sign + Number(wallet.balances.usd).toFixed(2) }}
                 </span>
               </div>
             </div>

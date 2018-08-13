@@ -14,8 +14,8 @@ const getters = {
 };
 
 const actions = {
-  async fetchWallets({ commit }) {
-    const response = await api.wallet.get({});
+  async fetchWallets({ commit }, { convert }) {
+    const response = await api.wallet.get({ params: { convert } });
 
     if (!response.data.result) {
       console.error('Failed to fetch wallets info'); // eslint-disable-line

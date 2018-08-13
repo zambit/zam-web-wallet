@@ -5,20 +5,24 @@
         <div class="d-flex">
           <img :src="require(`./${coinIconSrc}`)" class="wallet-card__icon" alt="">
           <div class="w-100">
-            <div class="row">
+            <div class="row align-items-center">
               <div class="col-8">
                 <span class="wallet-card__name">{{ wallet.wallet_name }}</span>
               </div>
               <div class="col-4">
-                <span class="wallet-card__balance d-block">{{ balanceRounded }}</span>
+                <span class="wallet-card__balance d-block">
+                  {{ Number(wallet.balances[wallet.coin]).toFixed(2) }}
+                </span>
               </div>
             </div>
-            <div class="row">
+            <div class="row align-items-center mt-1">
               <div class="col-8">
                 <span class="wallet-card__phone mt-2">{{ phone }}</span>
               </div>
               <div class="col-4">
-                <span class="wallet-card__fiat-balance" hidden>$ 14,475</span>
+                <span class="wallet-card__fiat-balance d-block">
+                  {{ fiats.RUB.sign + Number(wallet.balances.rub).toFixed(2) }}
+                </span>
               </div>
             </div>
           </div>
@@ -56,7 +60,7 @@ export default {
       default() {
         return {
           address: '',
-          balance: '',
+          balances: {},
           coin: '',
           id: '',
           wallet_name: '',
@@ -67,10 +71,8 @@ export default {
   computed: {
     ...mapState({
       phone: state => state.user.phone,
+      fiats: state => state.common.fiats,
     }),
-    balanceRounded() {
-      return Number(this.wallet.balance).toFixed(2);
-    },
     coinIconSrc() {
       switch (true) {
         case (this.wallet.coin === 'bch'):
@@ -101,12 +103,14 @@ export default {
 
 .wallet-card__name {
   font-size: 1rem;
+  line-height: 1;
   font-weight: 500;
   color: $dark-indigo;
 }
 
 .wallet-card__balance {
   font-size: 1.125rem;
+  line-height: 1;
   font-weight: bold;
   text-align: right;
   color: $dark-indigo;
@@ -114,11 +118,16 @@ export default {
 
 .wallet-card__phone {
   font-size: 0.875rem;
+  line-height: 1;
   font-weight: 500;
   color: #888aa7;
 }
 
 .wallet-card__fiat-balance {
+  font-size: .875rem;
+  line-height: 1;
+  text-align: right;
+  color: #888aa7;
 }
 
 .wallet-card__button {

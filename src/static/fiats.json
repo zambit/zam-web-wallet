@@ -1,0 +1,147 @@
+{
+  "AUD": {
+    "name": "Australian dollar",
+    "short": "Australian dollar",
+    "sign": "$"
+  },
+  "BRL": {
+    "name": "Brazilian real",
+    "short": "Brazilian real",
+    "sign": "$"
+  },
+  "CAD": {
+    "name": "Canadian dollar",
+    "short": "Canadian dollar",
+    "sign": "$"
+  },
+  "CHF": {
+    "name": "Swiss franc",
+    "short": "Swiss franc",
+    "sign": "₣"
+  },
+  "CNY": {
+    "name": "Chinese yuan",
+    "short": "Chinese yuan",
+    "sign": "¥"
+  },
+  "CZK": {
+    "name": "Czech crown",
+    "short": "Czech crown",
+    "sign": "Kč"
+  },
+  "DKK": {
+    "name": "Danish crown",
+    "short": "Danish crown",
+    "sign": "kr"
+  },
+  "EUR": {
+    "name": "Euro",
+    "short": "Euro",
+    "sign": "€"
+  },
+  "GBP": {
+    "name": "United Kingdom pound sterling",
+    "short": "United Kingdom pound sterling",
+    "sign": "£"
+  },
+  "HKD": {
+    "name": "Hong Kong dollar",
+    "short": "Hong Kong dollar",
+    "sign": "HK$"
+  },
+  "HUF": {
+    "name": "Hungarian forint",
+    "short": "Hungarian forint",
+    "sign": "Ft"
+  },
+  "IDR": {
+    "name": "Indonesian rupiah",
+    "short": "Indonesian rupiah",
+    "sign": "Rp"
+  },
+  "ILS": {
+    "name": "Israeli new shekel",
+    "short": "Israeli new shekel",
+    "sign": "₪"
+  },
+  "INR": {
+    "name": "Indian rupee",
+    "short": "Indian rupee",
+    "sign": "₹"
+  },
+  "JPY": {
+    "name": "Japanese yen",
+    "short": "Japanese yen",
+    "sign": "¥"
+  },
+  "KRW": {
+    "name": "South Korean won",
+    "short": "South Korean won",
+    "sign": "₩"
+  },
+  "MXN": {
+    "name": "Mexican peso",
+    "short": "Mexican peso",
+    "sign": "$"
+  },
+  "MYR": {
+    "name": "Malaysian ringgit",
+    "short": "Malaysian ringgit",
+    "sign": "RM"
+  },
+  "NOK": {
+    "name": "Norwegian krone",
+    "short": "Norwegian krone",
+    "sign": "kr"
+  },
+  "NZD": {
+    "name": "New Zealand dollar",
+    "short": "New Zealand dollar",
+    "sign": "$"
+  },
+  "PHP": {
+    "name": "Philippines Peso",
+    "short": "Philippines Peso",
+    "sign": "₱"
+  },
+  "PLN": {
+    "name": "Poland Zloty",
+    "short": "Poland Zloty",
+    "sign": "zł"
+  },
+  "RUB": {
+    "name": "Russia Ruble",
+    "short": "Russia Ruble",
+    "sign": "₽"
+  },
+  "SEK": {
+    "name": "Sweden Krona",
+    "short": "Sweden Krona",
+    "sign": "kr"
+  },
+  "SGD": {
+    "name": "Singapore Dollar",
+    "short": "Singapore Dollar",
+    "sign": "$"
+  },
+  "THB": {
+    "name": "Thailand Baht",
+    "short": "Thailand Baht",
+    "sign": "฿"
+  },
+  "TRY": {
+    "name": "Turkish lira",
+    "short": "Turkish lira",
+    "sign": "₺"
+  },
+  "ZAR": {
+    "name": "South Africa Rand",
+    "short": "South Africa Rand",
+    "sign": "R"
+  },
+  "USD": {
+    "name": "United States Dollar",
+    "short": "United States Dollar",
+    "sign": "$"
+  }
+}

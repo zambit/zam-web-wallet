@@ -18,8 +18,12 @@
       </div>
       <div class="col-6">
         <div class="d-flex flex-column">
-          <span class="wallet-panel__balance">{{ balanceRounded }}</span>
-          <span class="wallet-panel__fiat-balance" hidden>$ 14,475</span>
+          <span class="wallet-panel__balance">
+            {{ Number(wallet.balances[wallet.coin]).toFixed(2) }}
+          </span>
+          <span class="wallet-panel__fiat-balance">
+            {{ fiats.RUB.sign + Number(wallet.balances.rub).toFixed(2) }}
+          </span>
           <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
         </div>
       </div>
@@ -39,7 +43,7 @@ export default {
       default() {
         return {
           address: '',
-          balance: '',
+          balances: {},
           coin: '',
           id: '',
           wallet_name: '',
@@ -60,10 +64,8 @@ export default {
   computed: {
     ...mapState({
       phone: state => state.user.phone,
+      fiats: state => state.common.fiats,
     }),
-    balanceRounded() {
-      return Number(this.wallet.balance).toFixed(2);
-    },
     coinIconSrc() {
       switch (true) {
         case (this.wallet.coin === 'bch'):
@@ -110,6 +112,7 @@ export default {
 
 .wallet-panel__balance {
   font-size: 1.625rem;
+  line-height: 1;
   font-weight: bold;
   color: #ffffff;
 }
@@ -121,5 +124,10 @@ export default {
   height: 50px;
 
   margin-right: 35px;
+}
+
+.wallet-panel__fiat-balance {
+  font-size: 1.125rem;
+  color: #ffffff;
 }
 </style>

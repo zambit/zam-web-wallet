@@ -5,6 +5,7 @@
       <layout-aside class="h-100"/>
       <div class="d-flex flex-column w-100">
         <wallet-panel :wallet="activeWallet"/>
+        <transaction-form/>
       </div>
     </div>
   </div>
@@ -16,6 +17,7 @@ import { mapGetters } from 'vuex';
 import layoutHeader from '@/components/layout/header';
 import layoutAside from '@/components/layout/aside';
 import walletPanel from '@/components/blocks/walletPanel';
+import transactionForm from '@/components/blocks/transactionForm';
 
 export default {
   name: 'main-page',
@@ -23,6 +25,7 @@ export default {
     layoutHeader,
     layoutAside,
     walletPanel,
+    transactionForm,
   },
   computed: {
     ...mapGetters([

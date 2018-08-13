@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import user from './modules/user';
 import wallets from './modules/wallets';
+import common from './modules/common';
 
 Vue.use(Vuex);
 
@@ -11,5 +12,6 @@ export default new Vuex.Store({
   modules: {
     user,
     wallets,
+    common,
   },
 });

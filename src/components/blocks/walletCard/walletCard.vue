@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex">
-          <img src="" alt="">
+          <img :src="require(`./${coinIconSrc}`)" class="wallet-card__icon" alt="">
           <div class="w-100">
             <div class="row">
               <div class="col-8">
                 <span class="wallet-card__name">{{ wallet.wallet_name }}</span>
               </div>
               <div class="col-4">
-                <span class="wallet-card__balance d-block">{{ wallet.balance }}</span>
+                <span class="wallet-card__balance d-block">{{ balanceRounded }}</span>
               </div>
             </div>
             <div class="row">
@@ -68,6 +68,22 @@ export default {
     ...mapState({
       phone: state => state.user.phone,
     }),
+    balanceRounded() {
+      return Number(this.wallet.balance).toFixed(2);
+    },
+    coinIconSrc() {
+      switch (true) {
+        case (this.wallet.coin === 'bch'):
+          return 'icon__bitcoin-cash.svg';
+        case (this.wallet.coin === 'btc'):
+          return 'icon__bitcoin.svg';
+        case (this.wallet.coin === 'eth'):
+          return 'icon__ethereum.svg';
+        case (this.wallet.coin === 'zam'):
+        default:
+          return 'icon__zam.svg';
+      }
+    },
   },
 };
 </script>
@@ -135,6 +151,10 @@ export default {
   &.wallet-card__button--deposit::after {
     background-image: url("./wallet-card__icon__arrow-up--green.svg");
   }
+}
+
+.wallet-card__icon {
+  margin-right: 10px;
 }
 
 </style>

@@ -1,0 +1,11 @@
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bitcoin-cash" fill="#39CD65" fill-rule="nonzero">
+            <g id="bitcoin">
+                <g>
+                    <path d="M33.4911554,21.1125084 C31.2203511,30.2196348 21.9952748,35.7621098 12.8860234,33.4910391 C3.78049107,31.2204996 -1.76263056,21.9959682 0.509236411,12.8893731 C2.77897815,3.78118433 12.0040544,-1.76182192 21.1106493,0.508717539 C30.2193695,2.779257 35.7619598,12.0048509 33.4911554,21.1125084 Z" id="coin"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

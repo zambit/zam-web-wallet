@@ -7,7 +7,7 @@
       <div class="col-12 col-sm-9 col-md-7 col-lg-5 col-xl-5">
         <div class="row">
           <div class="col-12">
-            <h1 class="font-weight-bold text-center">Register for sending cryptocurrency</h1>
+            <h1 class="font-weight-bold text-center">Login for sending cryptocurrency</h1>
           </div>
         </div>
         <form

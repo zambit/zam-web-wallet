@@ -7,6 +7,7 @@
           :value="formData.phone"
           :error="inputs.phone.error"
           :erroText="inputs.phone.errorText"
+          class="transaction-input"
           @input="formData.phone = $event.target.value"
         />
         <v-input
@@ -14,7 +15,7 @@
           :value="formData.amount"
           :error="inputs.amount.error"
           :erroText="inputs.amount.errorText"
-          class="mt-4"
+          class="transaction-input mt-input"
           @input="formData.amount = $event.target.value"
         />
         <div class="mt-4 text-center">
@@ -69,6 +70,39 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/styles/_settings.scss";
+
+.transaction-input /deep/ {
+
+  & .input__body {
+    background-color: white;
+    border: solid 2px #ececec;
+
+    &:hover, &:focus {
+      background-color: white;
+
+      & .input__placeholder {
+        color: $sky-blue;
+      }
+
+      & .input__root {
+        color: #5e5e5e;
+      }
+    }
+  }
+
+  & .input__placeholder {
+    color: $sky-blue;
+  }
+
+  & .input__root {
+    color: #5e5e5e;
+  }
+
+  & .input__body--focus {
+    background-color: white !important;
+  }
+}
+
 
 .btn-submit {
   font-size: 1.3125rem;

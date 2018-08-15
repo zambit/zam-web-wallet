@@ -19,10 +19,10 @@
       <div class="col-6">
         <div class="d-flex flex-column">
           <span class="wallet-panel__balance">
-            {{ Number(wallet.balances[wallet.coin]).toFixed(2) }}
+            {{ balanceInCoins }}
           </span>
           <span class="wallet-panel__fiat-balance">
-            {{ fiats.USD.sign + Number(wallet.balances.usd).toFixed(2) }}
+            {{ balanceInFiat }}
           </span>
           <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
         </div>
@@ -79,6 +79,19 @@ export default {
           return 'icon__zam.svg';
       }
     },
+
+    balanceInCoins() {
+      if (this.wallet.balances[this.wallet.coin]) {
+        return parseFloat(this.wallet.balances[this.wallet.coin]);
+      }
+      return '0.00';
+    },
+    balanceInFiat() {
+      if (this.wallet.balances.usd) {
+        return this.fiats.USD.sign + parseFloat(this.wallet.balances.usd);
+      }
+      return `${this.fiats.USD.sign}0.00`;
+    },
   },
 };
 </script>
@@ -100,7 +113,6 @@ export default {
   font-size: .875rem;
   font-weight: 500;
   color: #888aa7;
-
   margin-top: 10px;
 }
 
@@ -119,10 +131,8 @@ export default {
 
 .wallet-panel__icon {
   flex-shrink: 0;
-
   width: 50px;
   height: 50px;
-
   margin-right: 35px;
 }
 

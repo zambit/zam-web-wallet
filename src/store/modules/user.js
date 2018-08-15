@@ -20,6 +20,7 @@ const actions = {
 
     if (!response.data.result) {
       Cookies.remove('jwt');
+      api.instance.defaults.headers.common.Authorization = '';
       commit(CLEAR_USER);
     } else {
       commit(SET_USER_KEY, { key: 'phone', value: response.data.data.phone });
@@ -32,6 +33,7 @@ const actions = {
 
     if (response.data.result) {
       Cookies.remove('jwt');
+      api.instance.defaults.headers.common.Authorization = '';
       commit(CLEAR_USER);
     }
 

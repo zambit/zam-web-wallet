@@ -1,6 +1,6 @@
 {
   "name": "@zamzamtech/wallet",
-  "version": "0.1.0-27",
+  "version": "0.1.0-28",
   "description": "Vue.js app",
   "license": "UNLICENSED",
   "contributors": [
@@ -16,7 +16,7 @@
     "dist"
   ],
   "dependencies": {
-    "@zamzamtech/wallet-axios": "^0.2.0",
+    "@zamzamtech/wallet-axios": "^0.2.0-1",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.2",
     "flickity": "^2.1.2",

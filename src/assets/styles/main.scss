@@ -38,3 +38,55 @@ html, body {
 .bg-indigo {
   background-color: $dark-indigo;
 }
+
+.close{
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  
+  &:hover {
+    &::before, &::after {
+      //background: $blue;
+    }
+  }
+  
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: #000;
+  }
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+  &.thick {
+    &::before, &::after {
+      height: 4px;
+      margin-top: -2px;
+    }
+  }
+  &.black {
+    &::before, &::after {
+      height: 8px;
+      margin-top: -4px;
+    }
+  }
+  &.rounded {
+    &::before, &::after {
+      border-radius: 5px;
+    }
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}

@@ -11,7 +11,7 @@
               </div>
               <div class="col-4">
                 <span class="wallet-card__balance d-block">
-                  {{ Number(wallet.balances[wallet.coin]).toFixed(2) }}
+                  {{ balanceInCoins }}
                 </span>
               </div>
             </div>
@@ -21,7 +21,7 @@
               </div>
               <div class="col-4">
                 <span class="wallet-card__fiat-balance d-block">
-                  {{ fiats.USD.sign + Number(wallet.balances.usd).toFixed(2) }}
+                  {{ balanceInFiat }}
                 </span>
               </div>
             </div>
@@ -86,6 +86,18 @@ export default {
           return 'icon__zam.svg';
       }
     },
+    balanceInCoins() {
+      if (this.wallet.balances[this.wallet.coin]) {
+        return parseFloat(Number(this.wallet.balances[this.wallet.coin]).toFixed(2));
+      }
+      return '0.00';
+    },
+    balanceInFiat() {
+      if (this.wallet.balances.usd) {
+        return this.fiats.USD.sign + parseFloat(Number(this.wallet.balances.usd).toFixed(2));
+      }
+      return `${this.fiats.USD.sign}0.00`;
+    },
   },
 };
 </script>
@@ -133,7 +145,6 @@ export default {
 .wallet-card__button {
   display: inline-flex;
   align-items: center;
-
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.5px;
@@ -142,12 +153,9 @@ export default {
   &::after {
     content: '';
     display: inline-block;
-
     width: 16px;
     height: 16px;
-
     margin-left: .5rem;
-
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto;
@@ -165,7 +173,6 @@ export default {
 .wallet-card__icon {
   width: 34px;
   height: 34px;
-
   margin-right: 10px;
 }
 

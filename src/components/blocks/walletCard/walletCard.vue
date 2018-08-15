@@ -95,7 +95,7 @@ export default {
     },
     balanceInFiat() {
       if (this.wallet.balances.usd) {
-        return this.fiats.USD.sign + parseFloat(this.wallet.balances.usd);
+        return this.fiats.USD.sign + parseFloat(this.wallet.balances.usd).toFixed(2);
       }
       return `${this.fiats.USD.sign}0.00`;
     },

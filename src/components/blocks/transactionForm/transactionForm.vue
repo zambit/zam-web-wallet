@@ -19,7 +19,6 @@
             :erroText="inputs.amount.errorText"
             :max="wallet.balances[wallet.coin]"
             min="0"
-            step=".01"
             type="number"
             class="transaction-input mt-input no-spinners"
             required

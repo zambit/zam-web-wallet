@@ -86,15 +86,16 @@ export default {
           return 'icon__zam.svg';
       }
     },
+
     balanceInCoins() {
       if (this.wallet.balances[this.wallet.coin]) {
-        return parseFloat(Number(this.wallet.balances[this.wallet.coin]).toFixed(2));
+        return parseFloat(this.wallet.balances[this.wallet.coin]);
       }
       return '0.00';
     },
     balanceInFiat() {
       if (this.wallet.balances.usd) {
-        return this.fiats.USD.sign + parseFloat(Number(this.wallet.balances.usd).toFixed(2));
+        return this.fiats.USD.sign + parseFloat(this.wallet.balances.usd);
       }
       return `${this.fiats.USD.sign}0.00`;
     },

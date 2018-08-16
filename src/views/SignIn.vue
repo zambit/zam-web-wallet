@@ -94,7 +94,7 @@ export default {
     }),
     async submitSignIn() {
       const response = await this.signIn({
-        phone: this.formData.phone,
+        phone: this.fullPhone,
         password: this.formData.password,
       });
 
@@ -112,6 +112,11 @@ export default {
 
       window.localStorage.setItem('visited', '1');
       return this.$router.push('/');
+    },
+  },
+  computed: {
+    fullPhone() {
+      return this.formData.country + this.formData.phone;
     },
   },
 };

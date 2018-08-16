@@ -166,11 +166,11 @@ export default {
       switch (this.step) {
         default:
         case 0:
-          result = await this.requestSmsConfirmation({ phone: this.formData.phone });
+          result = await this.requestSmsConfirmation({ phone: this.fullPhone });
           break;
         case 1:
           result = await this.sendSmsVerificationCode({
-            phone: this.formData.phone,
+            phone: this.fullPhone,
             code: this.formData.code,
           });
           break;
@@ -238,7 +238,7 @@ export default {
 
       const response = await api.auth.recoveryFinish({
         data: {
-          phone: this.formData.country + this.formData.phone,
+          phone: this.fullPhone,
           recovery_token: token,
           password: this.formData.password,
           password_confirmation: this.formData.passwordConfirmation,
@@ -262,6 +262,11 @@ export default {
       this.$router.push('/sign-in');
 
       return true;
+    },
+  },
+  computed: {
+    fullPhone() {
+      return this.formData.country + this.formData.phone;
     },
   },
   mounted() {

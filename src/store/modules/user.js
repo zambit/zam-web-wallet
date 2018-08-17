@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow, no-param-reassign */
 import Cookies from 'js-cookie';
 import api from '@/api';
+import { formatBalance } from '@/helpers';
 
 const state = {
   jwt: null,
@@ -24,11 +25,17 @@ const actions = {
     if (response.data.result) {
       commit(SET_USER_KEY, {
         key: 'totalBalanceBtc',
-        value: Number(response.data.data.wallets.total_balance.btc).toFixed(6),
+        value: formatBalance({
+          str: response.data.data.wallets.total_balance.btc,
+          decimals: 6,
+        }),
       });
       commit(SET_USER_KEY, {
         key: 'totalBalanceFiat',
-        value: Number(response.data.data.wallets.total_balance.usd).toFixed(2),
+        value: formatBalance({
+          str: response.data.data.wallets.total_balance.usd,
+          decimals: 2,
+        }),
       });
       commit(SET_USER_KEY, {
         key: 'walletsCount',

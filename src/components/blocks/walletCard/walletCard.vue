@@ -51,6 +51,8 @@
 <script>
 import { mapState } from 'vuex';
 
+import { formatBalance } from '@/helpers';
+
 export default {
   name: 'wallet-card',
   props: {
@@ -89,13 +91,19 @@ export default {
 
     balanceInCoins() {
       if (this.wallet.balances[this.wallet.coin]) {
-        return parseFloat(this.wallet.balances[this.wallet.coin]);
+        return formatBalance({
+          str: this.wallet.balances[this.wallet.coin],
+          decimals: 6,
+        });
       }
       return '0.00';
     },
     balanceInFiat() {
       if (this.wallet.balances.usd) {
-        return this.fiats.USD.sign + parseFloat(this.wallet.balances.usd).toFixed(2);
+        return this.fiats.USD.sign + formatBalance({
+          str: this.wallet.balances.usd,
+          decimals: 2,
+        });
       }
       return `${this.fiats.USD.sign}0.00`;
     },

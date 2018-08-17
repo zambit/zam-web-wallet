@@ -1,8 +1,8 @@
 <template>
   <aside class="aside">
     <section class="aside__total-balance-wrap">
-      <div class="aside__total-fiat-balance">$ 212,456</div>
-      <div class="aside__total-balance">28.3467 BTC</div>
+      <div class="aside__total-fiat-balance">$ {{ totalBalanceFiat }}</div>
+      <div class="aside__total-balance">{{ totalBalanceBtc }} BTC</div>
     </section>
     <section class="aside__wallets">
       <div class="aside__wallets-menu d-flex justify-content-between flex-shrink-0">
@@ -41,9 +41,12 @@ export default {
   computed: {
     ...mapState({
       wallets: state => state.wallets.items,
+      totalBalanceFiat: state => state.user.totalBalanceFiat,
+      totalBalanceBtc: state => state.user.totalBalanceBtc,
     }),
   },
   async created() {
+    await this.$store.dispatch('fetchCurrentUser', { convert: 'usd' });
     return this.$store.dispatch('fetchWallets', { convert: 'usd' });
   },
 };

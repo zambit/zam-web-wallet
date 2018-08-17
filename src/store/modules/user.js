@@ -5,6 +5,9 @@ import api from '@/api';
 const state = {
   jwt: null,
   phone: null,
+  totalBalanceBtc: 0,
+  totalBalanceFiat: 0,
+  walletsCount: 0,
 };
 
 const CLEAR_USER = 'CLEAR_USER';
@@ -15,6 +18,26 @@ const getters = {
 };
 
 const actions = {
+  async fetchCurrentUser({ commit }, { convert }) {
+    const response = await api.wallet.getCurrentUser({ params: { convert } });
+
+    if (response.data.result) {
+      commit(SET_USER_KEY, {
+        key: 'totalBalanceBtc',
+        value: Number(response.data.data.wallets.total_balance.btc).toString(),
+      });
+      commit(SET_USER_KEY, {
+        key: 'totalBalanceFiat',
+        value: Number(response.data.data.wallets.total_balance.usd).toFixed(2),
+      });
+      commit(SET_USER_KEY, {
+        key: 'walletsCount',
+        value: response.data.data.wallets.count,
+      });
+    }
+
+    return response;
+  },
   async authCheck({ commit }) {
     const response = await api.auth.check({});
 

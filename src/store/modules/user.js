@@ -24,7 +24,7 @@ const actions = {
     if (response.data.result) {
       commit(SET_USER_KEY, {
         key: 'totalBalanceBtc',
-        value: Number(response.data.data.wallets.total_balance.btc).toString(),
+        value: Number(response.data.data.wallets.total_balance.btc).toFixed(6),
       });
       commit(SET_USER_KEY, {
         key: 'totalBalanceFiat',

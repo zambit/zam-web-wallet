@@ -68,7 +68,9 @@
               <div class="tsx-arrow"></div>
               <span class="tsx-phone mt-4">From: {{ userPhone }}</span>
               <span class="tsx-phone mt-1">To: {{ formData.phone }}</span>
-              <div class="circle mt-4"></div>
+              <div class="circle mt-4 pointer" @click="closeModal">
+                <img src="./tsx-overlay__icon__checkmark.svg" alt="">
+              </div>
             </div>
           </template>
 
@@ -78,7 +80,7 @@
               <template v-for="(error, index) in errors">
                 <span :key="index" class="tsx-phone">{{ error }}</span>
               </template>
-              <div class="circle mt-5">
+              <div class="circle mt-5 pointer" @click="closeModal">
                 <div class="close black rounded circle-close"></div>
               </div>
             </div>

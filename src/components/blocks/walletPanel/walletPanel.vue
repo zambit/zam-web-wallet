@@ -125,6 +125,7 @@ export default {
 }
 
 .wallet-panel__address {
+  width: 100%;
   font-size: .875rem;
   font-weight: 500;
   color: #ffffff;

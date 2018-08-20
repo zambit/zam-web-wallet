@@ -24,7 +24,7 @@
           <div class="mt-4 text-center">
             <div class="total-title">Total</div>
             <div class="total-amount">
-              {{ formData.amount.length > 0 ? formData.amount : '0.00' }}
+              {{ formData.amount.length > 0 ? formData.amount : '0' }}
             </div>
           </div>
           <div class="d-flex justify-content-between mt-3 fee-row">

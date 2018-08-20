@@ -118,6 +118,8 @@ export default {
     transform: translate(0, -50%);
     transition: transform .2s ease, font-size .2s ease, color .2s ease;
     transform-origin: left bottom;
+
+    user-select: none;
   }
 
   .input__root {

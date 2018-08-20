@@ -15,7 +15,7 @@
             :key="wallet.id"
             :wallet="wallet"
             class="mb-3"
-            @card="setActiveWallet($event)"
+            @card="handleActiveWallet($event)"
           />
         </template>
       </div>
@@ -37,6 +37,10 @@ export default {
     ...mapActions([
       'setActiveWallet',
     ]),
+    handleActiveWallet(e) {
+      this.setActiveWallet(e);
+      this.$emit('card', e);
+    },
   },
   computed: {
     ...mapState({

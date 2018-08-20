@@ -1,7 +1,7 @@
 <template>
-  <div class="position-relative h-100">
+  <div class="position-relative px-3 h-100">
     <div class="row justify-content-center mt-5">
-      <div class="col-12 col-lg-5">
+      <div class="col-12 col-md-8 col-lg-5">
         <form :class="['text-center', { 'blur' : showModal }]" @submit.prevent="showModal = true">
           <v-input
             :vPlaceholder="'Phone'"
@@ -17,13 +17,9 @@
             :value="formData.amount"
             :error="inputs.amount.error"
             :erroText="inputs.amount.errorText"
-            :max="wallet.balances[wallet.coin]"
-            min="0"
-            step="0.000001"
-            type="number"
             class="transaction-input mt-input no-spinners"
             required
-            @input="formData.amount = $event.target.value"
+            @input="handleAmountChange($event)"
           />
           <div class="mt-4 text-center">
             <div class="total-title">Total</div>
@@ -125,9 +121,6 @@ export default {
     vInput,
   },
   methods: {
-    submitTransactionForm() {
-      this.state = 'submit';
-    },
     async postTransaction() {
       const response = await api.wallet.transaction.send({
         data: {
@@ -144,6 +137,26 @@ export default {
         this.state = 'success';
         await this.$store.dispatch('fetchWallets', { convert: 'usd' });
       }
+    },
+    submitTransactionForm() {
+      this.state = 'submit';
+    },
+    handleAmountChange(event) {
+      const userDeletingSymbols = this.formData.amount.length > event.target.value;
+
+      if (event.target.value === '0' && !userDeletingSymbols) {
+        this.formData.amount = '0.';
+        return;
+      }
+
+      if (event.target.value === '0' && userDeletingSymbols) {
+        this.formData.amount = '';
+        return;
+      }
+
+      this.formData.amount = event.target.value;
+      const value = event.target.value.match(/[0-9.]+/) || '';
+      this.formData.amount = value.length > 0 ? value[0] : value;
     },
     closeModal() {
       this.errors = [];

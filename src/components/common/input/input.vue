@@ -104,8 +104,7 @@ export default {
 
     .input__placeholder {
       color: $cornflower;
-      font-size: 10px;
-      transform: translate(0, -150%);
+      transform: translate(0, -150%) scale(.5);
     }
   }
 
@@ -118,6 +117,7 @@ export default {
     color: #6970b2;
     transform: translate(0, -50%);
     transition: transform .2s ease, font-size .2s ease, color .2s ease;
+    transform-origin: left bottom;
   }
 
   .input__root {

@@ -8,7 +8,9 @@ const instance = api().create({
   timeout: 10000,
   maxRedirects: 3,
   responseType: 'json',
-  headers: jwt ? { Authorization: `Bearer ${jwt}` } : {},
+  headers: {
+    common: jwt ? { Authorization: `Bearer ${jwt}` } : {},
+  },
 });
 
 export default instance;

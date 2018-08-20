@@ -6,12 +6,12 @@
           <template v-for="n in 4">
             <div :key="n" class="slider-item w-100 text-center">
               <img
-                src="https://cdn.pinkvilla.com/files/styles/contentpreview/public/Scarlett%20Johansson_0.jpg"
+                src="@/assets/images/svg/zamzam-logo.svg"
                 alt=""
                 style="width: 220px; height: 220px;"
                 class="rounded-circle"
               >
-              <h2>Large Title {{ n }}</h2>
+              <h2 class="mt-2">Large Title {{ n }}</h2>
               <p>Et harum Discription quidem rerum facilis est et expedita
                 distinctiolorem ipsun</p>
             </div>

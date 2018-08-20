@@ -4,7 +4,7 @@ export default function formatBalance({ str = '', decimals = 0 }) {
   }
 
   function applyCommasToNumber(s) {
-    return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   }
 
   const [int, float] = Number(str).toString().split('.');

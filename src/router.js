@@ -12,6 +12,18 @@ const ForgotPassword = () => import(/* webpackChunkName: "pages-forgot-password"
 
 Vue.use(Router);
 
+function preventEnteringAuthRoute(to, from, next) {
+  const jwt = Cookies.get('jwt');
+
+  if (jwt) {
+    next({
+      path: '/',
+    });
+  }
+
+  next();
+}
+
 const router = new Router({
   mode: 'history',
   routes: [
@@ -22,6 +34,9 @@ const router = new Router({
       meta: {
         requiresAuth: false,
       },
+      beforeEnter: (to, from, next) => {
+        preventEnteringAuthRoute(to, from, next);
+      },
     },
     {
       path: '/sign-in',
@@ -29,6 +44,9 @@ const router = new Router({
       component: SignIn,
       meta: {
         requiresAuth: false,
+      },
+      beforeEnter: (to, from, next) => {
+        preventEnteringAuthRoute(to, from, next);
       },
     },
     {
@@ -38,6 +56,9 @@ const router = new Router({
       meta: {
         requiresAuth: false,
       },
+      beforeEnter: (to, from, next) => {
+        preventEnteringAuthRoute(to, from, next);
+      },
     },
     {
       path: '/forgot-password',
@@ -45,6 +66,9 @@ const router = new Router({
       component: ForgotPassword,
       meta: {
         requiresAuth: false,
+      },
+      beforeEnter: (to, from, next) => {
+        preventEnteringAuthRoute(to, from, next);
       },
     },
     {

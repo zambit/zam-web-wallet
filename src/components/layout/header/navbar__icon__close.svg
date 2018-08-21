@@ -1,0 +1,20 @@
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M0.548226062,1.96243962 L14.0303954,15.4446089 C14.6031643,16.0173779 15.3840678,16.1651164 15.7745921,15.7745921 C16.1651164,15.3840678 16.0173779,14.6031643 15.4446089,14.0303954 L1.96243962,0.548226062 C1.38967066,-0.0245428996 0.608767189,-0.172281395 0.218242897,0.218242897 C-0.172281395,0.608767189 -0.0245428996,1.38967066 0.548226062,1.96243962 Z" id="path-1"></path>
+        <path d="M0.548226062,1.96243962 L14.0303954,15.4446089 C14.6031643,16.0173779 15.3840678,16.1651164 15.7745921,15.7745921 C16.1651164,15.3840678 16.0173779,14.6031643 15.4446089,14.0303954 L1.96243962,0.548226062 C1.38967066,-0.0245428996 0.608767189,-0.172281395 0.218242897,0.218242897 C-0.172281395,0.608767189 -0.0245428996,1.38967066 0.548226062,1.96243962 Z" id="path-3"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Registration-08-success-Copy-6" transform="translate(-25.000000, -22.000000)">
+            <g id="Group" transform="translate(25.000000, 22.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Combined-Shape" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <use id="Combined-Shape-Copy" fill="#000000" fill-rule="nonzero" transform="translate(7.996417, 7.996417) rotate(-270.000000) translate(-7.996417, -7.996417) " xlink:href="#path-3"></use>
+            </g>
+        </g>
+    </g>
+</svg>

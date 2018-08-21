@@ -1,11 +1,11 @@
 <template>
   <div id="main">
     <layout-header />
-    <div class="d-flex h-100">
-      <layout-aside class="layout-aside h-100" ref="layoutAside" @card="slide" />
+    <div class="d-flex h-100" ref="layoutWrapper">
+      <layout-aside class="layout-aside h-100" ref="layoutAside" @card="toggleSlide" />
       <div class="layout-content d-flex flex-column w-100" ref="layoutContent">
         <wallet-panel :wallet="activeWallet" />
-        <transaction-form />
+        <transaction-form @show-cards="toggleSlide" />
       </div>
     </div>
   </div>
@@ -33,10 +33,12 @@ export default {
     transactionForm,
   },
   methods: {
-    slide() {
-      console.log(this.$refs.layoutContent);
-      this.$refs.layoutContent.style.transform = 'translate(-100%)';
-      this.$refs.layoutAside.$el.style.transform = 'translate(-100%)';
+    toggleSlide() {
+      document.querySelector('.tsx-root').scrollTo(0, 0);
+      if (this.$refs.layoutWrapper.classList.contains('layout-slide-mobile')) {
+        return this.$refs.layoutWrapper.classList.remove('layout-slide-mobile');
+      }
+      return this.$refs.layoutWrapper.classList.add('layout-slide-mobile');
     },
   },
   computed: {
@@ -64,20 +66,31 @@ html, body {
   flex-direction: column;
   height: 100vh;
   color: black;
+  overflow: hidden;
 }
 
-/*.layout-aside {*/
-  /*@include media-breakpoint-down(md) {*/
-    /*width: 100%;*/
-  /*}*/
-/*}*/
-/**/
-/*.layout-content {*/
-  /*@include media-breakpoint-down(md) {*/
-    /*transform: translateX(100%);*/
-  /*}*/
-  /**/
-  /*&.layout-content--active {*/
-  /*}*/
-/*}*/
+.layout-aside {
+  transition: transform .2s ease;
+
+  @include media-breakpoint-down(md) {
+    width: 100vw;
+  }
+}
+
+.layout-content {
+  @include media-breakpoint-down(md) {
+    min-width: 100vw !important;
+    transition: transform .2s ease;
+    transform: translateX(100%);
+  }
+}
+
+.layout-slide-mobile {
+  @include media-breakpoint-down(md) {
+    .layout-aside,
+    .layout-content {
+      transform: translate(-100%, 0);
+    }
+  }
+}
 </style>

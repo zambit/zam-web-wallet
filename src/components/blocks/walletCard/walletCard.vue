@@ -16,10 +16,10 @@
               </div>
             </div>
             <div class="row align-items-center mt-1">
-              <div class="col-8">
+              <div class="col-7">
                 <span class="wallet-card__phone mt-2">{{ phone }}</span>
               </div>
-              <div class="col-4">
+              <div class="col-5">
                 <span class="wallet-card__fiat-balance d-block">
                   {{ balanceInFiat }}
                 </span>
@@ -96,7 +96,7 @@ export default {
           decimals: 6,
         });
       }
-      return '0.00';
+      return '0';
     },
     balanceInFiat() {
       if (this.wallet.balances.usd) {
@@ -105,7 +105,7 @@ export default {
           decimals: 2,
         });
       }
-      return `${this.fiats.USD.sign}0.00`;
+      return `${this.fiats.USD.sign}0`;
     },
   },
 };

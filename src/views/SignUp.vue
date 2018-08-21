@@ -305,6 +305,10 @@ export default {
   font-size: 20px;
   font-weight: bold;
   line-height: 1;
+
+  &:hover {
+    box-shadow: 0 6px 16px -8px $cornflower;
+  }
 }
 
 .btn-send-code {

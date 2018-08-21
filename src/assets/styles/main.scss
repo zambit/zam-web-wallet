@@ -90,3 +90,17 @@ html, body {
 .pointer {
   cursor: pointer;
 }
+
+// For Google Chrome
+::-webkit-scrollbar {
+  width:  6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #454e8d;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative px-3 h-100">
+  <div class="tsx-root position-relative px-3 h-100">
     <div class="row justify-content-center mt-5">
       <div class="col-12 col-md-8 col-lg-5">
         <form :class="['text-center', { 'blur' : showModal }]" @submit.prevent="showModal = true">
@@ -28,12 +28,20 @@
             </div>
           </div>
           <div class="d-flex justify-content-between mt-3 fee-row">
-            <span class="py-3 total-fee">blockchain fee: $0.00</span>
-            <span class="py-3 total-fee">zamzam fee: $0.00</span>
+            <span class="py-3 total-fee">blockchain fee: $0</span>
+            <span class="py-3 total-fee">zamzam fee: $0</span>
           </div>
-          <button type="submit" class="btn btn-submit mt-4" @click="state = 'submit'">
-            Send
-          </button>
+          <div class="d-flex flex-column align-items-center pb-2">
+            <button type="submit" class="btn btn-submit mt-4" @click="state = 'submit'">
+              Send
+            </button>
+            <button
+              type="button"
+              class="btn btn-link text-uppercase mt-3 d-lg-none"
+              @click="$emit('show-cards')"
+            >Go back
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -290,7 +298,6 @@ $red: #ed9aa2;
   line-height: 1;
   font-weight: normal;
   color: white;
-
   margin-top: 30px;
 }
 
@@ -347,5 +354,10 @@ $red: #ed9aa2;
 
 .blur {
   filter: blur(5px);
+}
+
+.tsx-root {
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 </style>

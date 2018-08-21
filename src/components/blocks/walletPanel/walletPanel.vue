@@ -3,11 +3,18 @@
     <div class="row">
       <div class="col-6">
         <div class="d-flex align-items-center">
-          <img :src="require(`./${coinIconSrc}`)" class="wallet-panel__icon" alt="">
+          <img
+            :src="require(`./${coinIconSrc}`)" class="wallet-panel__icon d-none d-lg-block"
+            alt=""
+          >
           <div class="d-flex flex-column">
-            <h3 class="wallet-panel__name mb-0">{{ wallet.wallet_name }}</h3>
-            <span class="wallet-panel__phone">{{ phone }}</span>
             <div class="d-flex align-items-center">
+              <h3 class="wallet-panel__name mb-0">{{ wallet.wallet_name }}</h3>
+              <img :src="require(`./${coinIconSrc}`)"
+                class="wallet-panel__icon wallet-panel__icon--small d-lg-none" alt="">
+            </div>
+            <span class="wallet-panel__phone">{{ phone }}</span>
+            <div class="d-flex align-items-center mt-4 mt-lg-0">
               <span class="wallet-panel__address">{{ wallet.address }}</span>
               <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
                 <img src="./wallet-panel__icon__copy.svg" alt="">
@@ -18,10 +25,10 @@
       </div>
       <div class="col-6">
         <div class="d-flex flex-column">
-          <span class="wallet-panel__balance">
+          <span class="wallet-panel__balance text-right text-lg-left">
             {{ balanceInCoins }}
           </span>
-          <span class="wallet-panel__fiat-balance">
+          <span class="wallet-panel__fiat-balance text-right text-lg-left">
             {{ balanceInFiat }}
           </span>
           <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
@@ -89,7 +96,7 @@ export default {
           decimals: 6,
         });
       }
-      return '0.00';
+      return '0';
     },
     balanceInFiat() {
       if (this.wallet.balances.usd) {
@@ -98,16 +105,22 @@ export default {
           decimals: 2,
         });
       }
-      return `${this.fiats.USD.sign}0.00`;
+      return `${this.fiats.USD.sign}0`;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/styles/_settings.scss";
+
 .wallet-panel {
   padding: 22px 12px 28px 28px;
   background-image: linear-gradient(to left, #454e8e, #212655);
+
+  @include media-breakpoint-down(md) {
+    padding: 22px;
+  }
 }
 
 .wallet-panel__name {
@@ -122,6 +135,12 @@ export default {
   font-weight: 500;
   color: #888aa7;
   margin-top: 10px;
+
+  @include media-breakpoint-down(md) {
+    font-size: 1rem;
+
+    margin-top: 0;
+  }
 }
 
 .wallet-panel__address {
@@ -129,6 +148,12 @@ export default {
   font-size: .875rem;
   font-weight: 500;
   color: #ffffff;
+
+  @include media-breakpoint-down(md) {
+    width: 60%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .wallet-panel__balance {
@@ -136,6 +161,11 @@ export default {
   line-height: 1;
   font-weight: bold;
   color: #ffffff;
+
+  @include media-breakpoint-down(md) {
+    font-size: 1.125rem;
+    line-height: inherit;
+  }
 }
 
 .wallet-panel__icon {
@@ -145,8 +175,19 @@ export default {
   margin-right: 35px;
 }
 
+.wallet-panel__icon--small {
+  width: 26px;
+  height: 26px;
+
+  margin-left: 9px;
+}
+
 .wallet-panel__fiat-balance {
   font-size: 1.125rem;
   color: #ffffff;
+
+  @include media-breakpoint-down(md) {
+    font-size: 1rem;
+  }
 }
 </style>

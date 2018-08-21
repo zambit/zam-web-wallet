@@ -5,17 +5,15 @@
         <div class="col-12 col-lg-auto">
           <div class="nav__aside">
             <div class="d-flex align-items-center">
-              <div class="d-lg-none">
-                <button type="button" class="btn btn-link">
-                  <img
-                    src="./navbar__icon__burger.svg" alt="burger button"
-                    @click="toggleNavBar"
-                  >
-                </button>
-              </div>
-              <div class="d-none d-lg-block">
-                <img src="./navbar__icon__user.svg" alt="current user icon">
-              </div>
+              <button
+                type="button"
+                :class="['nav__btn d-lg-none', { 'nav__btn--close' : showMobileNav } ]"
+                @click="toggleNavBar"
+              ></button>
+              <img
+                class="d-none d-lg-block"
+                src="./navbar__icon__user.svg" alt="current user icon"
+              >
               <span class="nav__username mx-1 mx-lg-4">{{ phone }}</span>
             </div>
             <router-link to="/settings" style="visibility: hidden">
@@ -41,27 +39,25 @@
           </div>
         </div>
       </div>
-      <transition appear name="nav-mobile">
-        <div v-if="showMobileNav" class="nav-mobile">
-          <div class="d-flex flex-column align-items-center pt-5">
-            <img class="nav__logo" src="./zamzam-logo.svg">
-            <ul class="nav__list flex-column list-unstyled text-center mb-0 mt-5 px-0">
-              <li class="nav__list-item px-4">
-                <router-link to="">Home</router-link>
-              </li>
-              <li class="nav__list-item px-4 mt-3">
-                <router-link to="">History</router-link>
-              </li>
-              <li class="nav__list-item px-4 mt-3">
-                <router-link to="">More</router-link>
-              </li>
-            </ul>
-            <div class="nav-mobile__sign-out-btn mt-5 pointer" @click="handleSignOut">
-              <img src="./navbar__icon__log-out.svg" alt="">
-            </div>
+      <div :class="['nav-mobile', { 'nav-mobile--show' : showMobileNav } ]">
+        <div class="d-flex flex-column align-items-center pt-5">
+          <img class="nav__logo" src="./zamzam-logo.svg">
+          <ul class="nav__list flex-column list-unstyled text-center mb-0 mt-5 px-0">
+            <li class="nav__list-item px-4">
+              <router-link to="">Home</router-link>
+            </li>
+            <li class="nav__list-item px-4 mt-3">
+              <router-link to="">History</router-link>
+            </li>
+            <li class="nav__list-item px-4 mt-3">
+              <router-link to="">More</router-link>
+            </li>
+          </ul>
+          <div class="nav-mobile__sign-out-btn mt-5 pointer" @click="handleSignOut">
+            <img src="./navbar__icon__log-out.svg" alt="">
           </div>
         </div>
-      </transition>
+      </div>
     </nav>
   </div>
 </template>
@@ -175,6 +171,12 @@ export default {
 .nav-mobile {
   height: calc(100vh - 60px);
   background: white;
+  transform: translate(-100%, 0);
+  transition: transform .2s ease;
+
+  &.nav-mobile--show {
+    transform: translate(0, 0);
+  }
 }
 
 .nav-mobile__sign-out-btn {
@@ -185,8 +187,28 @@ export default {
 .nav-mobile-enter-active, .nav-mobile-leave-active {
   transition: opacity .5s ease, transform .5s ease;
 }
+
 .nav-mobile-enter, .nav-mobile-leave-to {
   opacity: 0;
-  transform: translate(0, -100%);
+  transform: translate(-100%, 0);
+}
+
+.nav__btn {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  background-image: url("./navbar__icon__burger.svg");
+
+  &.nav__btn--close {
+    background-image: url("./navbar__icon__close.svg");
+  }
 }
 </style>

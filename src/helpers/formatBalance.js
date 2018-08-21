@@ -10,11 +10,13 @@ export default function formatBalance({ str = '', decimals = 0 }) {
   const [int, float] = Number(str).toString().split('.');
   const roundToFixed = float && float.length > decimals;
 
-  if (decimals) {
-    return roundToFixed ?
-      `${applyCommasToNumber(int)}.${float.slice(0, decimals)}` :
-      `${applyCommasToNumber(int)}.${float}`;
+  switch (true) {
+    case (!float):
+    default:
+      return `${applyCommasToNumber(int)}`;
+    case (decimals && roundToFixed):
+      return `${applyCommasToNumber(int)}.${float.slice(0, decimals)}`;
+    case (decimals && !roundToFixed):
+      return `${applyCommasToNumber(int)}.${float}`;
   }
-
-  return `${applyCommasToNumber(str)}.${float}`;
 }

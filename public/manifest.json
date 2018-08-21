@@ -1,6 +1,6 @@
 {
   "name": "Zam Wallet",
-  "short_name": "Zam Wallet",
+  "short_name": "Wallet",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "/index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0e1145",
   "theme_color": "#0e1145"

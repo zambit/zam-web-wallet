@@ -1,5 +1,5 @@
 <template>
-  <div class="tsx-root position-relative px-3 h-100">
+  <div class="tsx-root position-relative px-3">
     <div class="row justify-content-center mt-5">
       <div class="col-12 col-md-8 col-lg-5">
         <form :class="['text-center', { 'blur' : showModal }]" @submit.prevent="showModal = true">
@@ -361,7 +361,5 @@ $red: #ed9aa2;
 }
 
 .tsx-root {
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 </style>

@@ -78,6 +78,9 @@ html, body {
 }
 
 .layout-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+
   @include media-breakpoint-down(md) {
     min-width: 100vw !important;
     transition: transform .2s ease;

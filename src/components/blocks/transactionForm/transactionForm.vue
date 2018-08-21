@@ -32,7 +32,7 @@
             <span class="py-3 total-fee">zamzam fee: $0</span>
           </div>
           <div class="d-flex flex-column align-items-center pb-2">
-            <button type="submit" class="btn btn-submit mt-4" @click="state = 'submit'">
+            <button type="submit" class="btn btn-submit mt-4 mt-lg-3" @click="state = 'submit'">
               Send
             </button>
             <button
@@ -46,7 +46,7 @@
       </div>
     </div>
     <transition appear name="fade">
-      <div v-if="showModal" class="tsx-overlay h-100">
+      <div v-if="showModal" class="tsx-overlay">
         <div class="tsx-wrap">
           <div class="close rounded thick tsx-overlay__close-btn pointer" @click="closeModal"></div>
           <template v-if="state === 'submit'">
@@ -270,6 +270,10 @@ $red: #ed9aa2;
   display: flex;
   flex-direction: column;
   padding: 38px 72px;
+
+  @include media-breakpoint-down(md) {
+    padding: 20px;
+  }
 }
 
 .circle {
@@ -358,6 +362,6 @@ $red: #ed9aa2;
 
 .tsx-root {
   overflow-x: hidden;
-  overflow-y: visible;
+  overflow-y: auto;
 }
 </style>

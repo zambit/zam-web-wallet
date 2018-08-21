@@ -1,7 +1,7 @@
 <template>
   <div class="wallet-panel">
     <div class="row">
-      <div class="col-6">
+      <div class="col-7 col-lg-6">
         <div class="d-flex align-items-center">
           <img
             :src="require(`./${coinIconSrc}`)" class="wallet-panel__icon d-none d-lg-block"
@@ -14,7 +14,7 @@
                 class="wallet-panel__icon wallet-panel__icon--small d-lg-none" alt="">
             </div>
             <span class="wallet-panel__phone">{{ phone }}</span>
-            <div class="d-flex align-items-center mt-4 mt-lg-0">
+            <div class="d-none d-lg-flex align-items-center">
               <span class="wallet-panel__address">{{ wallet.address }}</span>
               <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
                 <img src="./wallet-panel__icon__copy.svg" alt="">
@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-5 col-lg-6">
         <div class="d-flex flex-column">
           <span class="wallet-panel__balance text-right text-lg-left">
             {{ balanceInCoins }}
@@ -32,6 +32,16 @@
             {{ balanceInFiat }}
           </span>
           <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
+        </div>
+      </div>
+    </div>
+    <div class="row d-lg-none">
+      <div class="col-12">
+        <div class="d-flex align-items-center mt-4 mt-lg-0">
+          <span class="wallet-panel__address w-100">{{ wallet.address }}</span>
+          <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
+            <img src="./wallet-panel__icon__copy.svg" alt="">
+          </button>
         </div>
       </div>
     </div>
@@ -180,6 +190,7 @@ export default {
   height: 26px;
 
   margin-left: 9px;
+  margin-right: 0;
 }
 
 .wallet-panel__fiat-balance {

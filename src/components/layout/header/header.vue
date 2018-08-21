@@ -86,11 +86,20 @@ export default {
     toggleNavBar() {
       this.showMobileNav = !this.showMobileNav;
     },
+    closeNavBar() {
+      this.showMobileNav = false;
+    },
   },
   computed: {
     ...mapState({
       phone: state => state.user.phone,
     }),
+  },
+  mounted() {
+    window.addEventListener('resize', this.closeNavBar);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.closeNavBar);
   },
 };
 </script>

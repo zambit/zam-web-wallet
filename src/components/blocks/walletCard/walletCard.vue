@@ -6,10 +6,10 @@
           <img :src="require(`./${coinIconSrc}`)" class="wallet-card__icon" alt="">
           <div class="w-100">
             <div class="row align-items-center">
-              <div class="col-8">
+              <div class="col-7 col-lg-8">
                 <span class="wallet-card__name">{{ wallet.wallet_name }}</span>
               </div>
-              <div class="col-4">
+              <div class="col-5 col-lg-4">
                 <span class="wallet-card__balance d-block">
                   {{ balanceInCoins }}
                 </span>

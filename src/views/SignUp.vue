@@ -86,7 +86,10 @@
               </v-checkbox>
             </div>
             <div class="col-12 text-center">
-              <button type="submit" class="btn btn-reg mt-input mx-auto">
+              <button
+                type="submit"
+                :class="['btn btn-reg mt-input mx-auto', { 'animation' : submitButtonDisabled }]"
+              >
                 {{ submitButtonTexts[step] }}
               </button>
               <p class="mt-5">
@@ -117,6 +120,7 @@ export default {
     return {
       date: null,
       timer: 59,
+      submitButtonDisabled: false,
       timerUpdateInterval: 0,
       submitButtonTexts: [
         'Send SMS',
@@ -186,7 +190,7 @@ export default {
           break;
       }
 
-      if (result) {
+      if (result && this.step < 2) {
         this.step += 1;
       }
     },
@@ -265,7 +269,12 @@ export default {
       Cookies.remove('signup_token');
       window.localStorage.setItem('visited', '1');
 
-      this.$router.push('/');
+      this.submitButtonDisabled = true;
+
+      setTimeout(() => {
+        this.submitButtonDisabled = false;
+        this.$router.push('/');
+      }, 2000);
 
       return true;
     },
@@ -307,6 +316,23 @@ export default {
   line-height: 1;
 
   &:hover {
+    box-shadow: 0 6px 16px -8px $cornflower;
+  }
+
+  &.animation {
+    color: #3a4994;
+    background: #aeaeae;
+    cursor: not-allowed;
+    animation: box-shadow 1s ease infinite;
+  }
+}
+
+@keyframes box-shadow {
+  0% {
+    box-shadow: 0 4px 30px 0 rgba(0, 170, 219, 0.4);
+  }
+
+  100% {
     box-shadow: 0 6px 16px -8px $cornflower;
   }
 }

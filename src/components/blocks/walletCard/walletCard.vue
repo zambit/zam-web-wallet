@@ -33,17 +33,23 @@
       <div class="col-6 text-center">
         <button
           type="button"
-          class="btn btn-link wallet-card__button wallet-card__button--send"
+          class="btn btn-link wallet-card__button"
         >
           Send
+          <svg class="wallet-card__icon-arrow">
+            <use xlink:href="#wallet-card__icon__arrow-up--blue"></use>
+          </svg>
         </button>
       </div>
       <div class="col-6 text-center">
         <button
           type="button"
-          class="btn btn-link wallet-card__button wallet-card__button--deposit"
+          class="btn btn-link wallet-card__button"
         >
           Deposit
+          <svg class="wallet-card__icon-arrow">
+            <use xlink:href="#wallet-card__icon__arrow-down--green"></use>
+          </svg>
         </button>
       </div>
     </div>
@@ -59,6 +65,8 @@ import './icon__bitcoin-cash.svg';
 import './icon__bitcoin.svg';
 import './icon__ethereum.svg';
 import './icon__zam.svg';
+import './wallet-card__icon__arrow-down--green.svg';
+import './wallet-card__icon__arrow-up--blue.svg';
 
 export default {
   name: 'wallet-card',
@@ -165,25 +173,13 @@ export default {
   font-weight: 500;
   letter-spacing: -0.5px;
   color: #888aa7;
+}
 
-  &::after {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-left: .5rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: auto;
-  }
+.wallet-card__icon-arrow {
+  width: 16px;
+  height: 16px;
 
-  &.wallet-card__button--send::after {
-    background-image: url("./wallet-card__icon__arrow-down--blue.svg");
-  }
-
-  &.wallet-card__button--deposit::after {
-    background-image: url("./wallet-card__icon__arrow-up--green.svg");
-  }
+  margin-left: 8px;
 }
 
 .wallet-card__icon {

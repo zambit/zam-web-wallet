@@ -16,7 +16,12 @@
             <span class="wallet-panel__phone">{{ phone }}</span>
             <div class="d-none d-lg-flex align-items-center">
               <span class="wallet-panel__address">{{ wallet.address }}</span>
-              <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
+              <button
+                class="btn btn-link pointer p-0 ml-3"
+                type="button"
+                title="Copy address to clipboard"
+                @click="copyAddressToClipboard"
+              >
                 <svg class="wallet-panel__icon-copy">
                   <use xlink:href="#wallet-panel__icon__copy"></use>
                 </svg>
@@ -194,6 +199,15 @@ export default {
 .wallet-panel__icon-copy {
   width: 24px;
   height: 24px;
+
+  fill: white;
+
+  transition: transform .2s ease, fill .2s ease;
+
+  &:active {
+    transform: scale(.5);
+    fill: $lightish-green;
+  }
 }
 
 .wallet-panel__icon--small {

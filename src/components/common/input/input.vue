@@ -120,6 +120,10 @@ export default {
     transform-origin: left bottom;
 
     user-select: none;
+    
+    &:hover {
+      cursor: text;
+    }
   }
 
   .input__root {

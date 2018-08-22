@@ -145,6 +145,8 @@ export default {
 .nav__aside {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
   height: 100%;
   width: 420px;
   padding: 0 45px;
@@ -154,8 +156,6 @@ export default {
     width: 100%;
     padding: 18px 24px;
     border-right: 0;
-
-    justify-content: space-between;
   }
 }
 

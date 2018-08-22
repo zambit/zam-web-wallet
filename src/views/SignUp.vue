@@ -2,7 +2,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
-        <img class="logo my-5" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
+        <svg class="logo my-5">
+          <use xlink:href="#zamzam-logo"></use>
+        </svg>
       </div>
     </div>
     <form @submit.prevent="handleFormSubmit($event)">
@@ -113,6 +115,8 @@ import api from '@/api';
 import phoneInput from '@/components/blocks/phoneInput';
 import vCheckbox from '@/components/common/checkbox';
 import VInput from '@/components/common/input';
+
+import '@/assets/images/svg/zamzam-logo.svg';
 
 export default {
   name: 'sign-up-page',

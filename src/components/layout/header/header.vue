@@ -9,39 +9,54 @@
                 type="button"
                 :class="['nav__btn d-lg-none', { 'nav__btn--close' : showMobileNav } ]"
                 @click="toggleNavBar"
-              ></button>
-              <img
-                class="d-none d-lg-block"
-                src="./navbar__icon__user.svg" alt="current user icon"
               >
+                <svg :class="showMobileNav ? 'nav__icon-close' : 'nav__icon-burger'">
+                  <use
+                    :xlink:href="showMobileNav ? '#navbar__icon__close' : '#navbar__icon__burger'"
+                  ></use>
+                </svg>
+              </button>
+              <svg class="d-none d-lg-block nav__icon-user">
+                <use xlink:href="#navbar__icon__user"></use>
+              </svg>
               <span class="nav__username mx-1 mx-lg-4">{{ phone }}</span>
             </div>
-            <router-link to="/settings" style="visibility: hidden">
-              <img src="./navbar__icon__settings.svg" alt="">
+            <router-link to="/settings">
+              <svg class="nav__icon-settings">
+                <use xlink:href="#navbar__icon__settings"></use>
+              </svg>
             </router-link>
           </div>
         </div>
         <div class="d-none d-lg-block col-lg-auto flex-grow-1">
           <div class="nav__menu">
-            <img class="nav__logo" src="./zamzam-logo.svg">
-            <ul class="nav__list mb-0">
-              <!--<li class="nav__list-item px-4">-->
-              <!--<router-link to="">Home</router-link>-->
-              <!--</li>-->
-              <!--<li class="nav__list-item px-4">-->
-              <!--<router-link to="">History</router-link>-->
-              <!--</li>-->
-              <!--<li class="nav__list-item px-4">-->
-              <!--<router-link to="">More</router-link>-->
-              <!--</li>-->
+            <svg class="nav__logo">
+              <use xlink:href="#zamzam-logo"></use>
+            </svg>
+            <ul class="nav__list list-unstyled mb-0">
+              <li class="nav__list-item px-4">
+                <router-link to="">Home</router-link>
+              </li>
+              <li class="nav__list-item px-4">
+                <router-link to="">History</router-link>
+              </li>
+              <li class="nav__list-item px-4">
+                <router-link to="">More</router-link>
+              </li>
             </ul>
-            <div class="nav__sign-out" @click="handleSignOut"></div>
+            <div class="nav__sign-out" @click="handleSignOut">
+              <svg class="nav__icon-sign-out">
+                <use xlink:href="#navbar__icon__log-out"></use>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
       <div :class="['nav-mobile', { 'nav-mobile--show' : showMobileNav } ]">
         <div class="d-flex flex-column align-items-center pt-5">
-          <img class="nav__logo" src="./zamzam-logo.svg">
+          <svg class="nav__logo">
+            <use xlink:href="#zamzam-logo"></use>
+          </svg>
           <ul class="nav__list flex-column list-unstyled text-center mb-0 mt-5 px-0">
             <li class="nav__list-item px-4">
               <router-link to="">Home</router-link>
@@ -54,7 +69,9 @@
             </li>
           </ul>
           <div class="nav-mobile__sign-out-btn mt-5 pointer" @click="handleSignOut">
-            <img src="./navbar__icon__log-out.svg" alt="">
+            <svg class="nav__icon-sign-out">
+              <use xlink:href="#navbar__icon__log-out"></use>
+            </svg>
           </div>
         </div>
       </div>
@@ -64,6 +81,13 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+
+import '@/assets/images/svg/zamzam-logo.svg';
+import './navbar__icon__user.svg';
+import './navbar__icon__settings.svg';
+import './navbar__icon__log-out.svg';
+import './navbar__icon__burger.svg';
+import './navbar__icon__close.svg';
 
 export default {
   name: 'layout-header',
@@ -122,19 +146,22 @@ export default {
   display: flex;
   align-items: center;
   height: 100%;
+  width: 420px;
   padding: 0 45px;
   border-right: 2px solid #efefef;
 
   @include media-breakpoint-down(md) {
+    width: 100%;
     padding: 18px 24px;
     border-right: 0;
+
+    justify-content: space-between;
   }
 }
 
 .nav__username {
   font-size: 18px;
   font-weight: 500;
-  width: 232px;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #666666;
@@ -164,16 +191,17 @@ export default {
 }
 
 .nav__sign-out {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 90px;
   height: 100%; // equals width
 
   margin-left: auto;
   border-left: 2px solid #efefef;
   background-color: transparent;
-  background-image: url("./navbar__icon__log-out.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: auto;
+
   cursor: pointer;
 }
 
@@ -203,21 +231,46 @@ export default {
 }
 
 .nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 24px;
   height: 24px;
+
+  padding: 0;
+  margin-right: 24px;
+
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0;
-  margin-right: 24px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto;
-  background-image: url("./navbar__icon__burger.svg");
+}
 
-  &.nav__btn--close {
-    background-image: url("./navbar__icon__close.svg");
-  }
+.nav__icon-burger {
+  width: 24px;
+  height: 24px;
+}
+
+.nav__icon-close {
+  width: 16px;
+  height: 16px;
+}
+
+.nav__icon-user {
+  width: 30px;
+  height: 30px;
+  fill: #c5c5c5;
+}
+
+.nav__icon-settings {
+  width: 24px;
+  height: 24px;
+}
+
+.nav__icon-sign-out {
+  width: 24px;
+  height: 24px;
+  fill: #c5c5c5;
 }
 </style>

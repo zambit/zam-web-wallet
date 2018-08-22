@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-12">
         <div class="d-flex">
-          <img :src="require(`./${coinIconSrc}`)" class="wallet-card__icon" alt="">
+          <svg class="wallet-card__icon">
+            <use :xlink:href="coinIconSrc"></use>
+          </svg>
           <div class="w-100">
             <div class="row align-items-center">
               <div class="col-7 col-lg-8">
@@ -53,6 +55,11 @@ import { mapState } from 'vuex';
 
 import { formatBalance } from '@/helpers';
 
+import './icon__bitcoin-cash.svg';
+import './icon__bitcoin.svg';
+import './icon__ethereum.svg';
+import './icon__zam.svg';
+
 export default {
   name: 'wallet-card',
   props: {
@@ -78,14 +85,14 @@ export default {
     coinIconSrc() {
       switch (true) {
         case (this.wallet.coin === 'bch'):
-          return 'icon__bitcoin-cash.svg';
+          return '#icon__bitcoin-cash';
         case (this.wallet.coin === 'btc'):
-          return 'icon__bitcoin.svg';
+          return '#icon__bitcoin';
         case (this.wallet.coin === 'eth'):
-          return 'icon__ethereum.svg';
+          return '#icon__ethereum';
         case (this.wallet.coin === 'zam'):
         default:
-          return 'icon__zam.svg';
+          return '#icon__zam';
       }
     },
 

@@ -1,17 +1,60 @@
 <template>
-  <div class="tsx-root position-relative px-3 h-100">
-    <div class="row justify-content-center mt-5">
-      <div class="col-12 col-md-8 col-lg-5">
-        <form :class="['text-center', { 'blur' : showModal }]" @submit.prevent="showModal = true">
-          <v-input
-            :vPlaceholder="'Phone'"
-            :value="formData.phone"
-            :error="inputs.phone.error"
-            :erroText="inputs.phone.errorText"
-            class="transaction-input phone-input"
-            required
-            @input="formData.phone = $event.target.value"
-          />
+  <div class="tsx-root position-relative px-3">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-8 col-xl-5">
+        <div class="d-flex justify-content-center mt-5">
+          <button
+            type="button"
+            :class="['btn btn-tsx-switch', { 'btn-tsx-switch--active' : sendBy === 'phone' }]"
+            @click="sendBy = 'phone'"
+          >
+            <svg class="tsx-icon-phone mr-2">
+              <use xlink:href="#tsx-form__icon__phone"></use>
+            </svg>
+            Phone
+          </button>
+          <button
+            type="button"
+            :class="['btn btn-tsx-switch ml-3', { 'btn-tsx-switch--active' : sendBy === 'address'
+             }]"
+            @click="sendBy = 'address'"
+          >
+            <svg class="tsx-icon-chain mr-2">
+              <use xlink:href="#tsx-form__icon__chain"></use>
+            </svg>
+            Address
+          </button>
+        </div>
+        <form :class="['text-center mt-5', { 'blur' : showModal }]" @submit.prevent="showModal =
+        true">
+          <transition
+            appear
+            name="swap-slide"
+            mode="out-in"
+          >
+            <v-input
+              v-if="sendBy === 'phone'"
+              :vPlaceholder="'Phone'"
+              :value="formData.phone"
+              :error="inputs.phone.error"
+              :erroText="inputs.phone.errorText"
+              :key="'phone'"
+              class="transaction-input phone-input"
+              required
+              @input="formData.phone = $event.target.value"
+            />
+            <v-input
+              v-else
+              :vPlaceholder="'Address'"
+              :value="formData.address"
+              :error="inputs.address.error"
+              :erroText="inputs.address.errorText"
+              :key="'address'"
+              class="transaction-input phone-input"
+              required
+              @input="formData.address = $event.target.value"
+            />
+          </transition>
           <v-input
             :vPlaceholder="`Amount in ${wallet.coin}`"
             :value="formData.amount"
@@ -73,7 +116,9 @@
               <span class="tsx-phone mt-4">From: {{ userPhone }}</span>
               <span class="tsx-phone mt-1">To: {{ formData.phone }}</span>
               <div class="circle mt-4 pointer" @click="closeModal">
-                <img src="./tsx-overlay__icon__checkmark.svg" alt="">
+                <svg class="">
+                  <use xlink:href="#tsx-overlay__icon__checkmark"></use>
+                </svg>
               </div>
             </div>
           </template>
@@ -102,16 +147,22 @@ import { mapGetters, mapState } from 'vuex';
 import api from '@/api';
 import vInput from '@/components/common/input';
 
+import './tsx-form__icon__phone.svg';
+import './tsx-form__icon__chain.svg';
+import './tsx-overlay__icon__checkmark.svg';
+
 export default {
   name: 'transaction-form',
   data() {
     return {
       showModal: false,
+      sendBy: 'phone', // 'phone' or 'address'
       state: 'init', // 'submit', 'success', 'failure'
       errors: [],
       formData: {
         phone: '',
         amount: '',
+        address: '',
       },
       inputs: {
         phone: {
@@ -119,6 +170,10 @@ export default {
           errorText: '',
         },
         amount: {
+          error: false,
+          errorText: '',
+        },
+        address: {
           error: false,
           errorText: '',
         },
@@ -172,6 +227,7 @@ export default {
       this.showModal = false;
       this.formData.phone = '';
       this.formData.amount = '';
+      this.formData.address = '';
     },
   },
   computed: {
@@ -361,5 +417,48 @@ $red: #ed9aa2;
 }
 
 .tsx-root {
+  flex-grow: 1;
+}
+
+.btn-tsx-switch {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 12px 20px;
+  background: transparent;
+  font-size: .875rem;
+  font-weight: 500;
+  color: #888aa7;
+  transition: background .2s ease;
+
+  border-radius: 56px;
+
+  &.btn-tsx-switch--active {
+    background: #8de37f;
+    color: white;
+
+    .tsx-icon-phone,
+    .tsx-icon-chain {
+      fill: white;
+    }
+  }
+
+  .tsx-icon-phone,
+  .tsx-icon-chain {
+    fill: #8de37f;
+  }
+}
+
+.tsx-icon-phone,
+.tsx-icon-chain {
+  width: 22px;
+  height: 22px;
+
+  transition: fill .2s ease;
+}
+
+.tsx-icon-checkmark {
+  width: 49px;
+  height: 42px;
 }
 </style>

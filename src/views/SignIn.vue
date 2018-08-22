@@ -2,7 +2,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 text-center">
-        <img class="logo my-5" src="@/assets/images/svg/zamzam-logo.svg" alt="ZamTech Logo">
+        <svg class="logo my-5">
+          <use xlink:href="#zamzam-logo"></use>
+        </svg>
       </div>
       <div class="col-12 col-sm-9 col-md-7 col-lg-5 col-xl-5">
         <div class="row">
@@ -62,6 +64,8 @@ import { mapActions } from 'vuex';
 
 import vInput from '@/components/common/input';
 import phoneInput from '@/components/blocks/phoneInput';
+
+import '@/assets/images/svg/zamzam-logo.svg';
 
 export default {
   name: 'sign-in-page',

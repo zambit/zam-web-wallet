@@ -31,6 +31,15 @@ html, body {
   opacity: 0;
 }
 
+.swap-slide-enter-active, .swap-slide-leave-active {
+  transition: transform .3s ease, opacity .3s ease;
+}
+.swap-slide-enter,
+.swap-slide-leave-to {
+  transform: translateY(-10px);
+  opacity: 0.2;
+}
+
 .mt-input {
   margin-top: 34px !important;
 }

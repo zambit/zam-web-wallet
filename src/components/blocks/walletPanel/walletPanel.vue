@@ -3,21 +3,23 @@
     <div class="row">
       <div class="col-7 col-lg-6">
         <div class="d-flex align-items-center">
-          <img
-            :src="require(`./${coinIconSrc}`)" class="wallet-panel__icon d-none d-lg-block"
-            alt=""
-          >
+          <svg class="wallet-panel__icon d-none d-lg-block">
+            <use :xlink:href="coinIconSrc"></use>
+          </svg>
           <div class="d-flex flex-column">
             <div class="d-flex align-items-center">
               <h3 class="wallet-panel__name mb-0">{{ wallet.wallet_name }}</h3>
-              <img :src="require(`./${coinIconSrc}`)"
-                class="wallet-panel__icon wallet-panel__icon--small d-lg-none" alt="">
+              <svg class="wallet-panel__icon wallet-panel__icon--small d-lg-none">
+                <use :xlink:href="coinIconSrc"></use>
+              </svg>
             </div>
             <span class="wallet-panel__phone">{{ phone }}</span>
             <div class="d-none d-lg-flex align-items-center">
               <span class="wallet-panel__address">{{ wallet.address }}</span>
               <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
-                <img src="./wallet-panel__icon__copy.svg" alt="">
+                <svg class="wallet-panel__icon-copy">
+                  <use xlink:href="#wallet-panel__icon__copy"></use>
+                </svg>
               </button>
             </div>
           </div>
@@ -40,7 +42,9 @@
         <div class="d-flex align-items-center mt-4 mt-lg-0">
           <span class="wallet-panel__address w-100">{{ wallet.address }}</span>
           <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
-            <img src="./wallet-panel__icon__copy.svg" alt="">
+            <svg class="wallet-panel__icon-copy">
+              <use xlink:href="#wallet-panel__icon__copy"></use>
+            </svg>
           </button>
         </div>
       </div>
@@ -52,6 +56,8 @@
 import { mapState } from 'vuex';
 
 import { formatBalance } from '@/helpers';
+
+import './wallet-panel__icon__copy.svg';
 
 export default {
   name: 'wallet-panel',
@@ -88,14 +94,14 @@ export default {
     coinIconSrc() {
       switch (true) {
         case (this.wallet.coin === 'bch'):
-          return 'icon__bitcoin-cash.svg';
+          return '#icon__bitcoin-cash';
         case (this.wallet.coin === 'btc'):
-          return 'icon__bitcoin.svg';
+          return '#icon__bitcoin';
         case (this.wallet.coin === 'eth'):
-          return 'icon__ethereum.svg';
+          return '#icon__ethereum';
         case (this.wallet.coin === 'zam'):
         default:
-          return 'icon__zam.svg';
+          return '#icon__zam';
       }
     },
 
@@ -183,6 +189,11 @@ export default {
   width: 50px;
   height: 50px;
   margin-right: 35px;
+}
+
+.wallet-panel__icon-copy {
+  width: 24px;
+  height: 24px;
 }
 
 .wallet-panel__icon--small {

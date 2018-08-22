@@ -1,6 +1,6 @@
 {
   "name": "@zamzamtech/wallet",
-  "version": "0.1.0-54",
+  "version": "0.1.0-55",
   "description": "Vue.js app",
   "license": "UNLICENSED",
   "contributors": [
@@ -40,6 +40,7 @@
     "babel-jest": "^23.0.1",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
+    "svg-sprite-loader": "^3.9.2",
     "vue-template-compiler": "^2.5.16"
   }
 }

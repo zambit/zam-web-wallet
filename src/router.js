@@ -8,6 +8,7 @@ const Main = () => import(/* webpackChunkName: "pages-main" */ './views/Main');
 const Welcome = () => import(/* webpackChunkName: "pages-welcome" */ './views/Welcome');
 const SignIn = () => import(/* webpackChunkName: "pages-sign-in" */ './views/SignIn');
 const SignUp = () => import(/* webpackChunkName: "pages-sign-up" */ './views/SignUp');
+const Settings = () => import(/* webpackChunkName: "pages-settings" */ './views/Settings');
 const ForgotPassword = () => import(/* webpackChunkName: "pages-forgot-password" */ './views/ForgotPassword');
 
 Vue.use(Router);
@@ -69,6 +70,14 @@ const router = new Router({
       },
       beforeEnter: (to, from, next) => {
         preventEnteringAuthRoute(to, from, next);
+      },
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
+      meta: {
+        requiresAuth: true,
       },
     },
     {

@@ -1,5 +1,5 @@
 <template>
-  <div class="wallet-card" @click="$emit('card', wallet.id)">
+  <div class="wallet-card" @click="handleCardClick(wallet)">
     <div class="row">
       <div class="col-12">
         <div class="d-flex">
@@ -83,6 +83,12 @@ export default {
           wallet_name: '',
         };
       },
+    },
+  },
+  methods: {
+    handleCardClick(wallet) {
+      this.$router.push('/');
+      this.$emit('card', wallet.id);
     },
   },
   computed: {

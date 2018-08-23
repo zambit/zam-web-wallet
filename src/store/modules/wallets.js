@@ -14,14 +14,16 @@ const getters = {
 };
 
 const actions = {
-  async fetchWallets({ commit }, { convert }) {
+  async fetchWallets({ commit, state }, { convert }) {
     const response = await api.wallet.get({ params: { convert } });
 
     if (!response.data.result) {
       console.error('Failed to fetch wallets info'); // eslint-disable-line
     } else {
       commit(SET_WALLETS, Object.values(response.data.data.wallets));
-      commit(SET_ACTIVE_WALLET, response.data.data.wallets[0].id);
+      if (!state.activeWalletID) {
+        commit(SET_ACTIVE_WALLET, response.data.data.wallets[0].id);
+      }
     }
 
     return response;

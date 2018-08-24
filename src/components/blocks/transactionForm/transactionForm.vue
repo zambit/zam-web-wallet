@@ -32,16 +32,16 @@
             name="swap-slide"
             mode="out-in"
           >
-            <v-input
+            <phone-input
               v-if="sendBy === 'phone'"
-              :vPlaceholder="'Phone'"
-              :value="formData.phone"
+              :phone="formData.phone"
               :error="inputs.phone.error"
               :erroText="inputs.phone.errorText"
               :key="'phone'"
+              :guess-country-on-created="false"
               class="transaction-input phone-input"
               required
-              @input="formData.phone = $event.target.value"
+              @value="formData.phone = $event"
             />
             <v-input
               v-else
@@ -146,6 +146,7 @@ import { mapGetters, mapState } from 'vuex';
 
 import api from '@/api';
 import vInput from '@/components/common/input';
+import phoneInput from '@/components/blocks/phoneInput';
 
 import './tsx-form__icon__phone.svg';
 import './tsx-form__icon__chain.svg';
@@ -182,13 +183,14 @@ export default {
   },
   components: {
     vInput,
+    phoneInput,
   },
   methods: {
     async postTransaction() {
       const response = await api.wallet.transaction.send({
         data: {
           wallet_id: this.wallet.id,
-          recipient: this.formData.phone,
+          recipient: this.formData.phone.replace(new RegExp(' ', 'g'), ''),
           amount: this.formData.amount,
         },
       });

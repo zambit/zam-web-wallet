@@ -58,9 +58,7 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapState } from 'vuex';
-import * as d3 from 'd3';
 
 import { formatBalance } from '@/helpers';
 
@@ -88,229 +86,10 @@ export default {
       },
     },
   },
-  data() {
-    /* eslint-disable */
-    return {
-      data: [
-        {
-          "date": "2016/09/30",
-          "close": 837.31
-        },
-        {
-          "date": "2016/09/29",
-          "close": 829.05
-        },
-        {
-          "date": "2016/09/28",
-          "close": 828.72
-        },
-        {
-          "date": "2016/09/27",
-          "close": 816.11
-        },
-        {
-          "date": "2016/09/26",
-          "close": 799.16
-        },
-        {
-          "date": "2016/09/23",
-          "close": 805.75
-        },
-        {
-          "date": "2016/09/22",
-          "close": 804.7
-        },
-        {
-          "date": "2016/09/21",
-          "close": 789.74
-        },
-        {
-          "date": "2016/09/20",
-          "close": 780.22
-        },
-        {
-          "date": "2016/09/19",
-          "close": 775.1
-        },
-        {
-          "date": "2016/09/16",
-          "close": 778.52
-        },
-        {
-          "date": "2016/09/15",
-          "close": 769.69
-        },
-        {
-          "date": "2016/09/14",
-          "close": 761.09
-        },
-        {
-          "date": "2016/09/13",
-          "close": 761.01
-        },
-        {
-          "date": "2016/09/12",
-          "close": 771.49
-        },
-        {
-          "date": "2016/09/09",
-          "close": 760.14
-        },
-        {
-          "date": "2016/09/08",
-          "close": 784.06
-        },
-        {
-          "date": "2016/09/07",
-          "close": 784.48
-        },
-        {
-          "date": "2016/09/06",
-          "close": 788.87
-        },
-        {
-          "date": "2016/09/02",
-          "close": 772.44
-        },
-        {
-          "date": "2016/09/01",
-          "close": 770.62
-        },
-        {
-          "date": "2016/08/31",
-          "close": 769.16
-        },
-        {
-          "date": "2016/08/30",
-          "close": 767.58
-        },
-        {
-          "date": "2016/08/29",
-          "close": 771.29
-        },
-      ],
-    }
-  },
-  /* eslint-disable */
   methods: {
-    async fetchChartHistory() {
-      const map = {
-        btc: 'bitcoin',
-        bch: 'bitcoin-cash',
-        zam: null,
-        eth: 'ethereum',
-      };
-
-      const response = await axios.get(
-      `http://api.icex.ch/api/coins/${map[this.wallet.coin]}/hist`,
-      {
-        params: {
-          convert: 'usd',
-          interval: '1m',
-          segment: '1y',
-        }
-      });
-
-      if (response.data.result) {
-        this.data = response.data.data[0].values.map(el => [
-          el.timestamp,
-          el.price.value,
-        ]);
-      }
-    },
     handleCardClick(wallet) {
       this.$router.push('/');
       this.$emit('card', wallet.id);
-    },
-    initChart() {
-      var margin = { top: 10, right: 20, bottom: 30, left: 30 };
-      var width = 400 - margin.left - margin.right;
-      var height = 565 - margin.top - margin.bottom;
-
-      var svg = d3.select('.chart')
-        .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-        // .call(responsivefy)
-        .append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-
-      var parseTime = d3.timeParse('%Y/%m/%d');
-
-      const data = this.data;
-
-      data.forEach(p => {
-        p[0] = parseTime(p[0]);
-        p[1] = +p[1];
-      });
-
-      var xScale = d3.scaleTime()
-        .domain([
-          d3.min(data, data => d3.min(data, d => d[0])),
-          d3.max(data, data => d3.max(data, d => d[0]))
-        ])
-        .range([0, width]);
-      svg
-        .append('g')
-        .attr('transform', `translate(0, ${height})`)
-        .call(d3.axisBottom(xScale).ticks(5));
-
-      var yScale = d3.scaleLinear()
-        .domain([
-          d3.min(data, co => d3.min(co.values, d => d.close)),
-          d3.max(data, co => d3.max(co.values, d => d.close))
-        ])
-        .range([height, 0]);
-      svg
-        .append('g')
-        .call(d3.axisLeft(yScale));
-
-      var area = d3.area()
-        .x(d => xScale(d.date))
-        .y0(yScale(yScale.domain()[0]))
-        .y1(d => yScale(d.close))
-        .curve(d3.curveCatmullRom.alpha(0.5));
-
-      svg
-        .selectAll('.area')
-        .data(data)
-        .enter()
-        .append('path')
-        .attr('class', 'area')
-        .attr('d', d => area(d.values))
-        .style('stroke', (d, i) => ['#FF9900', '#3369E8'][i])
-        .style('stroke-width', 2)
-        .style('fill', (d, i) => ['#FF9900', '#3369E8'][i])
-        .style('fill-opacity', 0.5);
-
-
-      function responsivefy(svg) {
-        // get container + svg aspect ratio
-        var container = d3.select(svg.node().parentNode),
-          width = parseInt(svg.style("width")),
-          height = parseInt(svg.style("height")),
-          aspect = width / height;
-
-        // add viewBox and preserveAspectRatio properties,
-        // and call resize so that svg resizes on inital page load
-        svg.attr("viewBox", "0 0 " + width + " " + height)
-          .attr("preserveAspectRatio", "xMinYMid")
-          .call(resize);
-
-        // to register multiple listeners for same event type,
-        // you need to add namespace, i.e., 'click.foo'
-        // necessary if you call invoke this function for multiple svgs
-        // api docs: https://github.com/mbostock/d3/wiki/Selections#on
-        d3.select(window).on("resize." + container.attr("id"), resize);
-
-        // get width of container and resize svg to fit it
-        function resize() {
-          var targetWidth = parseInt(container.style("width"));
-          svg.attr("width", targetWidth);
-          svg.attr("height", Math.round(targetWidth / aspect));
-        }
-      }
     },
   },
   computed: {
@@ -350,12 +129,6 @@ export default {
       }
       return `${this.fiats.USD.sign}0`;
     },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.fetchChartHistory();
-      this.initChart();
-    });
   },
 };
 </script>

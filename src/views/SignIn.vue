@@ -19,13 +19,11 @@
           <div class="row">
             <div class="col-12">
               <phone-input
-                :country="formData.country"
                 :phone="formData.phone"
                 :error="inputs.phone.error"
-                :errorText="inputs.phone.errorText"
-                class=""
-                @country="formData.country = $event"
-                @phone="formData.phone = $event"
+                :error-text="inputs.phone.errorText"
+                :guess-country-on-created="true"
+                @value="formData.phone = $event"
               />
             </div>
           </div>
@@ -74,7 +72,6 @@ export default {
       formData: {
         password: '',
         phone: '',
-        country: '',
       },
       inputs: {
         phone: {
@@ -98,7 +95,7 @@ export default {
     }),
     async submitSignIn() {
       const response = await this.signIn({
-        phone: this.fullPhone,
+        phone: this.formData.phone.replace(new RegExp(' ', 'g'), ''),
         password: this.formData.password,
       });
 
@@ -116,11 +113,6 @@ export default {
 
       window.localStorage.setItem('visited', '1');
       return this.$router.push('/');
-    },
-  },
-  computed: {
-    fullPhone() {
-      return this.formData.country + this.formData.phone;
     },
   },
 };

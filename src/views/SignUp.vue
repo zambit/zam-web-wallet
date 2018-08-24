@@ -16,12 +16,11 @@
             </div>
             <div class="col-12 mt-4">
               <phone-input
-                :country="formData.country"
                 :phone="formData.phone"
                 :error="inputs.phone.error"
-                :errorText="inputs.phone.errorText"
-                @country="formData.country = $event"
-                @phone="formData.phone = $event"
+                :error-text="inputs.phone.errorText"
+                :guess-country-on-created="true"
+                @value="formData.phone = $event"
               />
             </div>
             <div class="col-4 pr-2">
@@ -139,7 +138,6 @@ export default {
        */
       step: 0,
       formData: {
-        country: '',
         phone: '',
         code: '',
         agreedWithRules: false,
@@ -181,11 +179,13 @@ export default {
       switch (this.step) {
         default:
         case 0:
-          result = await this.requestSmsConfirmation({ phone: this.fullPhone });
+          result = await this.requestSmsConfirmation({
+            phone: this.rawPhone,
+          });
           break;
         case 1:
           result = await this.sendSmsVerificationCode({
-            phone: this.fullPhone,
+            phone: this.rawPhone,
             code: this.formData.code,
           });
           break;
@@ -250,7 +250,7 @@ export default {
 
       const response = await api.auth.signUpFinish({
         data: {
-          phone: this.fullPhone,
+          phone: this.rawPhone,
           signup_token: token,
           password: this.formData.password,
           password_confirmation: this.formData.passwordConfirmation,
@@ -284,8 +284,8 @@ export default {
     },
   },
   computed: {
-    fullPhone() {
-      return this.formData.country + this.formData.phone;
+    rawPhone() {
+      return this.formData.phone.replace(new RegExp(' ', 'g'), '');
     },
   },
   mounted() {

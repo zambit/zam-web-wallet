@@ -10,6 +10,7 @@ const SignIn = () => import(/* webpackChunkName: "pages-sign-in" */ './views/Sig
 const SignUp = () => import(/* webpackChunkName: "pages-sign-up" */ './views/SignUp');
 const Settings = () => import(/* webpackChunkName: "pages-settings" */ './views/Settings');
 const ForgotPassword = () => import(/* webpackChunkName: "pages-forgot-password" */ './views/ForgotPassword');
+const History = () => import(/* webpackChunkName: "pages-history" */ './views/History');
 
 Vue.use(Router);
 
@@ -76,6 +77,14 @@ const router = new Router({
       path: '/settings',
       name: 'settings',
       component: Settings,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: History,
       meta: {
         requiresAuth: true,
       },

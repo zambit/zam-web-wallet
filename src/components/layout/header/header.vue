@@ -38,7 +38,7 @@
                 <router-link to="">Home</router-link>
               </li>
               <li class="nav__list-item px-4">
-                <router-link to="">History</router-link>
+                <router-link to="/history">History</router-link>
               </li>
               <li class="nav__list-item px-4">
                 <router-link to="">More</router-link>

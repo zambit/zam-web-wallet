@@ -23,6 +23,13 @@ html, body {
   overflow-y: auto;
 }
 
+.block-title {
+  font-size: 1.375rem;
+  font-weight: bold;
+  color: $dark-indigo;
+  
+  margin-bottom: 0;
+}
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;

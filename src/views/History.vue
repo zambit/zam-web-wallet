@@ -4,7 +4,7 @@
     <div class="d-flex h-100" ref="layoutWrapper">
       <layout-aside class="layout-aside h-100" ref="layoutAside" @card="toggleSlide" />
       <div class="layout-content d-flex flex-column w-100" ref="layoutContent">
-        <history-list class="pt-4" />
+        <history-list />
       </div>
     </div>
   </div>

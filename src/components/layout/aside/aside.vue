@@ -15,7 +15,7 @@
             :key="wallet.id"
             :wallet="wallet"
             class="mb-3"
-            @card="handleActiveWallet($event)"
+            @wallet="$emit('wallet', $event)"
           />
         </template>
       </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 import walletCard from '@/components/blocks/walletCard';
 
@@ -32,15 +32,6 @@ export default {
   name: 'layout-aside',
   components: {
     walletCard,
-  },
-  methods: {
-    ...mapActions([
-      'setActiveWallet',
-    ]),
-    handleActiveWallet(e) {
-      this.setActiveWallet(e);
-      this.$emit('card', e);
-    },
   },
   computed: {
     ...mapState({

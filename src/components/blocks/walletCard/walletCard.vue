@@ -1,5 +1,5 @@
 <template>
-  <div class="wallet-card" @click="handleCardClick(wallet)">
+  <div class="wallet-card">
     <div class="wallet-card__chart-container" :id="`wallet-card-chart-${wallet.id}`"></div>
     <div class="row">
       <div class="col-12">
@@ -35,6 +35,7 @@
         <button
           type="button"
           class="btn btn-link wallet-card__button"
+          @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
         >
           Send
           <svg class="wallet-card__icon-arrow">
@@ -46,6 +47,7 @@
         <button
           type="button"
           class="btn btn-link wallet-card__button"
+          @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
         >
           Deposit
           <svg class="wallet-card__icon-arrow">
@@ -84,12 +86,6 @@ export default {
           wallet_name: '',
         };
       },
-    },
-  },
-  methods: {
-    handleCardClick(wallet) {
-      this.$router.push('/');
-      this.$emit('card', wallet.id);
     },
   },
   computed: {

@@ -2,28 +2,35 @@
   <div id="main">
     <layout-header />
     <div class="d-flex h-100" ref="layoutWrapper">
-      <layout-aside class="layout-aside h-100" ref="layoutAside" @card="toggleSlide" />
+      <layout-aside class="layout-aside h-100" ref="layoutAside" @wallet="handleWalletChange" />
       <div class="layout-content d-flex flex-column w-100" ref="layoutContent">
-        <wallet-panel :wallet="activeWallet" />
-        <transaction-form @show-cards="toggleSlide" />
+        <wallet-panel :wallet="activeWallet" @wallet="handleWalletChange"/>
+        <template v-if="state === 'send'">
+          <transaction-form @show-cards="toggleSlide" />
+        </template>
+        <template v-else>
+          <wallet-deposit />
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import layoutHeader from '@/components/layout/header';
 import layoutAside from '@/components/layout/aside';
 import walletPanel from '@/components/blocks/walletPanel';
 import transactionForm from '@/components/blocks/transactionForm';
+import walletDeposit from '@/components/blocks/walletDeposit';
 
 export default {
   name: 'main-page',
   data() {
     return {
       showAside: true,
+      state: 'send',
     };
   },
   components: {
@@ -31,10 +38,25 @@ export default {
     layoutAside,
     walletPanel,
     transactionForm,
+    walletDeposit,
   },
   methods: {
+    ...mapActions([
+      'setActiveWallet',
+    ]),
+    handleWalletChange({ wallet, state }) {
+      this.state = state;
+      this.setActiveWallet(wallet);
+
+      this.toggleSlide();
+    },
     toggleSlide() {
-      document.querySelector('.tsx-root').scrollTo(0, 0);
+      const el = document.querySelector('.tsx-root');
+
+      if (el) {
+        el.scrollTo(0, 0);
+      }
+
       if (this.$refs.layoutWrapper.classList.contains('layout-slide-mobile')) {
         return this.$refs.layoutWrapper.classList.remove('layout-slide-mobile');
       }

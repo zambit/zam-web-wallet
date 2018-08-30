@@ -31,14 +31,37 @@
         </div>
       </div>
       <div class="col-5 col-lg-6">
-        <div class="d-flex flex-column">
-          <span class="wallet-panel__balance text-right text-lg-left">
-            {{ balanceInCoins }}
-          </span>
-          <span class="wallet-panel__fiat-balance text-right text-lg-left">
-            {{ balanceInFiat }}
-          </span>
-          <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
+        <div class="d-flex justify-content-between h-100">
+          <div class="d-flex flex-column">
+            <span class="wallet-panel__balance text-right text-lg-left">
+              {{ balanceInCoins }}
+            </span>
+            <span class="wallet-panel__fiat-balance text-right text-lg-left">
+              {{ balanceInFiat }}
+            </span>
+            <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
+          </div>
+          <div class="d-flex align-items-center ml-5">
+            <button
+              type="button" class="wallet-panel__btn"
+              @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
+            >
+              Send
+              <svg class="wallet-panel__btn-icon">
+                <use xlink:href="#wallet-card__icon__arrow-up--blue"></use>
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="wallet-panel__btn ml-3"
+              @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
+            >
+              Deposit
+              <svg class="wallet-panel__btn-icon">
+                <use xlink:href="#wallet-card__icon__arrow-down--green"></use>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -159,7 +182,6 @@ export default {
 
   @include media-breakpoint-down(md) {
     font-size: 1rem;
-
     margin-top: 0;
   }
 }
@@ -199,9 +221,7 @@ export default {
 .wallet-panel__icon-copy {
   width: 24px;
   height: 24px;
-
   fill: white;
-
   transition: transform .2s ease, fill .2s ease;
 
   &:active {
@@ -213,7 +233,6 @@ export default {
 .wallet-panel__icon--small {
   width: 26px;
   height: 26px;
-
   margin-left: 9px;
   margin-right: 0;
 }
@@ -225,5 +244,25 @@ export default {
   @include media-breakpoint-down(md) {
     font-size: 1rem;
   }
+}
+
+.wallet-panel__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 144px;
+  height: 53px;
+  border-radius: 72px;
+  border: none;
+  background: white;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #888aa7;
+}
+
+.wallet-panel__btn-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
 }
 </style>

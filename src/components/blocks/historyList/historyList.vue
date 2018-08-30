@@ -229,6 +229,9 @@ export default {
 
 .tsx-body {
   overflow: auto;
+
+  margin: 0 -16px;
+  padding: 0 16px;
 }
 
 .table-wrap,

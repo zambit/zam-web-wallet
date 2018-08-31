@@ -181,6 +181,7 @@ export default {
         return false;
       }
 
+      const date = new Date();
       this.historyIsFetching = true;
 
       const response = await api.wallet.transaction.getAll({
@@ -188,6 +189,7 @@ export default {
           group: 'day',
           count: 38,
           page: this.page,
+          timezone: date.getTimezoneOffset() / 60,
         },
       });
 

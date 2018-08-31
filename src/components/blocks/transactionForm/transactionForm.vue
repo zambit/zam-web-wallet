@@ -56,7 +56,7 @@
             />
           </transition>
           <v-input
-            :vPlaceholder="`Amount in ${wallet.coin}`"
+            :vPlaceholder="`Amount in ${wallet && wallet.coin}`"
             :value="formData.amount"
             :error="inputs.amount.error"
             :erroText="inputs.amount.errorText"

@@ -43,7 +43,8 @@
           </div>
           <div class="d-flex align-items-center ml-5">
             <button
-              type="button" class="wallet-panel__btn"
+              type="button"
+              class="wallet-panel__btn pointer"
               @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
             >
               Send
@@ -53,7 +54,7 @@
             </button>
             <button
               type="button"
-              class="wallet-panel__btn ml-3"
+              class="wallet-panel__btn ml-3 pointer"
               @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
             >
               Deposit
@@ -69,7 +70,11 @@
       <div class="col-12">
         <div class="d-flex align-items-center mt-4 mt-lg-0">
           <span class="wallet-panel__address w-100">{{ wallet.address }}</span>
-          <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
+          <button
+            class="btn btn-link p-0 ml-3 pointer"
+            type="button"
+            @click="copyAddressToClipboard"
+          >
             <svg class="wallet-panel__icon-copy">
               <use xlink:href="#wallet-panel__icon__copy"></use>
             </svg>

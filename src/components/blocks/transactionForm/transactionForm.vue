@@ -34,25 +34,25 @@
           >
             <phone-input
               v-if="sendBy === 'phone'"
-              :phone="formData.phone"
+              :phone="formData.recipient"
               :error="inputs.phone.error"
               :erroText="inputs.phone.errorText"
               :key="'phone'"
               :guess-country-on-created="false"
               class="transaction-input phone-input"
               required
-              @value="formData.phone = $event"
+              @value="formData.recipient = $event"
             />
             <v-input
               v-else
               :vPlaceholder="'Address'"
-              :value="formData.address"
+              :value="formData.recipient"
               :error="inputs.address.error"
               :erroText="inputs.address.errorText"
               :key="'address'"
               class="transaction-input phone-input"
               required
-              @input="formData.address = $event.target.value"
+              @input="formData.recipient = $event.target.value"
             />
           </transition>
           <v-input
@@ -98,7 +98,7 @@
               <h2 class="tsx-amount">{{ formData.amount + ' ' + wallet.coin }}</h2>
               <div class="tsx-arrow"></div>
               <span class="tsx-phone mt-4">From: {{ userPhone }}</span>
-              <span class="tsx-phone mt-1">To: {{ formData.phone }}</span>
+              <span class="tsx-phone mt-1">To: {{ formData.recipient }}</span>
               <button
                 type="button" class="circle tsx-overlay__send-btn mt-4 pointer"
                 @click="postTransaction"
@@ -114,9 +114,9 @@
               <h2 class="tsx-amount">{{ formData.amount }}</h2>
               <div class="tsx-arrow"></div>
               <span class="tsx-phone mt-4">From: {{ userPhone }}</span>
-              <span class="tsx-phone mt-1">To: {{ formData.phone }}</span>
+              <span class="tsx-phone mt-1">To: {{ formData.recipient }}</span>
               <div class="circle mt-4 pointer" @click="closeModal">
-                <svg class="">
+                <svg class="tsx-icon-checkmark">
                   <use xlink:href="#tsx-overlay__icon__checkmark"></use>
                 </svg>
               </div>
@@ -161,9 +161,8 @@ export default {
       state: 'init', // 'submit', 'success', 'failure'
       errors: [],
       formData: {
-        phone: '',
+        recipient: '',
         amount: '',
-        address: '',
       },
       inputs: {
         phone: {
@@ -190,7 +189,7 @@ export default {
       const response = await api.wallet.transaction.send({
         data: {
           wallet_id: this.wallet.id,
-          recipient: this.formData.phone.replace(new RegExp(' ', 'g'), ''),
+          recipient: this.formData.recipient.replace(new RegExp(' ', 'g'), ''),
           amount: this.formData.amount,
         },
       });
@@ -227,9 +226,8 @@ export default {
       this.errors = [];
       this.state = 'submit';
       this.showModal = false;
-      this.formData.phone = '';
+      this.formData.recipient = '';
       this.formData.amount = '';
-      this.formData.address = '';
     },
   },
   computed: {

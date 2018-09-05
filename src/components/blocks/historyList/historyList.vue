@@ -227,6 +227,10 @@ export default {
   background-color: #ffffff;
   border: solid 1px rgba(93, 118, 243, 0.12);
   overflow: hidden;
+
+  @include media-breakpoint-down(lg) {
+    height: auto;
+  }
 }
 
 .tsx-body {

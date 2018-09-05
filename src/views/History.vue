@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <layout-header />
-    <div class="d-flex h-100" ref="layoutWrapper">
+    <div class="d-flex h-100 layout-slide-mobile" ref="layoutWrapper">
       <layout-aside class="layout-aside h-100" ref="layoutAside" @wallet="handleWalletChange"/>
       <div class="layout-content d-flex flex-column w-100" ref="layoutContent">
         <history-list />

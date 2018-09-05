@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <layout-header />
-    <div class="d-flex h-100" ref="layoutWrapper">
+    <div class="d-flex h-100 layout-slide-mobile" ref="layoutWrapper">
       <layout-aside class="layout-aside h-100" ref="layoutAside" @wallet="handleWalletChange" />
       <div class="layout-content d-flex flex-column w-100" ref="layoutContent">
         <wallet-panel :wallet="activeWallet" @wallet="handleWalletChange"/>
@@ -9,7 +9,7 @@
           <transaction-form @show-cards="toggleSlide" />
         </template>
         <template v-else>
-          <wallet-deposit />
+          <wallet-deposit @show-cards="toggleSlide" />
         </template>
       </div>
     </div>
@@ -18,6 +18,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+
+import api from '@/api';
 
 import layoutHeader from '@/components/layout/header';
 import layoutAside from '@/components/layout/aside';
@@ -39,6 +41,27 @@ export default {
     walletPanel,
     transactionForm,
     walletDeposit,
+  },
+  watch: {
+    $route: {
+      async handler(value) {
+        const response = await api.wallet.get({});
+
+        if (!response.data.result) {
+          return this.$router.push('/');
+        }
+
+        const wallet = response.data.data.wallets.find(el => el.coin === value.params.coin &&
+          el.wallet_name.toLowerCase() === value.params.name.toLowerCase());
+        this.state = this.$route.params.state;
+
+        return wallet ?
+          this.setActiveWallet(wallet.id) :
+          this.$router.push('/');
+      },
+      deep: true,
+      immediate: true,
+    },
   },
   methods: {
     ...mapActions([

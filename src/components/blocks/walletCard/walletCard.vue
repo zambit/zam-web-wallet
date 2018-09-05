@@ -35,11 +35,11 @@
         <button
           type="button"
           class="btn btn-link wallet-card__button"
-          @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
+          @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/send`)"
         >
           Send
-          <svg class="wallet-card__icon-arrow">
-            <use xlink:href="#wallet-card__icon__arrow-up--blue"></use>
+          <svg class="wallet-card__icon-arrow blue">
+            <use xlink:href="#wallet-card__icon__arrow-up"></use>
           </svg>
         </button>
       </div>
@@ -47,11 +47,11 @@
         <button
           type="button"
           class="btn btn-link wallet-card__button"
-          @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
+          @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/deposit`)"
         >
           Deposit
-          <svg class="wallet-card__icon-arrow">
-            <use xlink:href="#wallet-card__icon__arrow-down--green"></use>
+          <svg class="wallet-card__icon-arrow green">
+            <use xlink:href="#wallet-card__icon__arrow-down"></use>
           </svg>
         </button>
       </div>
@@ -68,8 +68,8 @@ import './icon__bitcoin-cash.svg';
 import './icon__bitcoin.svg';
 import './icon__ethereum.svg';
 import './icon__zam.svg';
-import './wallet-card__icon__arrow-down--green.svg';
-import './wallet-card__icon__arrow-up--blue.svg';
+import './wallet-card__icon__arrow-down.svg';
+import './wallet-card__icon__arrow-up.svg';
 
 export default {
   name: 'wallet-card',
@@ -189,6 +189,14 @@ export default {
   width: 16px;
   height: 16px;
   margin-left: 8px;
+
+  &.green {
+    fill: $lightish-green;
+  }
+
+  &.blue {
+    fill: $sky-blue;
+  }
 }
 
 .wallet-card__icon {

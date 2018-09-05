@@ -1,81 +1,105 @@
 <template>
-  <div class="wallet-panel">
-    <div class="row">
-      <div class="col-7 col-lg-6">
-        <div class="d-flex align-items-center">
-          <svg class="wallet-panel__icon d-none d-lg-block">
-            <use :xlink:href="coinIconSrc"></use>
-          </svg>
-          <div class="d-flex flex-column">
-            <div class="d-flex align-items-center">
-              <h3 class="wallet-panel__name mb-0">{{ wallet.wallet_name }}</h3>
-              <svg class="wallet-panel__icon wallet-panel__icon--small d-lg-none">
-                <use :xlink:href="coinIconSrc"></use>
-              </svg>
+  <div>
+    <div class="wallet-panel">
+      <div class="row">
+        <div class="col-7 col-lg-6">
+          <div class="d-flex align-items-center">
+            <svg class="wallet-panel__icon d-none d-lg-block">
+              <use :xlink:href="coinIconSrc"></use>
+            </svg>
+            <div class="d-flex flex-column">
+              <div class="d-flex align-items-center">
+                <h3 class="wallet-panel__name mb-0">{{ wallet.wallet_name }}</h3>
+                <svg class="wallet-panel__icon wallet-panel__icon--small d-lg-none">
+                  <use :xlink:href="coinIconSrc"></use>
+                </svg>
+              </div>
+              <span class="wallet-panel__phone">{{ phone }}</span>
+              <div class="d-none d-lg-flex align-items-center">
+                <span class="wallet-panel__address">{{ wallet.address }}</span>
+                <button
+                  class="btn btn-link pointer p-0 ml-3"
+                  type="button"
+                  title="Copy address to clipboard"
+                  @click="copyAddressToClipboard"
+                >
+                  <svg class="wallet-panel__icon-copy">
+                    <use xlink:href="#wallet-panel__icon__copy"></use>
+                  </svg>
+                </button>
+              </div>
             </div>
-            <span class="wallet-panel__phone">{{ phone }}</span>
-            <div class="d-none d-lg-flex align-items-center">
-              <span class="wallet-panel__address">{{ wallet.address }}</span>
+          </div>
+        </div>
+        <div class="col-5 col-lg-6">
+          <div class="d-flex justify-content-end justify-content-xl-between h-100">
+            <div class="d-flex flex-column">
+            <span class="wallet-panel__balance text-right text-lg-left">
+              {{ balanceInCoins }}
+            </span>
+              <span class="wallet-panel__fiat-balance text-right text-lg-left">
+              {{ balanceInFiat }}
+            </span>
+              <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
+            </div>
+            <div class="d-none d-xl-flex align-items-center ml-5">
               <button
-                class="btn btn-link pointer p-0 ml-3"
-                type="button"
-                title="Copy address to clipboard"
-                @click="copyAddressToClipboard"
+                type="button" class="wallet-panel__btn"
+                @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
               >
-                <svg class="wallet-panel__icon-copy">
-                  <use xlink:href="#wallet-panel__icon__copy"></use>
+                Send
+                <svg class="wallet-panel__btn-icon blue">
+                  <use xlink:href="#wallet-card__icon__arrow-up"></use>
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="wallet-panel__btn ml-3"
+                @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
+              >
+                Deposit
+                <svg class="wallet-panel__btn-icon green">
+                  <use xlink:href="#wallet-card__icon__arrow-down"></use>
                 </svg>
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-5 col-lg-6">
-        <div class="d-flex justify-content-between h-100">
-          <div class="d-flex flex-column">
-            <span class="wallet-panel__balance text-right text-lg-left">
-              {{ balanceInCoins }}
-            </span>
-            <span class="wallet-panel__fiat-balance text-right text-lg-left">
-              {{ balanceInFiat }}
-            </span>
-            <span class="wallet-panel__coin-cost" hidden>$ 7.560 +5.57% (24h)</span>
-          </div>
-          <div class="d-flex align-items-center ml-5">
-            <button
-              type="button" class="wallet-panel__btn"
-              @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
-            >
-              Send
-              <svg class="wallet-panel__btn-icon">
-                <use xlink:href="#wallet-card__icon__arrow-up--blue"></use>
-              </svg>
-            </button>
-            <button
-              type="button"
-              class="wallet-panel__btn ml-3"
-              @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
-            >
-              Deposit
-              <svg class="wallet-panel__btn-icon">
-                <use xlink:href="#wallet-card__icon__arrow-down--green"></use>
+      <div class="row d-lg-none">
+        <div class="col-12">
+          <div class="d-flex align-items-center mt-4 mt-lg-0">
+            <span class="wallet-panel__address w-100">{{ wallet.address }}</span>
+            <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
+              <svg class="wallet-panel__icon-copy">
+                <use xlink:href="#wallet-panel__icon__copy"></use>
               </svg>
             </button>
           </div>
         </div>
       </div>
     </div>
-    <div class="row d-lg-none">
-      <div class="col-12">
-        <div class="d-flex align-items-center mt-4 mt-lg-0">
-          <span class="wallet-panel__address w-100">{{ wallet.address }}</span>
-          <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
-            <svg class="wallet-panel__icon-copy">
-              <use xlink:href="#wallet-panel__icon__copy"></use>
-            </svg>
-          </button>
-        </div>
-      </div>
+    <div class="row d-xl-none justify-content-center wallet-panel__btn-row">
+      <button
+        type="button"
+        class="wallet-panel__btn-mobile blue"
+        @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/send`)"
+      >
+          Send
+          <svg>
+            <use xlink:href="#wallet-card__icon__arrow-up"></use>
+          </svg>
+        </button>
+      <button
+        type="button"
+        class="wallet-panel__btn-mobile ml-4 green"
+        @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/deposit`)"
+      >
+          Deposit
+          <svg>
+            <use xlink:href="#wallet-card__icon__arrow-down"></use>
+          </svg>
+        </button>
     </div>
   </div>
 </template>
@@ -264,5 +288,66 @@ export default {
   width: 16px;
   height: 16px;
   margin-left: 10px;
+
+
+  &.green {
+    fill: $lightish-green;
+  }
+
+  &.blue {
+    fill: $sky-blue;
+  }
+}
+
+.wallet-panel__btn-mobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 115px;
+
+  padding: 12px 0;
+
+  border-radius: 72px;
+  border: none;
+
+  color: white;
+
+  & > svg {
+    fill: white;
+
+    width: 16px;
+    height: 16px;
+
+    margin-left: 8px;
+  }
+
+  &.green {
+    background-color: #8de37f;
+  }
+
+  &.blue {
+    background-color: #54b9f3;
+  }
+}
+
+.wallet-panel__btn-row {
+  position: relative;
+
+  background-color: #f5f5f5;
+  padding: 20px 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 12px 0 12px;
+    border-color: #f5f5f5 transparent transparent transparent;
+
+  }
 }
 </style>

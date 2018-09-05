@@ -83,9 +83,9 @@ export default {
       return '0';
     },
     transactionAmountInCoins() {
-      if (this.transaction.amount.btc) {
+      if (this.transaction.amount[this.transaction.coin]) {
         return formatBalance({
-          str: this.transaction.amount.btc,
+          str: this.transaction.amount[this.transaction.coin],
           decimals: 6,
         });
       }

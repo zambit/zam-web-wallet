@@ -35,13 +35,7 @@
             </svg>
             <ul class="nav__list list-unstyled mb-0">
               <li class="nav__list-item px-4">
-                <router-link to="">Home</router-link>
-              </li>
-              <li class="nav__list-item px-4">
-                <router-link to="/history">History</router-link>
-              </li>
-              <li class="nav__list-item px-4">
-                <router-link to="">More</router-link>
+                <router-link to="/">History</router-link>
               </li>
             </ul>
             <div class="nav__sign-out" @click="handleSignOut">

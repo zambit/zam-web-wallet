@@ -2,7 +2,7 @@
   <div id="main">
     <layout-header />
     <div class="d-flex h-100" ref="layoutWrapper">
-      <layout-aside class="layout-aside h-100" ref="layoutAside" @card="toggleSlide" />
+      <layout-aside class="layout-aside h-100" ref="layoutAside" @wallet="handleWalletChange"/>
       <div class="layout-content d-flex flex-column w-100" ref="layoutContent">
         <history-list />
       </div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import layoutHeader from '@/components/layout/header';
 import layoutAside from '@/components/layout/aside';
@@ -30,8 +30,24 @@ export default {
     historyList,
   },
   methods: {
+    ...mapActions([
+      'setActiveWallet',
+    ]),
+    handleWalletChange({ wallet, state }) {
+      this.$router.push('/');
+
+      this.state = state;
+      this.setActiveWallet(wallet);
+
+      this.toggleSlide();
+    },
     toggleSlide() {
-      document.querySelector('.tsx-root').scrollTo(0, 0);
+      const el = document.querySelector('.tsx-root');
+
+      if (el) {
+        el.scrollTo(0, 0);
+      }
+
       if (this.$refs.layoutWrapper.classList.contains('layout-slide-mobile')) {
         return this.$refs.layoutWrapper.classList.remove('layout-slide-mobile');
       }

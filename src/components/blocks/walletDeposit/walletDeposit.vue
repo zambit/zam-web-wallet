@@ -26,8 +26,8 @@
         </div>
         <div class="d-flex flex-column align-items-center mt-5">
           <canvas id="canvas"></canvas>
-          <span class="wd-address">{{ wallet.address }}</span>
-          <div class="d-flex justify-content-between mt-5 w-100">
+          <span class="wd-address">{{ address }}</span>
+          <div class="d-flex justify-content-around justify-content-lg-between mt-5 w-100">
             <div class="d-flex flex-column align-items-center">
               <svg class="wd-action__icon">
                 <use xlink:href="#wallet-panel__icon__copy"></use>
@@ -45,7 +45,16 @@
         </div>
       </div>
     </div>
-
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <button
+          type="button"
+          class="btn btn-link text-uppercase mt-3 d-lg-none"
+          @click="$emit('show-cards')"
+        >Go back
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,7 +67,7 @@ import './wallet-deposit__icon__share.svg';
 export default {
   name: 'wallet-deposit',
   watch: {
-    'wallet.address': {
+    address: {
       handler() {
         this.renderQR();
       },
@@ -66,9 +75,13 @@ export default {
   },
   methods: {
     renderQR() {
-      QRCode.toCanvas(
+      if (!this.address) {
+        return false;
+      }
+
+      return QRCode.toCanvas(
         document.querySelector('#canvas'),
-        this.wallet.address,
+        this.address,
         (error) => {
           if (error) console.error(error);
         },
@@ -79,6 +92,9 @@ export default {
     ...mapGetters({
       wallet: 'activeWallet',
     }),
+    address() {
+      return this.wallet ? this.wallet.address : null;
+    },
   },
   mounted() {
     this.renderQR();
@@ -90,8 +106,8 @@ export default {
 @import "@/assets/styles/_settings.scss";
 
 #canvas {
-  width: 210px;
-  height: 210px;
+  width: 210px !important;
+  height: 210px !important;
 }
 
 .wd-action {
@@ -113,9 +129,13 @@ export default {
 }
 
 .wd-address {
+  width: 100%;
   font-size: 1rem;
   font-weight: 500;
   color: #000000;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .wd-switch {

@@ -82,7 +82,7 @@ const router = new Router({
       },
     },
     {
-      path: '/history',
+      path: '/',
       name: 'history',
       component: History,
       meta: {
@@ -90,7 +90,7 @@ const router = new Router({
       },
     },
     {
-      path: '/',
+      path: '/:coin/:name/:state',
       name: 'main',
       component: Main,
       meta: {

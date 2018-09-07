@@ -36,6 +36,7 @@
           type="button"
           :class="['btn btn-link wallet-card__button', { 'wallet-card__button--disabled' :
           !!disabled }]"
+          :disabled="disabled"
           @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/send`)"
         >
           Send
@@ -49,6 +50,7 @@
           type="button"
           :class="['btn btn-link wallet-card__button', { 'wallet-card__button--disabled' :
           !!disabled }]"
+          :disabled="disabled"
           @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/deposit`)"
         >
           Deposit
@@ -190,6 +192,7 @@ export default {
 .wallet-card__button--disabled {
   opacity: .5;
   cursor: not-allowed !important; // override bootstrap .btn styles
+  pointer-events: auto;
 }
 
 .wallet-card__icon-arrow {

@@ -78,12 +78,6 @@
             <button type="submit" class="btn btn-submit mt-4 mt-lg-3" @click="state = 'submit'">
               Send
             </button>
-            <button
-              type="button"
-              class="btn btn-link text-uppercase mt-3 d-lg-none"
-              @click="$emit('show-cards')"
-            >Go back
-            </button>
           </div>
         </form>
       </div>

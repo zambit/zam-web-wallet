@@ -60,9 +60,12 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-12 col-lg-6">
+      <div class="col-12 col-md-12 col-lg-6 mt-4 mt-lg-0">
         <div class="row h-100">
-          <div class="col-12 h-auto h-xl-50">
+          <div class="col-12 col-wrap">
+            <div class="stub">
+              <h3>Coming soon...</h3>
+            </div>
             <div class="table-wrap tsx-wrap">
               <table class="table">
                 <thead class="table__thead">
@@ -122,8 +125,11 @@
               </table>
             </div>
           </div>
-          <div class="col-12 h-auto h-xl-50 pt-4">
+          <div class="col-12 col-wrap pt-4">
             <div class="news-wrap tsx-wrap">
+              <div class="stub">
+                <h3>Coming soon...</h3>
+              </div>
               <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between">
                   <h2 class="block-title">News</h2>
@@ -246,7 +252,11 @@ export default {
 
 .table-wrap,
 .news-wrap {
+  position: relative;
   overflow: auto;
+  opacity: .5;
+  pointer-events: none;
+  user-select: none;
 }
 
 .tsx__filter-icon {
@@ -378,5 +388,25 @@ export default {
   letter-spacing: -0.2px;
   text-align: center;
   color: #888aa7;
+}
+
+.stub {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-wrap {
+  height: 50%;
+
+  @include media-breakpoint-down(lg) {
+    height: auto;
+  }
 }
 </style>

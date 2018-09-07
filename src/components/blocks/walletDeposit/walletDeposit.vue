@@ -45,16 +45,6 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-auto">
-        <button
-          type="button"
-          class="btn btn-link text-uppercase mt-3 d-lg-none"
-          @click="$emit('show-cards')"
-        >Go back
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 

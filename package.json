@@ -1,6 +1,6 @@
 {
   "name": "@zamzamtech/wallet",
-  "version": "0.1.0-72",
+  "version": "0.1.0-73",
   "description": "Vue.js app",
   "license": "UNLICENSED",
   "contributors": [
@@ -24,6 +24,7 @@
     "inputmask": "^4.0.0",
     "js-cookie": "^2.2.0",
     "libphonenumber-js": "^1.4.2",
+    "lodash.capitalize": "^4.2.1",
     "lodash.get": "^4.4.2",
     "qrcode": "^1.2.2",
     "register-service-worker": "^1.0.0",

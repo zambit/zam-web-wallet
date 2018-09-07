@@ -80,7 +80,7 @@
             <button
               type="button"
               class="wallet-panel__btn pointer"
-              @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
+              @click="EventBus.$emit('wallet', { wallet: wallet.id, state: 'send' })"
             >
               Send
               <svg class="wallet-panel__btn-icon">
@@ -90,7 +90,7 @@
             <button
               type="button"
               class="wallet-panel__btn ml-3 pointer"
-              @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
+              @click="EventBus.$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
             >
               Deposit
               <svg class="wallet-panel__btn-icon">
@@ -130,6 +130,7 @@
 import { mapState } from 'vuex';
 
 import { formatBalance } from '@/helpers';
+import EventBus from '@/eventBus'; // eslint-disable-line
 
 import './wallet-panel__icon__copy.svg';
 

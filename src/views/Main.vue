@@ -1,18 +1,16 @@
 <template>
   <div id="main">
-    <layout-header />
-    <div class="d-flex h-100 layout-slide-mobile" ref="layoutWrapper">
-      <layout-aside class="layout-aside h-100" ref="layoutAside" @wallet="handleWalletChange" />
-      <div class="layout-content d-flex flex-column w-100" ref="layoutContent">
-        <wallet-panel :wallet="activeWallet" @wallet="handleWalletChange"/>
+    <layout-main>
+      <template slot="content">
+        <wallet-panel :wallet="activeWallet"/>
         <template v-if="state === 'send'">
-          <transaction-form @show-cards="toggleSlide" />
+          <transaction-form />
         </template>
         <template v-if="state === 'deposit'">
-          <wallet-deposit @show-cards="toggleSlide" />
+          <wallet-deposit />
         </template>
-      </div>
-    </div>
+      </template>
+    </layout-main>
   </div>
 </template>
 
@@ -21,23 +19,22 @@ import { mapGetters, mapActions } from 'vuex';
 
 import api from '@/api';
 
-import layoutHeader from '@/components/layout/header';
-import layoutAside from '@/components/layout/aside';
+import layoutMain from '@/components/layout/main';
 import walletPanel from '@/components/blocks/walletPanel';
 import transactionForm from '@/components/blocks/transactionForm';
 import walletDeposit from '@/components/blocks/walletDeposit';
+
+import '@/components/layout/partials/aside/button__show-sidebar.svg';
 
 export default {
   name: 'main-page',
   data() {
     return {
-      showAside: true,
       state: '',
     };
   },
   components: {
-    layoutHeader,
-    layoutAside,
+    layoutMain,
     walletPanel,
     transactionForm,
     walletDeposit,
@@ -68,27 +65,6 @@ export default {
     ...mapActions([
       'setActiveWallet',
     ]),
-    handleWalletChange({ wallet, state }) {
-      this.state = state;
-      this.setActiveWallet(wallet);
-
-      this.toggleSlide();
-    },
-    toggleSlide() {
-      const el = document.querySelector('.tsx-root');
-
-      if (el) {
-        el.scrollTo(0, 0);
-      }
-
-      console.log('toggle');
-      if (this.$refs.layoutWrapper.classList.contains('layout-slide-mobile')) {
-        console.log('remove');
-        return this.$refs.layoutWrapper.classList.remove('layout-slide-mobile');
-      }
-      console.log('add');
-      return this.$refs.layoutWrapper.classList.add('layout-slide-mobile');
-    },
   },
   computed: {
     ...mapGetters([
@@ -138,11 +114,25 @@ html, body {
 }
 
 .layout-slide-mobile {
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     .layout-aside,
     .layout-content {
       transform: translate(-100%, 0);
     }
+  }
+}
+
+.layout__wallets-btn {
+  position: fixed;
+
+  bottom: 20px;
+  right: 20px;
+
+  width: 100px;
+  height: 100px;
+
+  @include media-breakpoint-up(lg) {
+    display: none;
   }
 }
 </style>

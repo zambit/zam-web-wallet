@@ -34,6 +34,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import capitalize from 'lodash.capitalize';
 
 import { formatBalance } from '@/helpers';
 
@@ -66,14 +67,15 @@ export default {
     },
     transactionTitle() {
       const coin = this.transaction.coin ? this.transaction.coin.toUpperCase() : '';
+      const status = this.transaction.status === 'success' ?
+        'Done' :
+        capitalize(this.transaction.status);
 
       if (!coin) {
         return '';
       }
 
-      return this.transaction.sender ?
-        `Recieved ${coin}` :
-        `Sent ${coin}`;
+      return `${status} ${coin}`;
     },
     transactionAmountInFiat() {
       if (this.transaction.amount.usd) {
@@ -126,8 +128,14 @@ export default {
 
 .history-item__from,
 .history-item__amount-fiat {
+  display: block;
+
   font-size: .875rem;
   color: #888aa7;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
 }
 
 .history-item {

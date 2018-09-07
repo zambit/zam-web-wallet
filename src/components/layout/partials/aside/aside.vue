@@ -15,7 +15,7 @@
             :key="wallet.id"
             :wallet="wallet"
             class="mb-3"
-            @wallet="$emit('wallet', $event)"
+            @wallet="EventBus.$emit('wallet', $event)"
           />
         </template>
       </div>
@@ -26,7 +26,8 @@
 <script>
 import { mapState } from 'vuex';
 
-import walletCard from '@/components/blocks/walletCard';
+import EventBus from '@/eventBus'; // eslint-disable-line
+import walletCard from '@/components/blocks/walletCard/index';
 
 export default {
   name: 'layout-aside',

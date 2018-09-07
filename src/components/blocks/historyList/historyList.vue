@@ -2,7 +2,7 @@
   <div class="container-fluid h-100 py-4">
     <div class="row h-100">
       <div class="col-12 col-md-12 col-lg-6">
-        <div class="tsx-wrap">
+        <div class="tsx-wrap h-100">
           <div class="d-flex justify-content-between align-items-center">
             <h2 class="block-title">Transactions</h2>
             <div v-if="transactions.length > 0" class="d-flex">
@@ -63,7 +63,7 @@
       </div>
       <div class="col-12 col-md-12 col-lg-6">
         <div class="row h-100">
-          <div class="col-12 h-50">
+          <div class="col-12 h-auto h-xl-50">
             <div class="table-wrap tsx-wrap">
               <table class="table">
                 <thead class="table__thead">
@@ -123,7 +123,7 @@
               </table>
             </div>
           </div>
-          <div class="col-12 pt-4 h-50">
+          <div class="col-12 h-auto h-xl-50 pt-4">
             <div class="news-wrap tsx-wrap">
               <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between">

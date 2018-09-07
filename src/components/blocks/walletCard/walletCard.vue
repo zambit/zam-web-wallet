@@ -34,7 +34,8 @@
       <div class="col-6 text-center">
         <button
           type="button"
-          class="btn btn-link wallet-card__button"
+          :class="['btn btn-link wallet-card__button', { 'wallet-card__button--disabled' :
+          !!disabled }]"
           @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/send`)"
         >
           Send
@@ -46,7 +47,8 @@
       <div class="col-6 text-center">
         <button
           type="button"
-          class="btn btn-link wallet-card__button"
+          :class="['btn btn-link wallet-card__button', { 'wallet-card__button--disabled' :
+          !!disabled }]"
           @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/deposit`)"
         >
           Deposit
@@ -74,6 +76,7 @@ import './wallet-card__icon__arrow-up.svg';
 export default {
   name: 'wallet-card',
   props: {
+    disabled: Boolean,
     wallet: {
       type: Object,
       required: true,
@@ -138,7 +141,6 @@ export default {
   background-color: #ffffff;
   padding: 20px 12px 12px;
   box-shadow: 0 4px 42px -8px #bec1c5;
-  cursor: pointer;
 }
 
 .wallet-card__chart-container {
@@ -183,6 +185,11 @@ export default {
   font-weight: 500;
   letter-spacing: -0.5px;
   color: #888aa7;
+}
+
+.wallet-card__button--disabled {
+  opacity: .5;
+  cursor: not-allowed !important; // override bootstrap .btn styles
 }
 
 .wallet-card__icon-arrow {

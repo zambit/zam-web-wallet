@@ -18,6 +18,14 @@
             @wallet="$emit('wallet', $event)"
           />
         </template>
+        <template v-for="wallet in stubWallets">
+          <wallet-card
+            :key="wallet.id"
+            :wallet="wallet"
+            :disabled="true"
+            class="mb-3"
+          />
+        </template>
       </div>
     </section>
   </aside>
@@ -30,6 +38,30 @@ import walletCard from '@/components/blocks/walletCard';
 
 export default {
   name: 'layout-aside',
+  data() {
+    return {
+      stubWallets: [
+        {
+          id: 998,
+          coin: 'eth',
+          wallet_name: 'ETH wallet',
+          balances: {
+            usd: 0,
+            eth: 0,
+          },
+        },
+        {
+          id: 999,
+          coin: 'zam',
+          wallet_name: 'ZAM wallet',
+          balances: {
+            usd: 0,
+            zam: 0,
+          },
+        },
+      ],
+    };
+  },
   components: {
     walletCard,
   },

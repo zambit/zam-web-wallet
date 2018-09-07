@@ -8,7 +8,7 @@
         <template v-if="state === 'send'">
           <transaction-form @show-cards="toggleSlide" />
         </template>
-        <template v-else>
+        <template v-if="state === 'deposit'">
           <wallet-deposit @show-cards="toggleSlide" />
         </template>
       </div>
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       showAside: true,
-      state: 'send',
+      state: '',
     };
   },
   components: {
@@ -45,6 +45,8 @@ export default {
   watch: {
     $route: {
       async handler(value) {
+        this.state = this.$route.params.state;
+
         const response = await api.wallet.get({});
 
         if (!response.data.result) {
@@ -53,7 +55,6 @@ export default {
 
         const wallet = response.data.data.wallets.find(el => el.coin === value.params.coin &&
           el.wallet_name.toLowerCase() === value.params.name.toLowerCase());
-        this.state = this.$route.params.state;
 
         return wallet ?
           this.setActiveWallet(wallet.id) :
@@ -80,9 +81,12 @@ export default {
         el.scrollTo(0, 0);
       }
 
+      console.log('toggle');
       if (this.$refs.layoutWrapper.classList.contains('layout-slide-mobile')) {
+        console.log('remove');
         return this.$refs.layoutWrapper.classList.remove('layout-slide-mobile');
       }
+      console.log('add');
       return this.$refs.layoutWrapper.classList.add('layout-slide-mobile');
     },
   },

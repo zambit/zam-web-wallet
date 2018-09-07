@@ -30,7 +30,6 @@
             :infinite-scroll-disabled="historyIsFetching"
             :infinite-scroll-distance="10"
             class="tsx-body mt-3"
-            style="overflow: auto; height: calc(100% - 100px)"
           >
             <template v-if="transactions.length === 0">
               <div class="d-flex align-items-center justify-content-center h-100">
@@ -234,10 +233,15 @@ export default {
 }
 
 .tsx-body {
+  height: calc(100% - 100px);
   overflow: auto;
 
   margin: 0 -16px;
   padding: 0 16px;
+
+  @include media-breakpoint-down(lg) {
+    height: 400px;
+  }
 }
 
 .table-wrap,

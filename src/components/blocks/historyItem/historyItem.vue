@@ -12,7 +12,8 @@
         </div>
         <div class="col-6 text-right">
           <span :class="['history-item__coin-amount', { 'green' : transaction.sender }]">
-          {{ transactionAmountInCoins }}
+            {{ transaction.sender ? '+' : '-'}}
+            {{ transactionAmountInCoins }}
           </span>
         </div>
       </div>
@@ -23,6 +24,7 @@
         </div>
         <div class="col-6 text-right">
           <span class="history-item__amount-fiat">
+            {{ transaction.sender ? '+' : '-'}}
             {{ fiats.USD.sign + transactionAmountInFiat }}</span>
         </div>
       </div>

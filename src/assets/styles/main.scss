@@ -23,6 +23,11 @@ html, body {
   overflow-y: auto;
 }
 
+button {
+  // SPECIALLY FOR ANDREW SKURLATOV
+  cursor: pointer;
+}
+
 .block-title {
   font-size: 1.375rem;
   font-weight: bold;

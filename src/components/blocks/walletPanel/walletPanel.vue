@@ -76,6 +76,28 @@
               </svg>
             </button>
           </div>
+          <div class="d-none d-xl-flex align-items-center ml-5">
+            <button
+              type="button"
+              class="wallet-panel__btn pointer"
+              @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
+            >
+              Send
+              <svg class="wallet-panel__btn-icon">
+                <use xlink:href="#wallet-card__icon__arrow-up--blue"></use>
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="wallet-panel__btn ml-3 pointer"
+              @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
+            >
+              Deposit
+              <svg class="wallet-panel__btn-icon">
+                <use xlink:href="#wallet-card__icon__arrow-down--green"></use>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -85,21 +107,21 @@
         class="wallet-panel__btn-mobile blue"
         @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/send`)"
       >
-          Send
-          <svg>
-            <use xlink:href="#wallet-card__icon__arrow-up"></use>
-          </svg>
-        </button>
+        Send
+        <svg>
+          <use xlink:href="#wallet-card__icon__arrow-up"></use>
+        </svg>
+      </button>
       <button
         type="button"
         class="wallet-panel__btn-mobile ml-4 green"
         @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/deposit`)"
       >
-          Deposit
-          <svg>
-            <use xlink:href="#wallet-card__icon__arrow-down"></use>
-          </svg>
-        </button>
+        Deposit
+        <svg>
+          <use xlink:href="#wallet-card__icon__arrow-down"></use>
+        </svg>
+      </button>
     </div>
   </div>
 </template>
@@ -289,7 +311,6 @@ export default {
   height: 16px;
   margin-left: 10px;
 
-
   &.green {
     fill: $lightish-green;
   }
@@ -303,22 +324,16 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 115px;
-
   padding: 12px 0;
-
   border-radius: 72px;
   border: none;
-
   color: white;
 
   & > svg {
     fill: white;
-
     width: 16px;
     height: 16px;
-
     margin-left: 8px;
   }
 
@@ -333,7 +348,6 @@ export default {
 
 .wallet-panel__btn-row {
   position: relative;
-
   background-color: #f5f5f5;
   padding: 20px 0;
 
@@ -341,13 +355,11 @@ export default {
     content: '';
     position: absolute;
     top: 100%;
-
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 15px 12px 0 12px;
     border-color: #f5f5f5 transparent transparent transparent;
-
   }
 }
 </style>

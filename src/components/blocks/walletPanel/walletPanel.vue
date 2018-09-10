@@ -45,7 +45,7 @@
             <div class="d-none d-xl-flex align-items-center ml-5">
               <button
                 type="button" class="wallet-panel__btn"
-                @click="$emit('wallet', { wallet: wallet.id, state: 'send' })"
+                @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/send`)"
               >
                 Send
                 <svg class="wallet-panel__btn-icon blue">
@@ -55,7 +55,7 @@
               <button
                 type="button"
                 class="wallet-panel__btn ml-3"
-                @click="$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
+                @click="$router.push(`/${wallet.coin}/${wallet.wallet_name}/deposit`)"
               >
                 Deposit
                 <svg class="wallet-panel__btn-icon green">
@@ -73,28 +73,6 @@
             <button class="btn btn-link p-0 ml-3" type="button" @click="copyAddressToClipboard">
               <svg class="wallet-panel__icon-copy">
                 <use xlink:href="#wallet-panel__icon__copy"></use>
-              </svg>
-            </button>
-          </div>
-          <div class="d-none d-xl-flex align-items-center ml-5">
-            <button
-              type="button"
-              class="wallet-panel__btn pointer"
-              @click="EventBus.$emit('wallet', { wallet: wallet.id, state: 'send' })"
-            >
-              Send
-              <svg class="wallet-panel__btn-icon">
-                <use xlink:href="#wallet-card__icon__arrow-up--blue"></use>
-              </svg>
-            </button>
-            <button
-              type="button"
-              class="wallet-panel__btn ml-3 pointer"
-              @click="EventBus.$emit('wallet', { wallet: wallet.id, state: 'deposit' })"
-            >
-              Deposit
-              <svg class="wallet-panel__btn-icon">
-                <use xlink:href="#wallet-card__icon__arrow-down--green"></use>
               </svg>
             </button>
           </div>

@@ -11,8 +11,11 @@
           </span>
         </div>
         <div class="col-6 text-right">
-          <span :class="['history-item__coin-amount', { 'green' : transaction.sender }]">
-            {{ transaction.sender ? '+' : '-'}}
+          <span
+            :class="['history-item__coin-amount',
+            { 'green' : transaction.direction === 'incoming' }]"
+          >
+            {{ transaction.direction === 'incoming' ? '+' : '-'}}
             {{ transactionAmountInCoins }}
           </span>
         </div>

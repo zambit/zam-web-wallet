@@ -53,13 +53,7 @@
           </svg>
           <ul class="nav__list flex-column list-unstyled text-center mb-0 mt-5 px-0">
             <li class="nav__list-item px-4">
-              <router-link to="">Home</router-link>
-            </li>
-            <li class="nav__list-item px-4 mt-3">
-              <router-link to="">History</router-link>
-            </li>
-            <li class="nav__list-item px-4 mt-3">
-              <router-link to="">More</router-link>
+              <router-link to="/">Home</router-link>
             </li>
           </ul>
           <div class="nav-mobile__sign-out-btn mt-5 pointer" @click="handleSignOut">

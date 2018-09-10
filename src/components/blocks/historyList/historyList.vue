@@ -14,17 +14,17 @@
               </button>
             </div>
           </div>
-          <div v-if="transactions.length > 0" class="tsx-search">
-            <div class="d-flex">
-              <input
-                v-model="search"
-                placeholder="Search"
-                type="text"
-                title="search transaction"
-                class="w-100 tsx__search-input"
-              >
-            </div>
-          </div>
+          <!--<div v-if="transactions.length > 0" class="tsx-search">-->
+            <!--<div class="d-flex">-->
+              <!--<input-->
+                <!--v-model="search"-->
+                <!--placeholder="Search"-->
+                <!--type="text"-->
+                <!--title="search transaction"-->
+                <!--class="w-100 tsx__search-input"-->
+              <!--&gt;-->
+            <!--</div>-->
+          <!--</div>-->
           <div
             v-infinite-scroll="fetchHistory"
             :infinite-scroll-disabled="historyIsFetching"

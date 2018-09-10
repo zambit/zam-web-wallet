@@ -31,6 +31,8 @@ import EventBus from '@/eventBus';
 import layoutAside from '@/components/layout/partials/aside';
 import layoutHeader from '@/components/layout/partials/header';
 
+import './button__show-sidebar.svg';
+
 export default {
   name: 'layout-main',
   data() {

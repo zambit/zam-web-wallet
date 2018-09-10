@@ -24,7 +24,7 @@ import walletPanel from '@/components/blocks/walletPanel';
 import transactionForm from '@/components/blocks/transactionForm';
 import walletDeposit from '@/components/blocks/walletDeposit';
 
-import '@/components/layout/partials/aside/button__show-sidebar.svg';
+import '@/components/layout/main/button__show-sidebar.svg';
 
 export default {
   name: 'main-page',

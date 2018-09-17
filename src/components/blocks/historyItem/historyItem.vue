@@ -27,7 +27,7 @@
         </div>
         <div class="col-6 text-right">
           <span class="history-item__amount-fiat">
-            {{ transaction.sender ? '+' : '-'}}
+            {{ transaction.direction === 'incoming' ? '+' : '-'}}
             {{ fiats.USD.sign + transactionAmountInFiat }}</span>
         </div>
       </div>

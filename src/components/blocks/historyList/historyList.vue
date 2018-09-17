@@ -5,7 +5,7 @@
         <div class="tsx-wrap h-100">
           <div class="d-flex justify-content-between align-items-center">
             <h2 class="block-title">Transactions</h2>
-            <div v-if="transactions.length > 0" class="d-flex">
+            <div v-if="false" class="d-flex">
               <button type="button" class="btn btn-link p-0">
                 Filter
                 <svg class="tsx__filter-icon">

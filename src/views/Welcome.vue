@@ -2,9 +2,11 @@
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-12 col-lg-6">
-        <svg class="rounded-circle" style="width: 220px; height: 220px;">
-          <use xlink:href="#zamzam-logo"></use>
-        </svg>
+        <div class="d-flex w-100 justify-content-center">
+          <svg class="rounded-circle" style="width: 220px; height: 220px;">
+            <use xlink:href="#zamzam-logo"></use>
+          </svg>
+        </div>
         <div class="d-flex flex-column align-items-center mt-5">
           <router-link to="/sign-up" class="btn text-uppercase btn-reg">Registration
           </router-link>

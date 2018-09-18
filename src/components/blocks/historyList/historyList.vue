@@ -200,7 +200,6 @@ export default {
 
       if (response.data.result) {
         this.page = response.data.data.next;
-        console.log(response.data.data.transactions);
         this.transactions = [...this.transactions, ...response.data.data.transactions];
       } else {
         alert('Failed to fetch history'); // eslint-disable-line

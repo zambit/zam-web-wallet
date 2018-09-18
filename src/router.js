@@ -29,17 +29,17 @@ function preventEnteringAuthRoute(to, from, next) {
 const router = new Router({
   mode: 'history',
   routes: [
-    {
-      path: '/welcome',
-      name: 'welcome',
-      component: Welcome,
-      meta: {
-        requiresAuth: false,
-      },
-      beforeEnter: (to, from, next) => {
-        preventEnteringAuthRoute(to, from, next);
-      },
-    },
+    // {
+    //   path: '/welcome',
+    //   name: 'welcome',
+    //   component: Welcome,
+    //   meta: {
+    //     requiresAuth: false,
+    //   },
+    //   beforeEnter: (to, from, next) => {
+    //     preventEnteringAuthRoute(to, from, next);
+    //   },
+    // },
     {
       path: '/sign-in',
       name: 'sign-in',
@@ -102,27 +102,13 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const jwt = Cookies.get('jwt') || null;
-    const userHasVisitedAppBefore = !!(window.localStorage.getItem('visited'));
-
-    if (!jwt && !userHasVisitedAppBefore) {
-      return next({
-        path: '/welcome',
-      });
-    } else if (!jwt && userHasVisitedAppBefore) {
-      return next({
-        path: '/sign-in',
-        query: { redirect: to.fullPath },
-      });
-    }
-
     /**
      * Validate jwt
      */
     const r = await store.dispatch('authCheck');
 
     if (!r.data.result) {
-      next({
+      return next({
         path: '/sign-in',
         query: { redirect: to.fullPath },
       });

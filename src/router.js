@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import store from '@/store';
 
 const Main = () => import(/* webpackChunkName: "pages-main" */ './views/Main');
-const Welcome = () => import(/* webpackChunkName: "pages-welcome" */ './views/Welcome');
+// const Welcome = () => import(/* webpackChunkName: "pages-welcome" */ './views/Welcome');
 const SignIn = () => import(/* webpackChunkName: "pages-sign-in" */ './views/SignIn');
 const SignUp = () => import(/* webpackChunkName: "pages-sign-up" */ './views/SignUp');
 const Settings = () => import(/* webpackChunkName: "pages-settings" */ './views/Settings');

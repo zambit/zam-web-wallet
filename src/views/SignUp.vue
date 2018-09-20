@@ -74,14 +74,34 @@
                 @input="formData.passwordConfirmation = $event.target.value"
               />
             </div>
-            <div class="col-12 text-center mt-input">
-              <v-checkbox id="agreeWithRulesCheckbox" class="d-inline-block">
+            <div class="col-12 mt-input">
+              <v-checkbox
+                id="agreeWithRulesCheckbox"
+                class="d-inline-block"
+                required
+              >
                 <slot>
-                  <label for="agreeWithRulesCheckbox">
-                    Test for the call to confirm the
-                    <router-link to="/">&nbsp;legal
-                      document
-                    </router-link>
+                  <label for="agreeWithRulesCheckbox" class="d-flex">
+                    <span>
+                      I accept the
+                      <a
+                        href="https://terms.zam.io/TERMS_OF_USE_for_site.pdf"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        Terms of Use
+                      </a>
+                      and give my consent to
+                      ZamZamTechnology OÜ to process my personal
+                      data for the services outlined in the
+                      <a
+                        href="https://privacy.zam.io/PRIVACY_POLICY.pdf"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        Privacy Policy
+                      </a>
+                    </span>
                   </label>
                 </slot>
               </v-checkbox>

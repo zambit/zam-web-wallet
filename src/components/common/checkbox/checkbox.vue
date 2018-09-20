@@ -30,8 +30,6 @@ export default {
   opacity: 0; // hide it
 
   & + label {
-    display: flex;
-    align-items: center;
     font-size: 13px;
     line-height: 1;
     color: white;
@@ -50,7 +48,7 @@ export default {
     content: '';
     flex-shrink: 0;
     margin-right: 12px;
-    display: inline-block;
+    display: block;
     vertical-align: text-top;
     width: 32px;
     height: 32px;

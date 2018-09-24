@@ -1,7 +1,6 @@
 before_script:
   - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
   - npm whoami
-  - npm install --progress=false
 
 stages:
   - lint
@@ -15,33 +14,81 @@ image: node:10
 lint source:
   stage: lint
   script:
+    - npm install --progress=false
     - npm run lint
 
-build app:
+build app staging:
+  stage: build
+  environment:
+    name: staging
+  script:
+    - NODE_ENV=staging VUE_APP_ROOT_API=$VUE_APP_ROOT_API_STAGING npm run build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist
+  only:
+    - develop
+
+build app testing:
+  stage: build
+  environment:
+    name: testing
+  script:
+  - NODE_ENV=testing VUE_APP_ROOT_API=$VUE_APP_ROOT_API_TESTING npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+    - dist
+  only:
+  - testing
+
+build app production:
   stage: build
   environment:
     name: production
   script:
-    - NODE_ENV=production VUE_APP_ROOT_API=$VUE_APP_ROOT_API npm run build
+  - NODE_ENV=production VUE_APP_ROOT_API=$VUE_APP_ROOT_API_PRODUCTION npm run build
   artifacts:
-    expire_in: 1 week
+    expire_in: 1 month
     paths:
-      - dist
+    - dist
+  only:
+  - master
 
 unit test:
   stage: test
   script:
-    - npm run test:unit
+  - npm run test:unit
 
-publish app:
+publish app staging:
   stage: publish
   script:
+    - npm version $(npm view @zamzamtech/wallet version)-staging
+    - npm publish --access private
+  only:
+    - develop
+
+publish app testing:
+  stage: publish
+  script:
+    - npm version $(npm view @zamzamtech/wallet version)-testing
+    - npm publish --access private
+  only:
+    - testing
+
+publish app production:
+  stage: publish
+  script:
+    - npm version $(npm view @zamzamtech/wallet version)-production
     - npm publish --access private
   only:
     - master
 
 deploy staging:
   stage: deploy
+  environment:
+    name: staging
   script:
     - echo "$SSH_PRIVATE_DSA_KEY" > id_dsa
     - chmod 600 id_dsa
@@ -49,4 +96,4 @@ deploy staging:
     - ssh -o StrictHostKeyChecking=no -i id_dsa zam@10.200.1.107 "cd /var/www/zam-wallet && npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm whoami && npm i @zamzamtech/wallet@latest"
     - rm id_dsa
   only:
-    - master
+    - develop

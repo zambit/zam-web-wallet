@@ -22,6 +22,7 @@ build app staging:
   environment:
     name: staging
   script:
+    - npm install --progress=false
     - NODE_ENV=staging VUE_APP_ROOT_API=$VUE_APP_ROOT_API_STAGING npm run build
   artifacts:
     expire_in: 1 day
@@ -35,30 +36,33 @@ build app testing:
   environment:
     name: testing
   script:
-  - NODE_ENV=testing VUE_APP_ROOT_API=$VUE_APP_ROOT_API_TESTING npm run build
+    - npm install --progress=false
+    - NODE_ENV=testing VUE_APP_ROOT_API=$VUE_APP_ROOT_API_TESTING npm run build
   artifacts:
     expire_in: 1 week
     paths:
-    - dist
+      - dist
   only:
-  - testing
+    - testing
 
 build app production:
   stage: build
   environment:
     name: production
   script:
-  - NODE_ENV=production VUE_APP_ROOT_API=$VUE_APP_ROOT_API_PRODUCTION npm run build
+    - npm install --progress=false
+    - NODE_ENV=production VUE_APP_ROOT_API=$VUE_APP_ROOT_API_PRODUCTION npm run build
   artifacts:
     expire_in: 1 month
     paths:
-    - dist
+      - dist
   only:
-  - master
+    - master
 
 unit test:
   stage: test
   script:
+  - npm install --progress=false
   - npm run test:unit
 
 publish app staging:

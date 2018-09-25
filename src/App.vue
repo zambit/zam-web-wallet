@@ -4,6 +4,17 @@
   </div>
 </template>
 
+<script>
+import pkg from '../package.json';
+
+export default {
+  name: 'app-root',
+  mounted() {
+    console.log(pkg.version); // eslint-disable-line
+  },
+};
+</script>
+
 <style lang="scss">
 @import "assets/styles/main";
 

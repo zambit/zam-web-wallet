@@ -40,7 +40,7 @@
               <template v-for="(transaction, index) in transactions">
                 <div :key="index" class="history-group d-flex justify-content-between">
                   <span class="history-group__date">
-                    {{ parseGroupDate(transaction.end_date) }}
+                    {{ parseGroupDate(transaction.end_date - 1) }}
                   </span>
                   <span class="history-group__total-amount">
                     {{ formatGroupTotalAmount(transaction.total_amount.usd) }}

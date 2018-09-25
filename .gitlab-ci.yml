@@ -27,7 +27,6 @@ build app staging:
     - export NODE_ENV=staging
     - npm install --progress=false
     - VUE_APP_ROOT_API=$VUE_APP_ROOT_API_STAGING npm run build
-    - node packageVersionLabeling.js
   artifacts:
     expire_in: 1 day
     paths:
@@ -75,6 +74,7 @@ publish app staging:
   stage: publish
   script:
     - export NODE_ENV=staging
+    - node packageVersionLabeling.js
     - npm publish --registry http://npm.zam.io:4873
   only:
     - develop
@@ -83,6 +83,7 @@ publish app testing:
   stage: publish
   script:
     - export NODE_ENV=testing
+    - node packageVersionLabeling.js
     - npm publish --registry http://npm.zam.io:4873
   only:
     - testing
@@ -91,6 +92,7 @@ publish app production:
   stage: publish
   script:
     - export NODE_ENV=production
+    - node packageVersionLabeling.js
     - npm publish --registry http://npm.zam.io:4873
   only:
     - master
@@ -103,7 +105,7 @@ deploy staging:
     - echo "$SSH_PRIVATE_DSA_KEY" > id_dsa
     - chmod 600 id_dsa
     - cat id_dsa
-    - ssh -o StrictHostKeyChecking=no -i id_dsa zam@10.200.1.107 "cd /var/www/zam-wallet && npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm whoami && npm i @zamzamtech/wallet@latest"
+    - ssh -o StrictHostKeyChecking=no -i id_dsa zam@10.200.1.107 "cd /var/www/zam-wallet && npm set registry http://npm.zam.io:4873 && npm config set //npm.zam.io:4873/:_authToken=${NPM_TOKEN} && npm whoami && npm i @zamzamtech/wallet@$(npm view @zamzamtech/wallet version)"
     - rm id_dsa
   only:
     - develop

@@ -24,9 +24,9 @@ build app staging:
   environment:
     name: staging
   script:
-    - node packageVersionLabeling.js
-    - export NODE_ENV=staging
     - npm install --progress=false
+    - export NODE_ENV=staging
+    - node packageVersionLabeling.js
     - VUE_APP_ROOT_API=$VUE_APP_ROOT_API_STAGING npm run build
   artifacts:
     expire_in: 1 day
@@ -40,9 +40,9 @@ build app testing:
   environment:
     name: testing
   script:
-    - node packageVersionLabeling.js
-    - export NODE_ENV=testing
     - npm install --progress=false
+    - export NODE_ENV=testing
+    - node packageVersionLabeling.js
     - VUE_APP_ROOT_API=$VUE_APP_ROOT_API_TESTING npm run build
   artifacts:
     expire_in: 1 week

@@ -76,10 +76,28 @@ unit test:
 publish app staging:
   stage: publish
   script:
+    - export NODE_ENV=staging
+    - node packageVersionLabeling.js
     - npm publish --registry http://npm.zam.io:4873
   only:
     - develop
+
+publish app testing:
+  stage: publish
+  script:
+    - export NODE_ENV=testing
+    - node packageVersionLabeling.js
+    - npm publish --registry http://npm.zam.io:4873
+  only:
     - testing
+
+publish app production:
+  stage: publish
+  script:
+    - export NODE_ENV=production
+    - node packageVersionLabeling.js
+    - npm publish --registry http://npm.zam.io:4873
+  only:
     - master
 
 deploy staging:

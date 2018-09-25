@@ -1,6 +1,7 @@
 before_script:
 #  - npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-  - npm set registry http://npm.zam.io:4873/:_authToken ${NPM_TOKEN}
+  - npm set registry http://npm.zam.io:4873
+  - npm config set //npm.zam.io:4873/:_authToken=${NPM_TOKEN}
   - npm whoami
 
 stages:

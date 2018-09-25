@@ -24,6 +24,7 @@ build app staging:
   environment:
     name: staging
   script:
+    - node packageVersionLabeling.js
     - export NODE_ENV=staging
     - npm install --progress=false
     - VUE_APP_ROOT_API=$VUE_APP_ROOT_API_STAGING npm run build
@@ -39,6 +40,7 @@ build app testing:
   environment:
     name: testing
   script:
+    - node packageVersionLabeling.js
     - export NODE_ENV=testing
     - npm install --progress=false
     - VUE_APP_ROOT_API=$VUE_APP_ROOT_API_TESTING npm run build
@@ -54,8 +56,9 @@ build app production:
   environment:
     name: production
   script:
-    - export NODE_ENV=production
     - npm install --progress=false
+    - export NODE_ENV=production
+    - node packageVersionLabeling.js
     - VUE_APP_ROOT_API=$VUE_APP_ROOT_API_PRODUCTION npm run build
   artifacts:
     expire_in: 1 month
@@ -73,28 +76,10 @@ unit test:
 publish app staging:
   stage: publish
   script:
-    - export NODE_ENV=staging
-    - node packageVersionLabeling.js
     - npm publish --registry http://npm.zam.io:4873
   only:
     - develop
-
-publish app testing:
-  stage: publish
-  script:
-    - export NODE_ENV=testing
-    - node packageVersionLabeling.js
-    - npm publish --registry http://npm.zam.io:4873
-  only:
     - testing
-
-publish app production:
-  stage: publish
-  script:
-    - export NODE_ENV=production
-    - node packageVersionLabeling.js
-    - npm publish --registry http://npm.zam.io:4873
-  only:
     - master
 
 deploy staging:

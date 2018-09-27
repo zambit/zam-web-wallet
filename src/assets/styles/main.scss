@@ -112,6 +112,10 @@ button {
   cursor: pointer;
 }
 
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
 // For Google Chrome
 ::-webkit-scrollbar {
   width:  6px;

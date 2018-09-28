@@ -141,6 +141,10 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+
+  @include media-breakpoint-down(sm) {
+    max-width: 130px;
+  }
 }
 
 .history-item {

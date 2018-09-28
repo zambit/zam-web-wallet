@@ -279,46 +279,28 @@
                 <div class="filters__item">
                   <h4 class="filters__item-header">Coins</h4>
                   <div class="d-flex mt-3">
-                    <div>
-                      <input
-                        v-model="formData.coin"
-                        class="d-none"
-                        type="radio"
-                        name="coin"
-                        value="btc"
-                        id="btc"
-                      >
-                      <label
-                        :class="['filters__coin', { 'filters__coin--active' : formData.coin ===
-                        'btc' }]"
-                        for="btc"
-                      >
-                        <svg class="filters__coin-icon">
-                          <use xlink:href="#icon__bitcoin"></use>
-                        </svg>
-                        <span class="filters__coin-name">BTC</span>
-                      </label>
-                    </div>
-                    <div class="ml-3">
-                      <input
-                        v-model="formData.coin"
-                        class="d-none"
-                        type="radio"
-                        name="coin"
-                        value="bch"
-                        id="bch"
-                      >
-                      <label
-                        :class="['filters__coin', { 'filters__coin--active' : formData.coin ===
-                        'bch' }]"
-                        for="bch"
-                      >
-                        <svg class="filters__coin-icon">
-                          <use xlink:href="#icon__bitcoin-cash"></use>
-                        </svg>
-                        <span class="filters__coin-name">BCH</span>
-                      </label>
-                    </div>
+                    <template v-for="(coin, index) in coinsInUse">
+                      <div :key="coin" :class="[{'ml-3' : index !== 0 }]">
+                        <input
+                          v-model="formData.coin"
+                          :value="coin"
+                          :id="coin"
+                          class="d-none"
+                          :type="formData.coin === coin ? 'checkbox' : 'radio'"
+                          name="coin"
+                        >
+                        <label
+                          :class="['filters__coin', { 'filters__coin--active' : formData.coin ===
+                          coin }]"
+                          :for="coin"
+                        >
+                          <svg class="filters__coin-icon">
+                            <use :xlink:href="`#icon__${coin}`"></use>
+                          </svg>
+                          <span class="filters__coin-name">{{ coin.toUpperCase() }}</span>
+                        </label>
+                      </div>
+                    </template>
                   </div>
                 </div>
 
@@ -338,6 +320,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import infiniteScroll from 'vue-infinite-scroll';
 import Inputmask from 'inputmask';
 import { format } from 'date-fns';
@@ -348,6 +331,10 @@ import { formatBalance } from '@/helpers';
 import historyItem from '@/components/blocks/historyItem';
 
 import './icon__filters.svg';
+import './icon__zam.svg';
+import './icon__bch.svg';
+import './icon__btc.svg';
+import './icon__eth.svg';
 
 export default {
   name: 'history-list',
@@ -419,7 +406,7 @@ export default {
           from_time: this.fromTime,
           until_time: this.untilTime,
           direction: this.direction,
-          coin: this.formData.coin,
+          coin: this.formData.coin || null,
         },
         replace: true,
       });
@@ -455,6 +442,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      coinsInUse: 'coinsInUse',
+    }),
     fromTime() {
       const [date, month, year] = this.formData.from_time.split('.');
 

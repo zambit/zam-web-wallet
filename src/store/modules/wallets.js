@@ -11,6 +11,12 @@ const SET_WALLETS = 'SET_WALLETS';
 
 const getters = {
   activeWallet: state => state.items.find(el => el.id === state.activeWalletID),
+  coinsInUse: state => state.items.reduce((acc, el) => {
+    if (!acc.includes(el.coin)) {
+      acc.push(el.coin);
+    }
+    return acc;
+  }, []),
 };
 
 const actions = {

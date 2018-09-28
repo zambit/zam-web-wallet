@@ -114,6 +114,8 @@ export default {
 }
 
 .history-item__coin-icon {
+  flex-shrink: 0;
+
   width: 34px;
   height: 34px;
 

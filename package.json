@@ -16,7 +16,7 @@
     "dist"
   ],
   "dependencies": {
-    "@zamzamtech/wallet-axios": "^0.2.0-4",
+    "@zamzamtech/wallet-axios": "^0.2.0-5",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.2",
     "date-fns": "^1.29.0",

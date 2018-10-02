@@ -4,6 +4,7 @@
       <v-input
         :v-placeholder="'Phone'"
         :value="phone"
+        :theme="theme"
         :error="error"
         :errorText="errorText"
         type="text"
@@ -33,6 +34,7 @@ export default {
   props: {
     phone: String,
     errorText: String,
+    theme: String,
     error: Boolean,
     guessCountryOnCreated: Boolean,
   },

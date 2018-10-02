@@ -1,5 +1,5 @@
 <template>
-  <div class="input">
+  <div :class="['input', { 'input--light' : theme === 'light' }]">
     <div :class="['input__body', { 'input__body--focus' : isFocused || $attrs.value }]">
       <small class="input__placeholder" @click="focusInput">{{ vPlaceholder }}</small>
       <input
@@ -32,6 +32,13 @@ export default {
     vPlaceholder: {
       type: String,
       default: '',
+    },
+    theme: {
+      type: String,
+      default: 'dark',
+      validator(value) {
+        return value === 'dark' || value === 'light';
+      },
     },
     showLabel: {
       type: Boolean,
@@ -159,6 +166,37 @@ export default {
   .input__labels-wrap {
     position: absolute;
     top: 100%;
+  }
+}
+
+.input--light {
+  & .input__body {
+    background-color: white;
+    border: solid 2px #ececec;
+
+    &:hover, &:focus {
+      background-color: white;
+
+      & .input__placeholder {
+        color: $sky-blue;
+      }
+
+      & .input__root {
+        color: #5e5e5e;
+      }
+    }
+  }
+
+  & .input__placeholder {
+    color: $sky-blue;
+  }
+
+  & .input__root {
+    color: #5e5e5e;
+  }
+
+  & .input__body--focus {
+    background-color: white !important;
   }
 }
 </style>

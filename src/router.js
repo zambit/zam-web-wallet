@@ -11,6 +11,7 @@ const SignUp = () => import(/* webpackChunkName: "pages-sign-up" */ './views/Sig
 const Settings = () => import(/* webpackChunkName: "pages-settings" */ './views/Settings');
 const ForgotPassword = () => import(/* webpackChunkName: "pages-forgot-password" */ './views/ForgotPassword');
 const History = () => import(/* webpackChunkName: "pages-history" */ './views/History');
+const KYC = () => import(/* webpackChunkName: "pages-kyc" */ './views/KYC');
 
 Vue.use(Router);
 
@@ -85,6 +86,14 @@ const router = new Router({
       path: '/',
       name: 'history',
       component: History,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/kyc',
+      name: 'kyc',
+      component: KYC,
       meta: {
         requiresAuth: true,
       },

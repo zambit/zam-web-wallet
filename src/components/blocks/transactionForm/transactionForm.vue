@@ -35,6 +35,7 @@
             <phone-input
               v-if="sendBy === 'phone'"
               :phone="formData.recipient"
+              :theme="'light'"
               :error="inputs.phone.error"
               :erroText="inputs.phone.errorText"
               :key="'phone'"
@@ -47,6 +48,7 @@
               v-else
               :vPlaceholder="'Address'"
               :value="formData.recipient"
+              :theme="'light'"
               :error="inputs.address.error"
               :erroText="inputs.address.errorText"
               :key="'address'"
@@ -58,6 +60,7 @@
           <v-input
             :vPlaceholder="`Amount in ${wallet && wallet.coin}`"
             :value="formData.amount"
+            :theme="'light'"
             :error="inputs.amount.error"
             :erroText="inputs.amount.errorText"
             class="transaction-input mt-input no-spinners"
@@ -240,38 +243,6 @@ export default {
 
 $green: #8ad87d;
 $red: #ed9aa2;
-
-.transaction-input /deep/ {
-
-  & .input__body {
-    background-color: white;
-    border: solid 2px #ececec;
-
-    &:hover, &:focus {
-      background-color: white;
-
-      & .input__placeholder {
-        color: $sky-blue;
-      }
-
-      & .input__root {
-        color: #5e5e5e;
-      }
-    }
-  }
-
-  & .input__placeholder {
-    color: $sky-blue;
-  }
-
-  & .input__root {
-    color: #5e5e5e;
-  }
-
-  & .input__body--focus {
-    background-color: white !important;
-  }
-}
 
 .btn-submit {
   font-size: 1.3125rem;

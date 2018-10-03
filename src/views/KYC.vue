@@ -198,8 +198,7 @@
                     :error-text="inputs.postal_code.errorText"
                     :disabled="submitButtonDisabled"
                     class="mt-4 kyc-input"
-                    type="number"
-                    step="1"
+                    type="text"
                     required
                     @input="formData.postal_code = $event.target.value"
                   />

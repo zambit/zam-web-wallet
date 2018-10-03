@@ -9,11 +9,12 @@
         class="input__root"
         @focus="isFocused = true"
         @blur="isFocused = false"
+        @input="isTouched = true"
       >
     </div>
     <div class="input__labels-wrap">
       <label
-        v-if="showLabel"
+        v-if="showLabel && !isTouched"
         :for="$attrs.id"
         :class="['input__label', labelModClass]"
       >{{ errorText }}</label>
@@ -61,7 +62,13 @@ export default {
   data() {
     return {
       isFocused: false,
+      isTouched: false,
     };
+  },
+  watch: {
+    errorText() {
+      this.isTouched = false;
+    },
   },
   methods: {
     focusInput() {

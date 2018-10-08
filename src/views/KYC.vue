@@ -6,24 +6,24 @@
           <div class="container-fluid px-0">
             <div class="row">
               <div class="col-12">
-                <div class="banner">
-                  <div class="row no-gutters w-100">
-                    <div class="col-12 col-md-6">
-                      <h2 class="banner__title">Identify verification</h2>
-                      <p class="banner__desc mt-3">
-                        Pass the procedure of identification to the end and get
-                        bonus <strong>500 ZAM-tokens</strong></p>
-                    </div>
-                    <div class="col-12 col-md-6">
-                      <img class="banner__img" src="" alt="">
-                    </div>
+                <div class="banner d-flex justify-content-md-between align-items-center">
+                  <div>
+                    <h1 class="banner__title">Identify verification</h1>
+                    <p class="banner__desc">Pass the procedure of identification to the end and get
+                      bonus
+                      <strong>500 ZAM-tokens</strong>
+                    </p>
                   </div>
+                  <svg class="banner__img">
+                    <use xlink:href="#kyc-banner"></use>
+                  </svg>
                 </div>
               </div>
             </div>
-
+          </div>
+          <div class="container form-container">
             <div class="row mt-5">
-              <div class="col-12 col-lg-6">
+              <div class="col-12 col-lg-3">
                 <template v-for="(step, index) in steps">
                   <div
                     :key="index"
@@ -37,11 +37,11 @@
                   >
                     <div class="d-flex flex-column">
                       <div class="step__index">{{ index }}</div>
-                      <div class="step__index-stripe"></div>
                     </div>
                     <div class="ml-3">
-                      <h4 class="step__name">{{ step.name }}</h4>
-                      <span class="step__state">{{ getStepState(step.status) }}</span>
+                      <h4 class="step__name mb-0">{{ step.name }}</h4>
+                      <p v-html="step.desc" class="mt-1 mb-0"></p>
+                      <span class="step__state mt-1">{{ getStepState(step.status) }}</span>
                     </div>
                   </div>
                 </template>
@@ -207,7 +207,7 @@
                     type="submit"
                     class="btn-kyc mt-4"
                   >
-                    Submit
+                    Verify
                   </button>
                 </form>
               </div>
@@ -225,6 +225,8 @@ import Inputmask from 'inputmask';
 import api from '@/api';
 import vInput from '@/components/common/input';
 import layoutMain from '@/components/layout/main';
+
+import '@/assets/images/svg/kyc-banner.svg';
 
 export default {
   name: 'kyc-page',
@@ -293,22 +295,14 @@ export default {
       },
       steps: [
         {
-          name: 'KYC0 / Personal info & Address',
+          name: 'KYC0',
+          desc: 'Personal info, Personal address',
           status: 'unloaded',
           disabled: false,
         },
         {
-          name: 'KYC1 / Photo passport, or ID card, or Driving license',
-          status: 'unloaded',
-          disabled: true,
-        },
-        {
-          name: 'KYC1 / Selfie of a customer holding the above document',
-          status: 'unloaded',
-          disabled: true,
-        },
-        {
-          name: 'KYC1 / Upload document confirming address of residence',
+          name: 'KYC1',
+          desc: 'Selfie of a customer holding the adove document. <br><br> Photo passport, or ID card, or Driving license. <br><br> Upload document confirming address of residence.',
           status: 'unloaded',
           disabled: true,
         },
@@ -404,31 +398,17 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/_settings.scss";
 
-.kyc-section {
-  width: 790px;
-  padding-top: 24px;
-  padding-left: 125px;
-
-  @include media-breakpoint-down(md) {
-    width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
 .btn-kyc {
-  width: 100%;
+  display: inline-flex;
+  padding: 25px 82px;
   border: none;
-  border-radius: 23px;
-  background-color: $sky-blue;
-  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.15);
-
-  padding: 14px 0;
-
-  font-size: 1rem;
-  font-weight: bold;
-  line-height: 1.13;
-  letter-spacing: -0.5px;
+  font-size: 1.3125rem;
+  border-radius: 37px;
+  background-color: #8de37f;
+  box-shadow: 0 6px 14px 0 rgba(93, 118, 243, 0.24);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.7px;
   text-align: center;
   color: #ffffff;
   cursor: pointer;
@@ -462,9 +442,7 @@ export default {
   }
 
   &:last-child {
-    .step__index-stripe {
-      display: none;
-    }
+    margin-top: 30px;
   }
 }
 
@@ -482,9 +460,6 @@ export default {
   .step__state {
     color: #54b9f3;
   }
-  .step__index-stripe {
-    background-image: linear-gradient(to bottom, #54b9f3, #dd4d5e);
-  }
 }
 
 .step--done {
@@ -494,9 +469,6 @@ export default {
   }
   .step__state {
     color: $green;
-  }
-  .step__index-stripe {
-    background-color: $green;
   }
 }
 
@@ -517,15 +489,7 @@ export default {
   font-weight: 500;
   line-height: 1;
   color: #d0021b;
-
   transition: border-color .2s ease;
-}
-
-.step__index-stripe {
-  width: 2px;
-  height: 67px;
-  background-color: #d0021b;
-  margin: auto;
 }
 
 .step__name {
@@ -533,7 +497,6 @@ export default {
   line-height: 1.17;
   color: #1b1b1b;
   margin-bottom: 0;
-
   transition: color .2s ease;
 }
 
@@ -546,14 +509,17 @@ export default {
 
 .banner {
   display: flex;
-  padding: 16px 22px;
-  border-radius: 18px;
-  background-color: #ffffff;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: space-between;
+  background-image: linear-gradient(to left, #b8e986, #8de37f);
+  padding: 26px 84px;
 }
 
 .banner__title {
-
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.18;
+  color: #ffffff;
 }
 
 .banner__desc {
@@ -561,23 +527,21 @@ export default {
   font-weight: 500;
   line-height: 1.13;
   letter-spacing: -0.4px;
-  color: #1b1b1b;
+  color: #ffffff;
+  margin-top: 14px;
 }
 
 .banner__img {
-
+  width: 256px;
+  height: 160px;
 }
 
 .kyc-radio {
   position: relative;
-
   display: inline-flex;
-
   min-width: 125px;
   height: 44px;
-
   margin-bottom: 0;
-
   align-items: center;
   font-size: 1rem;
   font-weight: 500;
@@ -585,42 +549,31 @@ export default {
   letter-spacing: -0.5px;
   text-align: center;
   color: #000000;
-
   cursor: pointer;
 
   &::before {
     content: '';
-
     display: inline-block;
     margin-right: 18px;
-
     flex-shrink: 0;
-
     width: 18px;
     height: 18px;
-
     background-color: white;
     border: 2px solid #010101;
     border-radius: 100%;
-
     transition: border-color .2s ease;
   }
 
   &::after {
     content: '';
     position: absolute;
-
     flex-shrink: 0;
-
     left: 4px;
     top: 17px;
-
     width: 10px;
     height: 10px;
-
     border-radius: 100%;
     background-color: transparent;
-
     transition: background-color .2s ease;
   }
 }
@@ -635,4 +588,8 @@ export default {
   }
 }
 
+.form-container {
+  padding-left: 34px;
+  padding-right: 34px;
+}
 </style>

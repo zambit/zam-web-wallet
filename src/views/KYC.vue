@@ -7,14 +7,14 @@
             <div class="row">
               <div class="col-12">
                 <div class="banner d-flex justify-content-md-between align-items-center">
-                  <div>
+                  <div class="order-1 order-md-0">
                     <h1 class="banner__title">Identify verification</h1>
                     <p class="banner__desc">Pass the procedure of identification to the end and get
                       bonus
                       <strong>500 ZAM-tokens</strong>
                     </p>
                   </div>
-                  <svg class="banner__img">
+                  <svg class="banner__img order-0 order-md-1 flex-shrink-0">
                     <use xlink:href="#kyc-banner"></use>
                   </svg>
                 </div>
@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="container form-container">
-            <div class="row mt-5">
+            <div class="row mt-0 mt-md-5">
               <div class="col-12 col-lg-3">
                 <template v-for="(step, index) in steps">
                   <div
@@ -39,15 +39,36 @@
                       <div class="step__index">{{ index }}</div>
                     </div>
                     <div class="ml-3">
-                      <h4 class="step__name mb-0">{{ step.name }}</h4>
+                      <div class="d-flex align-items-center">
+                        <h4 class="step__name mb-0">{{ step.name }}</h4>
+                        <span class="d-md-none step__state ml-3">
+                          {{ getStepState(step.status) }}
+                        </span>
+                        <svg :class="
+                        ['d-none step__icon ml-3',
+                        { 'd-block' : step.status === 'pending' }]"
+                        >
+                          <use xlink:href="#icon--awaiting"></use>
+                        </svg>
+                        <svg :class="
+                        ['d-none step__icon ml-3',
+                        { 'd-block' : step.status === 'verified' }]"
+                        >
+                          <use xlink:href="#icon--checkmark"></use>
+                        </svg>
+                      </div>
                       <p v-html="step.desc" class="mt-1 mb-0"></p>
-                      <span class="step__state mt-1">{{ getStepState(step.status) }}</span>
+                      <span class="step__state mt-1 d-none d-md-block">
+                        {{ getStepState(step.status) }}
+                      </span>
                     </div>
                   </div>
                 </template>
               </div>
               <div class="col-12 col-lg-6">
-                <form class="mt-5 mt-lg-0" @submit.prevent="submitForm">
+                <form class="mt-3 mt-lg-0" @submit.prevent="submitForm">
+                  <p class="form-kyc-step mb-0">KYC0</p>
+                  <h2 class="form-title">Personal Info</h2>
                   <v-input
                     :v-placeholder="'Email'"
                     :value="formData.email"
@@ -55,7 +76,7 @@
                     :error="inputs.email.error"
                     :error-text="inputs.email.errorText"
                     :disabled="submitButtonDisabled"
-                    class="kyc-input"
+                    class="kyc-input mt-4"
                     type="email"
                     required
                     @input="formData.email = $event.target.value"
@@ -130,6 +151,7 @@
                       Female
                     </label>
                   </div>
+                  <h2 class="form-title mt-5">Personal Address</h2>
                   <v-input
                     :v-placeholder="'Country'"
                     :value="formData.country"
@@ -205,7 +227,7 @@
                   <button
                     :disabled="submitButtonDisabled"
                     type="submit"
-                    class="btn-kyc mt-4"
+                    class="btn-kyc mt-4 mx-auto mx-md-0"
                   >
                     Verify
                   </button>
@@ -227,6 +249,8 @@ import vInput from '@/components/common/input';
 import layoutMain from '@/components/layout/main';
 
 import '@/assets/images/svg/kyc-banner.svg';
+import '@/assets/images/svg/icon--awaiting.svg';
+import '@/assets/images/svg/icon--checkmark.svg';
 
 export default {
   name: 'kyc-page',
@@ -391,6 +415,8 @@ export default {
       placeholder: 'YYYY/MM/DD',
       showMaskOnHover: false,
     }).mask('.js-input-bdate .input__root');
+
+    document.querySelector('.layout__wallets-btn').classList.toggle('d-none');
   },
 };
 </script>
@@ -399,7 +425,7 @@ export default {
 @import "@/assets/styles/_settings.scss";
 
 .btn-kyc {
-  display: inline-flex;
+  display: flex;
   padding: 25px 82px;
   border: none;
   font-size: 1.3125rem;
@@ -443,10 +469,29 @@ export default {
 
   &:last-child {
     margin-top: 30px;
+
+    @include media-breakpoint-down(md) {
+      margin-top: 0;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+
+    margin-right: -15px;
+    margin-left: -15px;
   }
 }
 
 .step--active {
+
+  @include media-breakpoint-down(md) {
+    background-color: #f8f8f8;
+  }
+
   .step__name {
     font-weight: bold;
   }
@@ -492,6 +537,11 @@ export default {
   transition: border-color .2s ease;
 }
 
+.step__icon {
+  width: 20px;
+  height: 20px;
+}
+
 .step__name {
   font-size: 1.125rem;
   line-height: 1.17;
@@ -513,6 +563,10 @@ export default {
   justify-content: space-between;
   background-image: linear-gradient(to left, #b8e986, #8de37f);
   padding: 26px 84px;
+
+  @include media-breakpoint-down(md) {
+    padding: 37px 20px;
+  }
 }
 
 .banner__title {
@@ -520,6 +574,10 @@ export default {
   font-weight: 500;
   line-height: 1.18;
   color: #ffffff;
+
+  @include media-breakpoint-down(md) {
+    font-size: 1.3125rem;
+  }
 }
 
 .banner__desc {
@@ -529,11 +587,21 @@ export default {
   letter-spacing: -0.4px;
   color: #ffffff;
   margin-top: 14px;
+  margin-bottom: 0;
+
+  @include media-breakpoint-down(md) {
+    font-weight: normal;
+  }
 }
 
 .banner__img {
   width: 256px;
   height: 160px;
+
+  @include media-breakpoint-down(md) {
+    width: 112px;
+    height: 82px;
+  }
 }
 
 .kyc-radio {
@@ -591,5 +659,24 @@ export default {
 .form-container {
   padding-left: 34px;
   padding-right: 34px;
+
+  @include media-breakpoint-down(md) {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+.form-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  line-height: 1.17;
+  color: #666666;
+}
+
+.form-kyc-step {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.21;
+  color: #9b9b9b;
 }
 </style>
